@@ -167,6 +167,9 @@ venv.bak/
 # mkdocs documentation
 /site
 
+# agent dependencies
+AGENT.md
+
 # mypy
 .mypy_cache/
 .dmypy.json
@@ -216,3 +219,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Vembody local run outputs
+artifacts/
+runs/

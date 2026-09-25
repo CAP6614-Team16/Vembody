@@ -1,0 +1,16 @@
+id: example-task-001
+name: Deterministic mock task
+instruction: Perform the configured demonstration action and finish.
+environment: mock
+reset_instructions: No reset is required for the mock environment.
+success_description: The configured action sequence reaches finish.
+max_steps: 3
+timeout_seconds: 30
+allowed_actions:
+  - click
+  - finish
+mock_actions:
+  - type: click
+    x: 0.5
+    y: 0.5
+  - type: finish

@@ -1,0 +1,21 @@
+# Runtime Overview
+
+- `python -m vembody run`: starts one bounded task episode.
+- `--task`: selects the YAML or JSON task file loaded by `src/vembody/tasks.py`.
+- `--model`: selects the action-proposing model, currently `mock` from `src/vembody/models/mock.py`.
+- `--executor`: selects how actions are applied, currently `dry-run` from `src/vembody/execution/dry_run.py`.
+- `tasks.py`: loads task instructions, limits, allowed actions, and mock action sequences.
+- `observations.py`: defines the typed observation passed to the model.
+- `perception/file.py`: provides deterministic observations from an optional screenshot path.
+- `models/base.py`: defines the interface every future vision-language model must implement.
+- `models/mock.py`: returns the task's predefined actions without model inference.
+- `actions.py`: defines the typed, allowlisted action schema and serialization helpers.
+- `parsing.py`: converts one model JSON response into a validated typed action.
+- `validation.py`: enforces task permissions, normalized coordinates, and safety limits.
+- `execution/base.py`: defines the interface every action executor must implement.
+- `execution/dry_run.py`: records validated actions without controlling the computer.
+- `execution/desktop.py`: reserves the boundary for future live keyboard and mouse input.
+- `loop.py`: orchestrates observation, model response, parsing, validation, execution, and termination.
+- `evaluation/base.py`: defines independent task-success evaluation; the current evaluator returns `unknown`.
+- `results.py`: stores typed step, episode, execution, and evaluation results.
+- `logging/jsonl.py`: writes one JSONL record for each step and one final episode summary.

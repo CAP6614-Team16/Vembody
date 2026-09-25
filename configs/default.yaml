@@ -1,0 +1,4 @@
+max_steps: 20
+timeout_seconds: 180
+executor: dry-run
+model: mock
