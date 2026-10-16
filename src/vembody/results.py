@@ -19,6 +19,7 @@ class TerminationReason(str, Enum):
     VALIDATION_ERROR = "validation_error"
     EXECUTION_ERROR = "execution_error"
     CAPTURE_ERROR = "capture_error"
+    GAME_OVER = "game_over"
     TIMEOUT = "timeout"
     ACTION_LIMIT = "action_limit"
 
@@ -39,6 +40,7 @@ class ExecutionResult:
     succeeded: bool
     message: str
     elapsed_seconds: float = 0.0
+    episode_done: bool = False
 
 
 @dataclass(frozen=True)

@@ -133,9 +133,17 @@ class AgentLoop:
                     )
                     result.evaluation = evaluation
                     termination = TerminationReason.MODEL_FAILURE
+                elif result.execution.episode_done:
+                    # The environment ended the episode, e.g. a mine was hit or the board cleared
+                    evaluation = self.evaluator.evaluate(task, last_observation)
+                    result.evaluation = evaluation
+                    termination = TerminationReason.GAME_OVER
 
                 self._record_step(history, result)
-                if parsed.action.type in {ActionType.FINISH, ActionType.FAIL}:
+                if (
+                    parsed.action.type in {ActionType.FINISH, ActionType.FAIL}
+                    or result.execution.episode_done
+                ):
                     break
         finally:
             self.executor.shutdown()

@@ -4,7 +4,12 @@
 - `--task`: selects the YAML or JSON task file loaded by `src/vembody/tasks.py`.
 - `--model`: selects the action-proposing model, currently `mock` from `src/vembody/models/mock.py`.
 - `--executor`: selects how actions are applied, currently `dry-run` from `src/vembody/execution/dry_run.py`.
-- `tasks.py`: loads task instructions, limits, allowed actions, and mock action sequences.
+- `python -m vembody play`: serves a playable minesweeper game in the browser.
+- `minesweeper/game.py`: Minesweeper rules with seeded, first-click-safe mines, flood fill, and chording.
+- `minesweeper/screen.py`: draws the game window and maps pixel clicks to cells, the face button, or nothing.
+- `minesweeper/webui.py`: standard-library HTTP server that shows the screen and forwards browser clicks.
+- `sandbox.py`: the agent harness; saves screenshots, converts normalized clicks to pixels, ends the episode on win or loss, and grades from the true game state.
+- `tasks.py`: loads task instructions, limits, allowed actions, mock action sequences, and minesweeper board settings.
 - `observations.py`: defines the typed observation passed to the model.
 - `perception/file.py`: provides deterministic observations from an optional screenshot path.
 - `models/base.py`: defines the interface every future vision-language model must implement.

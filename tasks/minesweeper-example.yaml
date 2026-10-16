@@ -1,0 +1,47 @@
+id: minesweeper-example-001
+name: Beginner minesweeper mock demonstration
+instruction: >-
+  Clear the Minesweeper board. Left click a hidden cell to reveal it and right
+  click a hidden cell to flag a mine. Coordinates are fractions of the screenshot
+  width and height.
+environment: minesweeper
+reset_instructions: A new game is created from the board settings and seed.
+success_description: Every safe cell is revealed without revealing a mine.
+max_steps: 20
+timeout_seconds: 60
+allowed_actions:
+  - click
+  - right_click
+  - fail
+minesweeper:
+  rows: 9
+  cols: 9
+  mines: 10
+  seed: 7
+# Scripted moves for seed 7: each one follows from the numbers on the board
+mock_actions:
+  # Reveal the center cell to start the game
+  - type: click
+    x: 0.5016
+    y: 0.5584
+  # Flag (4, 6): the 2 at (4, 5) has only two hidden neighbors
+  - type: right_click
+    x: 0.7074
+    y: 0.5584
+  # Flag (5, 6): the other hidden neighbor of that 2
+  - type: right_click
+    x: 0.7074
+    y: 0.6496
+  # Reveal (6, 6): the 2 at (5, 5) already has both its mines flagged
+  - type: click
+    x: 0.7074
+    y: 0.7407
+  # Flag (7, 6): the 2 at (6, 5) needs one more mine
+  - type: right_click
+    x: 0.7074
+    y: 0.8319
+  # Reveal (8, 6): the 1 at (8, 5) is satisfied by the flag at (7, 6)
+  - type: click
+    x: 0.7074
+    y: 0.9231
+  - type: fail

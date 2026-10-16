@@ -8,6 +8,7 @@ version = "0.1.0"
 description = "A local vision-language agent for safe computer-control research"
 requires-python = ">=3.10"
 dependencies = [
+    "Pillow>=10.1",
     "PyYAML>=6.0",
 ]
 

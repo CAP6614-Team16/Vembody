@@ -28,6 +28,7 @@ class TaskSpec:
     allowed_actions: tuple[ActionType, ...]
     screenshot_path: str | None = None
     mock_actions: tuple[dict[str, Any], ...] = field(default_factory=tuple)
+    minesweeper: dict[str, int] | None = None
 
 
 def _read_data(path: Path) -> dict[str, Any]:
@@ -104,4 +105,5 @@ def load_task(path: str | Path) -> TaskSpec:
         allowed_actions=allowed_actions,
         screenshot_path=_parse_screenshot_path(data),
         mock_actions=_parse_mock_actions(data),
+        minesweeper=data.get("minesweeper"),
     )
