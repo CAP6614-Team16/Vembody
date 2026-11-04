@@ -19,6 +19,9 @@ test = [
 lint = [
     "ruff>=0.8",
 ]
+analysis = [
+    "matplotlib>=3.8",
+]
 
 [project.scripts]
 vembody = "vembody.cli:main"

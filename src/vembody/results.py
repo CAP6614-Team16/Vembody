@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass, is_dataclass
+from dataclasses import asdict, dataclass, field, is_dataclass
 from enum import Enum
 from typing import Any
 
@@ -41,6 +41,8 @@ class ExecutionResult:
     message: str
     elapsed_seconds: float = 0.0
     episode_done: bool = False
+    # Environment-specific facts for evaluation (e.g. board progress); never shown to the model
+    details: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -64,6 +66,8 @@ class StepResult:
     execution: ExecutionResult | None = None
     evaluation: EvaluationResult | None = None
     error: str | None = None
+    # Provider metadata such as token counts, copied from ModelResponse.metadata
+    model_metadata: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass
