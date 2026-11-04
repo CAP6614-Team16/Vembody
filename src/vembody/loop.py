@@ -81,6 +81,7 @@ class AgentLoop:
                         model_elapsed_seconds=max(
                             response.elapsed_seconds, perf_counter() - model_started
                         ),
+                        model_metadata=dict(response.metadata),
                     )
                     validate_action(parsed.action, self.policy)
                 except ModelParseError as exc:

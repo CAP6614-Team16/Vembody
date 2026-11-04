@@ -48,22 +48,31 @@ class MinesweeperScreen:
         top = (HEADER - FACE) // 2
         self.face = (left, top, left + FACE - 1, top + FACE - 1)
 
-    def click(self, px: int, py: int, button: str) -> None:
-        """Handle one mouse click; button is 'left' or 'right'."""
+    def locate(self, px: int, py: int) -> tuple[str, tuple[int, int] | None]:
+        """Say what a pixel lands on: ("face", None), ("cell", (row, col)), or ("none", None)."""
         left, top, right, bottom = self.face
-        if button == "left" and left <= px <= right and top <= py <= bottom:
-            self.game = Minesweeper(self.rows, self.cols, self.mines, self.seed)
-            return
-
-        # Convert the pixel to a grid cell; clicks outside the grid do nothing
+        if left <= px <= right and top <= py <= bottom:
+            return "face", None
         row = (py - HEADER) // CELL
         col = (px - MARGIN) // CELL
         if px < MARGIN or py < HEADER or row >= self.rows or col >= self.cols:
+            return "none", None
+        return "cell", (row, col)
+
+    def click(self, px: int, py: int, button: str) -> None:
+        """Handle one mouse click; button is 'left' or 'right'."""
+        target, cell = self.locate(px, py)
+        if target == "face" and button == "left":
+            self.game = Minesweeper(self.rows, self.cols, self.mines, self.seed)
+            return
+
+        # Clicks outside the grid do nothing
+        if target != "cell":
             return
         if button == "left":
-            self.game.reveal((row, col))
+            self.game.reveal(cell)
         else:
-            self.game.toggle_flag((row, col))
+            self.game.toggle_flag(cell)
 
     def draw_raised(self, draw: ImageDraw.ImageDraw, box: tuple[int, int, int, int]) -> None:
         left, top, right, bottom = box
