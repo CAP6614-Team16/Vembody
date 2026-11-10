@@ -29,3 +29,7 @@ Run the mock model on the Minesweeper task (it replays the actions listed in the
 Screenshots for every step are saved next to the log under `screenshots/<run_id>/`.
 
 The game (`src/vembody/minesweeper/`) is a normal standalone Minesweeper. The agent harness (`src/vembody/sandbox.py`) only uses the same two things a player has, the window screenshot and pixel mouse clicks. It reads the true game state only to end the episode and grade it.
+
+The proposed twelve-task benchmark, reset procedures, and scoring rules are in
+[the benchmark design](docs/benchmark-design.md). This is a Phase 1 review draft;
+the benchmark extensions are not implemented yet.
