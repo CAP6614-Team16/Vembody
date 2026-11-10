@@ -157,26 +157,31 @@ class AgentLoop:
                     termination = TerminationReason.EXECUTION_ERROR
                     break
 
-                if result.execution.task_done and not result.execution.episode_done:
-                    evaluation = self.evaluator.evaluate(task, last_observation)
-                    result.evaluation = evaluation
-                    termination = TerminationReason.TASK_COMPLETE
-                elif parsed.action.type is ActionType.FINISH:
-                    evaluation = self.evaluator.evaluate(task, last_observation)
-                    result.evaluation = evaluation
-                    termination = TerminationReason.FINISH_REQUESTED
-                elif parsed.action.type is ActionType.FAIL:
-                    evaluation = EvaluationResult(
-                        EvaluationStatus.FAILURE,
-                        "Model requested failure.",
-                    )
-                    result.evaluation = evaluation
-                    termination = TerminationReason.MODEL_FAILURE
-                elif result.execution.episode_done:
-                    # The environment ended the episode, e.g. a mine was hit or the board cleared
-                    evaluation = self.evaluator.evaluate(task, last_observation)
-                    result.evaluation = evaluation
-                    termination = TerminationReason.GAME_OVER
+                try:
+                    if result.execution.task_done and not result.execution.episode_done:
+                        evaluation = self.evaluator.evaluate(task, last_observation)
+                        result.evaluation = evaluation
+                        termination = TerminationReason.TASK_COMPLETE
+                    elif parsed.action.type is ActionType.FINISH:
+                        evaluation = self.evaluator.evaluate(task, last_observation)
+                        result.evaluation = evaluation
+                        termination = TerminationReason.FINISH_REQUESTED
+                    elif parsed.action.type is ActionType.FAIL:
+                        evaluation = EvaluationResult(
+                            EvaluationStatus.FAILURE,
+                            "Model requested failure.",
+                        )
+                        result.evaluation = evaluation
+                        termination = TerminationReason.MODEL_FAILURE
+                    elif result.execution.episode_done:
+                        evaluation = self.evaluator.evaluate(task, last_observation)
+                        result.evaluation = evaluation
+                        termination = TerminationReason.GAME_OVER
+                except Exception as exc:
+                    result.error = f"Evaluation failed: {exc}"
+                    self._record_step(history, result)
+                    termination = TerminationReason.EVALUATION_ERROR
+                    break
 
                 self._record_step(history, result)
                 if (
@@ -186,7 +191,25 @@ class AgentLoop:
                 ):
                     break
         finally:
-            self.executor.shutdown()
+            try:
+                self.executor.shutdown()
+            except Exception as exc:
+                self._record_step(history, StepResult(None, error=f"Shutdown failed: {exc}"))
+                termination = TerminationReason.EXECUTION_ERROR
+
+        if (
+            task.benchmark
+            and evaluation.status == EvaluationStatus.NOT_EVALUATED
+            and termination
+            in {
+                TerminationReason.ACTION_LIMIT,
+                TerminationReason.TIMEOUT,
+                TerminationReason.PARSE_ERROR,
+                TerminationReason.VALIDATION_ERROR,
+                TerminationReason.MODEL_FAILURE,
+            }
+        ):
+            evaluation = EvaluationResult(EvaluationStatus.FAILURE, "Task was not completed.")
 
         ended_at = datetime.now(timezone.utc).isoformat()
         episode = EpisodeResult(
