@@ -15,15 +15,15 @@ minesweeper:
   rows: 9
   cols: 9
   mines: 10
-  seed: 29
+  seed: 55
 benchmark:
   version: 1
   template_id: T2-03
   split: development
   opening:
-  - 4
-  - 4
+  - 6
+  - 1
   setup: []
   predicate:
     type: one_provable_reveal
-  expected_state_hash: 087af2bc61ea16f62d937ea489a3e58efb558879208f654320e38c33c7932f8e
+  expected_state_hash: 09b7fbadd4cfc3d1d1009fbf71a6535f49cb4fbf34e471c5f77eff0d51f8c0a7

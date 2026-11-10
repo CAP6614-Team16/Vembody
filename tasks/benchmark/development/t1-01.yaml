@@ -15,13 +15,13 @@ minesweeper:
   rows: 9
   cols: 9
   mines: 10
-  seed: 1
+  seed: 4
 benchmark:
   version: 1
   template_id: T1-01
   split: development
   opening:
-  - 4
+  - 0
   - 4
   setup: []
   predicate:
@@ -29,7 +29,7 @@ benchmark:
     target:
     - 2
     - 4
-  expected_state_hash: 5dc3143ea102b9eee514a8b9a38a86dc2e55f1cb6e0b2ef11d3e55f4535ff88c
+  expected_state_hash: 04503fcaf4eb26c719823e7f13f4ff3b9686ca47d0e1cf6668f2bd7d8191ca92
 mock_actions:
 - type: click
   x: 0.5373134328358209

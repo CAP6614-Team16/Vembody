@@ -1,0 +1,3218 @@
+{
+  "version": 1,
+  "release_status": "uncertified_candidates",
+  "runtime": {
+    "python": "3.11.14",
+    "pillow": "13.0.0",
+    "renderer": "pillow-benchmark-v1",
+    "font": "Pillow default size20"
+  },
+  "instances": [
+    {
+      "instance_id": "development-T1-01-001",
+      "template_id": "T1-01",
+      "split": "development",
+      "seed": 4,
+      "state_hash": "04503fcaf4eb26c719823e7f13f4ff3b9686ca47d0e1cf6668f2bd7d8191ca92",
+      "visible_hash": "6830c1b64217945546175354d4ae81bd0b365dca1e8069d40c5918c0c58bf778",
+      "layout_hash": "4421a8de1b59ca64b7ab6d36fb1983104f1b1c3c267a6ef551dddccab57774fe",
+      "width": 336,
+      "height": 376,
+      "grid_left": 36,
+      "grid_top": 76,
+      "cell_size": 32,
+      "images": {
+        "raw": {
+          "path": "development/development-t1-01-001-raw.png",
+          "file_sha256": "11631fb3cbcda458e131550d6708e0b70382657d4f25a1ecacb1d1a063a661eb",
+          "pixel_sha256": "f039b254b4ebc8a1323ab474056d664a39ca7bb3f5d73381dcb4cb261a2a560d"
+        },
+        "grid": {
+          "path": "development/development-t1-01-001-grid.png",
+          "file_sha256": "90a1fc17b328bf747ac5edb26438632610acff595ae03ccc08110725d5afcf7f",
+          "pixel_sha256": "8ed33e237fc25122d560a90e77a63aa77e83ea6e58afdc961cb3b7ff9207435a"
+        }
+      },
+      "visible_board": [
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "2",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ]
+      ],
+      "certification_status": "pending"
+    },
+    {
+      "instance_id": "development-T1-02-001",
+      "template_id": "T1-02",
+      "split": "development",
+      "seed": 10,
+      "state_hash": "86f142eae96d09362b4c53dee3d7d20a88aefb7a91f92db63d26c8add644a692",
+      "visible_hash": "0de2b722ff6dd9c18970beedb8d421bdac5f7d7b09dd3cd86c82013c32151153",
+      "layout_hash": "15800e2cbc0b2ded2da6334d3f93a8a83a72e137ae047b3512d4e3ab845892f2",
+      "width": 336,
+      "height": 376,
+      "grid_left": 36,
+      "grid_top": 76,
+      "cell_size": 32,
+      "images": {
+        "raw": {
+          "path": "development/development-t1-02-001-raw.png",
+          "file_sha256": "adbdd44a210f22befa4ba273bbcd0bfee9f06686801e320f02729ce6b26b1e57",
+          "pixel_sha256": "9e2948b24a53b2f4f819a64330d9a4160f31090959bb2123ac61e265ac5aa9dc"
+        },
+        "grid": {
+          "path": "development/development-t1-02-001-grid.png",
+          "file_sha256": "fda5ea60b3eaf1a197141c3d15bf01a6b03ab0ab04fa6ae4d219592b761557f8",
+          "pixel_sha256": "fb44575b898f713c5630bd98e8c177aac7857c3ac7b4b627b2873b94bcdc45c3"
+        }
+      },
+      "visible_board": [
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "1",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ]
+      ],
+      "certification_status": "pending"
+    },
+    {
+      "instance_id": "development-T1-03-001",
+      "template_id": "T1-03",
+      "split": "development",
+      "seed": 48,
+      "state_hash": "740380249d2a210c588af546b8eaa61fee13eff882ea92086a82515d1f2cdde1",
+      "visible_hash": "6de3cc8dd89dc6b91187ce9ce59ac432efce3765d9073a288ce7ad7f520a9c46",
+      "layout_hash": "aa6a5377ef551b8177019f6d66cf7ce128c8a183e625921ce1b684e6c3c43732",
+      "width": 336,
+      "height": 376,
+      "grid_left": 36,
+      "grid_top": 76,
+      "cell_size": 32,
+      "images": {
+        "raw": {
+          "path": "development/development-t1-03-001-raw.png",
+          "file_sha256": "f3985bb345d3ced47adff155b71cc4cccb52ef9745f276a74f97f51c32afa936",
+          "pixel_sha256": "61b20a6575ccbbbeb60f0ad064b4f7f7f2a5813da83fc74c04da2f5a620930ec"
+        },
+        "grid": {
+          "path": "development/development-t1-03-001-grid.png",
+          "file_sha256": "4dabdd90a0028389cf11c2aab88c8befda5392154068d5bbc9b84df014afbe02",
+          "pixel_sha256": "7ab149245b303ee636a3b4b85a999ce11a27393022fa4e6805b5db60ddc39b45"
+        }
+      },
+      "visible_board": [
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "3",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ]
+      ],
+      "certification_status": "pending"
+    },
+    {
+      "instance_id": "development-T1-04-001",
+      "template_id": "T1-04",
+      "split": "development",
+      "seed": 52,
+      "state_hash": "3b104b4f3193f376333b538fd3e53ee4f1ca74f50bafce712d1113a89dedab06",
+      "visible_hash": "7729fb0ada02e315889050fed79b470560338eccfa05cf32a25f31b0c279560b",
+      "layout_hash": "31ad3e90e4b1e61e443beb7e3657f60f0030ad7c3065c8ee1bec3ecb462ba399",
+      "width": 336,
+      "height": 376,
+      "grid_left": 36,
+      "grid_top": 76,
+      "cell_size": 32,
+      "images": {
+        "raw": {
+          "path": "development/development-t1-04-001-raw.png",
+          "file_sha256": "a88d19d105d79dcbc972108f5200b41f404cff5319065bf2d698836b404722b7",
+          "pixel_sha256": "272df1c3697c155c14186f014df9db91192b85c7e51cc9e556568c9fbfdbb35a"
+        },
+        "grid": {
+          "path": "development/development-t1-04-001-grid.png",
+          "file_sha256": "791040fecfa8c0f53e219e499c5dbbe2de0decd3dc85a8c9e49c0658d8b678de",
+          "pixel_sha256": "9a323e08e18c266fc6d324f9c50f25519cbc8a1f9c20d41d63d248dd473c71c8"
+        }
+      },
+      "visible_board": [
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "2",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ]
+      ],
+      "certification_status": "pending"
+    },
+    {
+      "instance_id": "development-T2-01-001",
+      "template_id": "T2-01",
+      "split": "development",
+      "seed": 53,
+      "state_hash": "3957c5a55e4d08ac2708998cde6f324c7137b565959594aa42c2fa1f273fa77b",
+      "visible_hash": "afcf780c8b976c612dd376e83fe3221da0606ed71ffaac168e3b7794cc20a823",
+      "layout_hash": "45b692a5807cb4038ee5596b76241020391a1f59cc3ea888264fb005cdcf183a",
+      "width": 336,
+      "height": 376,
+      "grid_left": 36,
+      "grid_top": 76,
+      "cell_size": 32,
+      "images": {
+        "raw": {
+          "path": "development/development-t2-01-001-raw.png",
+          "file_sha256": "fd2659431b8cf1c9b4f3bca11c9c2eb84b268832f89a584a1b1d0cd3cf14498e",
+          "pixel_sha256": "42dcef97ad515092b2ffb772c45dfa790597573ccaf6f3da527921302101156f"
+        },
+        "grid": {
+          "path": "development/development-t2-01-001-grid.png",
+          "file_sha256": "cf8f2cc9d0b6c3f1c11ae3f391a7a97317d67073a3fa865d383380458d29f331",
+          "pixel_sha256": "ffc39549a0697a476cf7a4fb4b8f0e9e8680eae28e4019d003a8ce5e9c0539df"
+        }
+      },
+      "visible_board": [
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "1"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ]
+      ],
+      "certification_status": "pending"
+    },
+    {
+      "instance_id": "development-T2-02-001",
+      "template_id": "T2-02",
+      "split": "development",
+      "seed": 54,
+      "state_hash": "595a351c32e65c94b2f5c8504d015436ebcbb753d8dac7d013cc96efc082ff6e",
+      "visible_hash": "b812788653ea9559ebab929c8fcb993a6343b9f75dfac3c51d4f6bdb3089df6d",
+      "layout_hash": "49621b35b903c0a928e58330f2d34b652e6107931229da277424588f7ce65ecd",
+      "width": 336,
+      "height": 376,
+      "grid_left": 36,
+      "grid_top": 76,
+      "cell_size": 32,
+      "images": {
+        "raw": {
+          "path": "development/development-t2-02-001-raw.png",
+          "file_sha256": "50444002a1d2b194b8a6f2b9b150fce34aa7bf211c9dd9c3692963fd9674b9b5",
+          "pixel_sha256": "e9f38324e69f4599d3534df98f09c7cff83bb1dfb40bce7a2f5d8871a6092145"
+        },
+        "grid": {
+          "path": "development/development-t2-02-001-grid.png",
+          "file_sha256": "fb26bc77e6a23396529231c0c6c0e815c8d5547264c299250413b173bd43a88f",
+          "pixel_sha256": "c1ae6f13771960a35a78940cdb48b67e55a1e1c2705fb096c2782e053eddd7f5"
+        }
+      },
+      "visible_board": [
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "1",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ]
+      ],
+      "certification_status": "pending"
+    },
+    {
+      "instance_id": "development-T2-03-001",
+      "template_id": "T2-03",
+      "split": "development",
+      "seed": 55,
+      "state_hash": "09b7fbadd4cfc3d1d1009fbf71a6535f49cb4fbf34e471c5f77eff0d51f8c0a7",
+      "visible_hash": "7a74eacc6913743ebc186549867e9df5d56f24d76155d2e7712bcd1b400faffa",
+      "layout_hash": "eea15cd06f6839edf25fdff3282be058dba4e390464c7e4cb360328b3d6b7265",
+      "width": 336,
+      "height": 376,
+      "grid_left": 36,
+      "grid_top": 76,
+      "cell_size": 32,
+      "images": {
+        "raw": {
+          "path": "development/development-t2-03-001-raw.png",
+          "file_sha256": "c776e6158a8b071650f49610331dda020fd58eb9aac2c6f8cf19fa7c6da130a0",
+          "pixel_sha256": "b7a4462e17c74d1a46c00da198880e54243bbfd12c42f97930b2cd33a224c69a"
+        },
+        "grid": {
+          "path": "development/development-t2-03-001-grid.png",
+          "file_sha256": "c482fa64957d7c8d66e36a2e0f08ecafd411a28883ca85f0c9ab690329ad8f6b",
+          "pixel_sha256": "589f0a304dc381df8b9df5b448e5e3fcee2f611b528b19775864c42be2adf041"
+        }
+      },
+      "visible_board": [
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "1",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ]
+      ],
+      "certification_status": "pending"
+    },
+    {
+      "instance_id": "development-T2-04-001",
+      "template_id": "T2-04",
+      "split": "development",
+      "seed": 56,
+      "state_hash": "68952dac78f2ceea26b38c4e2cea7215d121000b479c1d66e266d9faf62aca42",
+      "visible_hash": "97cd2cbff69f3a36938a411ee321e7772069935a8c43957eac510ab6c8b7df63",
+      "layout_hash": "0e0cbcac2446398873210c2a1f7175e5c230fc3fd30de095099731bd5701803d",
+      "width": 336,
+      "height": 376,
+      "grid_left": 36,
+      "grid_top": 76,
+      "cell_size": 32,
+      "images": {
+        "raw": {
+          "path": "development/development-t2-04-001-raw.png",
+          "file_sha256": "dcc217c6be4c8b7c2ea64c8f8f6b2901ea9adf65e4f753d15276e2fb17d76fad",
+          "pixel_sha256": "69785d6d51c7ff99b8aa8fb98aab52492907c64758dc20ee89d60959498a367a"
+        },
+        "grid": {
+          "path": "development/development-t2-04-001-grid.png",
+          "file_sha256": "f77f8ac0b006f14def03161eadf872a088458224fbb6644d3e3d21d039a79ae5",
+          "pixel_sha256": "0e18d5c9eac00e17853eea692fbb7dc329d77c580a0280b4e4e8494459d37397"
+        }
+      },
+      "visible_board": [
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "1",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ]
+      ],
+      "certification_status": "pending"
+    },
+    {
+      "instance_id": "development-T3-01-001",
+      "template_id": "T3-01",
+      "split": "development",
+      "seed": 57,
+      "state_hash": "3dd33072652f13197ac270a800626ce1e3938038844be4e9f00cf7cb0ea31e67",
+      "visible_hash": "d2a82754493005275ef95f686b4d010c34a311ee0e2ee3683ef54b7d3d29ff9e",
+      "layout_hash": "a5c83ab6ca945195a4d96072fa0b688b9421e5b7c1cfd12320b54f583f532b6b",
+      "width": 336,
+      "height": 376,
+      "grid_left": 36,
+      "grid_top": 76,
+      "cell_size": 32,
+      "images": {
+        "raw": {
+          "path": "development/development-t3-01-001-raw.png",
+          "file_sha256": "13d095e02c4d0d30f6b9e10989783b5a3c56084aec41e43e367c4cf4ccb22724",
+          "pixel_sha256": "e85052d0c7c1816f9889f80ccb066093181d36a7646ee678d5015dc86226a497"
+        },
+        "grid": {
+          "path": "development/development-t3-01-001-grid.png",
+          "file_sha256": "b15ce60d82ae657e5dc3b9a650d67610178c9b19a518e3fa9d1c5c85a898542c",
+          "pixel_sha256": "cee8dee39c9cb6dbf03bf0916a241524a8954df7d6604f35e4b3d7e001fd3091"
+        }
+      },
+      "visible_board": [
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "2",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ]
+      ],
+      "certification_status": "pending"
+    },
+    {
+      "instance_id": "development-T3-02-001",
+      "template_id": "T3-02",
+      "split": "development",
+      "seed": 58,
+      "state_hash": "0dde453d635735186cd50fa88ba1c660dcefb722d00656d9947fb8a1c1dd9f04",
+      "visible_hash": "0cc2066fd9cddb066cacd6f49389436f303a1809983049f6a020b06028025f5c",
+      "layout_hash": "e2c0d9470983ddf7f4d3de31ac67a1823145a6670ca53f1ce638341209edc1cd",
+      "width": 336,
+      "height": 376,
+      "grid_left": 36,
+      "grid_top": 76,
+      "cell_size": 32,
+      "images": {
+        "raw": {
+          "path": "development/development-t3-02-001-raw.png",
+          "file_sha256": "efe29e10929f1313e1a98eaf02fbab547ac083c2c0ee9fb1d8373cfb8a5a1736",
+          "pixel_sha256": "318bb3d5083d8962862604e19daf1a851d623ba09bd4476894226d584c1326d8"
+        },
+        "grid": {
+          "path": "development/development-t3-02-001-grid.png",
+          "file_sha256": "aec6ae524b87a35d13b5d63b227d89e8ffa02d337df96b4018af7416d48f7fcf",
+          "pixel_sha256": "e86c1acd5f8ebdc51ab6c6f911c244c8e8f3158a30499682573467ff764531c7"
+        }
+      },
+      "visible_board": [
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "1",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ]
+      ],
+      "certification_status": "pending"
+    },
+    {
+      "instance_id": "development-T4-01-001",
+      "template_id": "T4-01",
+      "split": "development",
+      "seed": 59,
+      "state_hash": "51c6c26f9814a71b09d4c79dd786590c7199dbd0e12380e54559b7e4220e4d37",
+      "visible_hash": "2f1d728100d9b2ea958988c751f9eaec669c244cb9be6b919ae0131e61dd983a",
+      "layout_hash": "161ea27f469a2be57b0201fc930741adf5a33dbfc888ad2e03682ba2b7117795",
+      "width": 208,
+      "height": 248,
+      "grid_left": 36,
+      "grid_top": 76,
+      "cell_size": 32,
+      "images": {
+        "raw": {
+          "path": "development/development-t4-01-001-raw.png",
+          "file_sha256": "c2039e0188bafaef1dd6db47eeed894dc1865cde395acf16f4e345be3c972310",
+          "pixel_sha256": "a0117306c26461f342173b1fe70628506e74536a0ec3f199d86225d00e9f12e4"
+        },
+        "grid": {
+          "path": "development/development-t4-01-001-grid.png",
+          "file_sha256": "207964c77e2526675447a767d434fc209f339868d56b33d9c278e870052cd0f7",
+          "pixel_sha256": "0ce3509fcecb2103bd730d6be91cdefa88e2c49daee3ad88a15d74adb7d75288"
+        }
+      },
+      "visible_board": [
+        [
+          "#",
+          "#",
+          "#",
+          "2",
+          "."
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "2",
+          "."
+        ],
+        [
+          "#",
+          "#",
+          "1",
+          "1",
+          "."
+        ],
+        [
+          "#",
+          "#",
+          "1",
+          ".",
+          "."
+        ],
+        [
+          "#",
+          "#",
+          "1",
+          ".",
+          "."
+        ]
+      ],
+      "certification_status": "pending"
+    },
+    {
+      "instance_id": "development-T4-02-001",
+      "template_id": "T4-02",
+      "split": "development",
+      "seed": 60,
+      "state_hash": "b83c1020162e295039987f8163ca396a541bc95c600c40d4affb22aade72b51d",
+      "visible_hash": "254a6c0d46bae1eb93c1884bb8add3cc3d85be2e83dfaa802831600f1a6bfdf7",
+      "layout_hash": "f8a077effbee982cdef8b37db37595634d49d8e9e8cd3e78e65aff7b61fbaac7",
+      "width": 336,
+      "height": 376,
+      "grid_left": 36,
+      "grid_top": 76,
+      "cell_size": 32,
+      "images": {
+        "raw": {
+          "path": "development/development-t4-02-001-raw.png",
+          "file_sha256": "0005787cdabd62569ee0753a5b391e5a86656ea5dcd503511ea81e4a84f7fa39",
+          "pixel_sha256": "a843271e1aabfd8318d800ea9ddd8fa6fa4b9ee2b5ef36e0eea019d04af87b46"
+        },
+        "grid": {
+          "path": "development/development-t4-02-001-grid.png",
+          "file_sha256": "2070f8ae03b50587a100a3a09cc1e4121a13196957e68b5249372c08d1da2871",
+          "pixel_sha256": "9d981efa735777ae122f9f20609ce1c025fdd17557565f5680d771edec4af2a9"
+        }
+      },
+      "visible_board": [
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "1",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ]
+      ],
+      "certification_status": "pending"
+    },
+    {
+      "instance_id": "demonstration-T1-01-001",
+      "template_id": "T1-01",
+      "split": "demonstration",
+      "seed": 10002,
+      "state_hash": "9dc5435048151ed3898132209ff46d761a415383d1f50879b8d7fe0e068dcbf3",
+      "visible_hash": "bc9def60960fca070240a8045d086547b5bd2882a9fe69b7cce63f1c5fed1aaa",
+      "layout_hash": "1001c4fca7405fd38e62d352aba505e4734ee930a8258df78136cc47549bb363",
+      "width": 336,
+      "height": 376,
+      "grid_left": 36,
+      "grid_top": 76,
+      "cell_size": 32,
+      "images": {
+        "raw": {
+          "path": "demonstration/demonstration-t1-01-001-raw.png",
+          "file_sha256": "3476c502984cdf7ece7c986213a821d016f5a6c28bd1a17f035e5b749bf75464",
+          "pixel_sha256": "87fc5b7a458a76d38aab4edbb5b590582ef0041bc34fc580b9d6ebd53f299f04"
+        },
+        "grid": {
+          "path": "demonstration/demonstration-t1-01-001-grid.png",
+          "file_sha256": "552099e0483998678d782f0dd7b9916e61564e72e21f5f23adf571fbdb474d75",
+          "pixel_sha256": "3c12bc334b36cc325e52c38e0af750d47188d3a34c61b6e61eb594bdee3c7ebd"
+        }
+      },
+      "visible_board": [
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "2",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ]
+      ],
+      "certification_status": "pending"
+    },
+    {
+      "instance_id": "demonstration-T1-02-001",
+      "template_id": "T1-02",
+      "split": "demonstration",
+      "seed": 10049,
+      "state_hash": "50eaf3ebd5bcdf9c005d2a019548ec87d66dcca2bfebb3c0bd4fd8bfba7064cc",
+      "visible_hash": "abd44e2129b910a67533170e1c49b0517a186a0351b4d81604da1075969ba176",
+      "layout_hash": "111c7e4b28ffe47202d19e2e544353619dd80310acbfa5fa74c7da955e159d79",
+      "width": 336,
+      "height": 376,
+      "grid_left": 36,
+      "grid_top": 76,
+      "cell_size": 32,
+      "images": {
+        "raw": {
+          "path": "demonstration/demonstration-t1-02-001-raw.png",
+          "file_sha256": "56466e726cd1de20e490fc92a64b8cbe27235fb76e61bc7668886d3f5f33522f",
+          "pixel_sha256": "d0f6bcaefbb57bd5754a6bd6c0d584a3cfa51260e3f51fa00780e29bc151c62c"
+        },
+        "grid": {
+          "path": "demonstration/demonstration-t1-02-001-grid.png",
+          "file_sha256": "69fcd78bcf97d032b6a89648950c3d1d93ce81ddcc972afc267201643006d7b2",
+          "pixel_sha256": "34777a9cad8769c3e8dc37381bc36461bc5d0b556ebd4b018a42265090d61796"
+        }
+      },
+      "visible_board": [
+        [
+          "#",
+          "#",
+          "1",
+          ".",
+          ".",
+          ".",
+          ".",
+          ".",
+          "."
+        ],
+        [
+          "#",
+          "#",
+          "2",
+          "1",
+          "1",
+          ".",
+          ".",
+          ".",
+          "."
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "1",
+          ".",
+          ".",
+          ".",
+          "."
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "1",
+          ".",
+          ".",
+          ".",
+          "."
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "1",
+          "1",
+          ".",
+          ".",
+          "."
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "2",
+          ".",
+          ".",
+          "."
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "2",
+          ".",
+          ".",
+          "."
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "1",
+          "1",
+          "1",
+          "1"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ]
+      ],
+      "certification_status": "pending"
+    },
+    {
+      "instance_id": "demonstration-T1-03-001",
+      "template_id": "T1-03",
+      "split": "demonstration",
+      "seed": 10081,
+      "state_hash": "58c05a8f0796bbdbbcc3612be0892f4ef0673e74d641d581688354e8b5b45943",
+      "visible_hash": "9b740bb610449e77cbfce1cde67306ccae172a7fae2ecc0cd5b1f34931140fc8",
+      "layout_hash": "c65c4b1a4f8fdff399c3ba38e48799a06d42c2465bb4d14243bc7571c5a58d10",
+      "width": 336,
+      "height": 376,
+      "grid_left": 36,
+      "grid_top": 76,
+      "cell_size": 32,
+      "images": {
+        "raw": {
+          "path": "demonstration/demonstration-t1-03-001-raw.png",
+          "file_sha256": "aeae4520efc447b9cb172514d1eab6c543345efe1989eee6722554d807af2bb2",
+          "pixel_sha256": "ccc21ae7ba0821953f61ef8d3225b11f90814722da27ee1a507e55831cf40417"
+        },
+        "grid": {
+          "path": "demonstration/demonstration-t1-03-001-grid.png",
+          "file_sha256": "4d99a851f48170d98228fa04c89e643c7aa65272541d1c517aac54f3c4f23e9f",
+          "pixel_sha256": "9cbc2d459a26d3cea2c39bf9f4bcbd3c0e86d90beb5b02643b9a8b6ab5675581"
+        }
+      },
+      "visible_board": [
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "3",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ]
+      ],
+      "certification_status": "pending"
+    },
+    {
+      "instance_id": "demonstration-T1-04-001",
+      "template_id": "T1-04",
+      "split": "demonstration",
+      "seed": 10085,
+      "state_hash": "0e53bc75f02c2a48163728aeb7d24ece72f064f228ced2a10d4ca191f06c74ad",
+      "visible_hash": "39a1cdbbbed4d0e4753be67b9a070a0762b7aee5141496f8c9036acd081d3117",
+      "layout_hash": "b264fbd8ceff04da7d019b15e3f9d658a94ac724db1867a75f136e4f880eb142",
+      "width": 336,
+      "height": 376,
+      "grid_left": 36,
+      "grid_top": 76,
+      "cell_size": 32,
+      "images": {
+        "raw": {
+          "path": "demonstration/demonstration-t1-04-001-raw.png",
+          "file_sha256": "16a218120a08624dfc9b672c641994a59c7c840541614bba6ba18eb33535b75f",
+          "pixel_sha256": "7ad87154fcd5264992e1ceb5cdae0bb3417173c37737f96c8e653d4532d0e6c0"
+        },
+        "grid": {
+          "path": "demonstration/demonstration-t1-04-001-grid.png",
+          "file_sha256": "cf50fcab9bab87bbb249c28f4ff096b6f3b7034e3067322b0766f339677fbf30",
+          "pixel_sha256": "86a655f49f2b483d578aedd89c428882b9f2f8f42757d1c465b5f97c94e312b4"
+        }
+      },
+      "visible_board": [
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "1",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ]
+      ],
+      "certification_status": "pending"
+    },
+    {
+      "instance_id": "demonstration-T2-01-001",
+      "template_id": "T2-01",
+      "split": "demonstration",
+      "seed": 10086,
+      "state_hash": "b9bea92a287e6f5d60468440b2a05a7aacd688ba6bbf3d6b0c1c49f83f383010",
+      "visible_hash": "aad2e163b3a94a6aee0f977437a24dee6716e24a727cf9bc107cd2c96fbbe367",
+      "layout_hash": "fee0a5a9aa507871a060fb45f0277515887e72a437197b8727e0e2bbcfe6ce20",
+      "width": 336,
+      "height": 376,
+      "grid_left": 36,
+      "grid_top": 76,
+      "cell_size": 32,
+      "images": {
+        "raw": {
+          "path": "demonstration/demonstration-t2-01-001-raw.png",
+          "file_sha256": "2ad0b0d4de54413dd86e12571cdbee125e7314100cff1c1c4ebe5b5e3dfb0858",
+          "pixel_sha256": "3ecad6e054956d9d4712b399ef07d9df2eaf42a17b8eee34acc286f9766dd6a4"
+        },
+        "grid": {
+          "path": "demonstration/demonstration-t2-01-001-grid.png",
+          "file_sha256": "f905b98b4cb8c78ad0c2b860276069624e88c74c3bff98855a6b5dd9d2c860ee",
+          "pixel_sha256": "d4458e9d4a9ea421bb219a892381862e408b103fe7910cb99c0b2d2d7dc4713f"
+        }
+      },
+      "visible_board": [
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "2",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ]
+      ],
+      "certification_status": "pending"
+    },
+    {
+      "instance_id": "demonstration-T2-02-001",
+      "template_id": "T2-02",
+      "split": "demonstration",
+      "seed": 10087,
+      "state_hash": "912a312b2c9a7b4b89cfdc10009a7324bfe398d22f2ef44ec8330906c01276e4",
+      "visible_hash": "ce197e20ba6f375b95f559ffa2e7bb7ef779fb3a7296cdb0235378dd08e0dbf5",
+      "layout_hash": "1b9e24fa6c5f70d5223cbf9fd3677cd1e3c13879fd4d03bc934a8f4c98f5d62d",
+      "width": 336,
+      "height": 376,
+      "grid_left": 36,
+      "grid_top": 76,
+      "cell_size": 32,
+      "images": {
+        "raw": {
+          "path": "demonstration/demonstration-t2-02-001-raw.png",
+          "file_sha256": "8c6eb53f56133c2e73fb0bb384505beb44dfbd722bace3c5cedeac5d58fe19f4",
+          "pixel_sha256": "315d0f6da46ea99a217375332fc895697b56b097e0b4d4a13570f96a2f0a5cdf"
+        },
+        "grid": {
+          "path": "demonstration/demonstration-t2-02-001-grid.png",
+          "file_sha256": "0f9f155c137c890537e0c85c0cd86e94bf6cd1023a93135ee95170259247d5bb",
+          "pixel_sha256": "96bb08e20e575a842d29927b2043c64030a0b1eccf3c86c5a7db225ba800b83c"
+        }
+      },
+      "visible_board": [
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "1",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ]
+      ],
+      "certification_status": "pending"
+    },
+    {
+      "instance_id": "demonstration-T2-03-001",
+      "template_id": "T2-03",
+      "split": "demonstration",
+      "seed": 10088,
+      "state_hash": "64a932e6a2522fc11cc2575d7fac8420b678b8542cb14bd041fbd3e4f0bc68a5",
+      "visible_hash": "d0c650e77a8f3ae66d7084a94434b5d5557117291724175b9c39d36845928db0",
+      "layout_hash": "2275c76bf013469edd2a248ec18f84adc8511d2324d1516899593451e4f74e7f",
+      "width": 336,
+      "height": 376,
+      "grid_left": 36,
+      "grid_top": 76,
+      "cell_size": 32,
+      "images": {
+        "raw": {
+          "path": "demonstration/demonstration-t2-03-001-raw.png",
+          "file_sha256": "cb86c398037e14cfc1ae989704eed9ab018e7cdc1e559298c133bf3fc4da8924",
+          "pixel_sha256": "578e2f8c87debc026a7109071fdbbc1fbbdd82047056df1aa0b5a460c3de9d1e"
+        },
+        "grid": {
+          "path": "demonstration/demonstration-t2-03-001-grid.png",
+          "file_sha256": "2024345c3959aad9a2f0383b94111ea4fa93f6b20c1698339776c95d0f8599df",
+          "pixel_sha256": "2193bf95dd38ee55e411bae96421d30b7e9a21d40241a82baccb65d4689031ef"
+        }
+      },
+      "visible_board": [
+        [
+          "#",
+          "1",
+          ".",
+          ".",
+          ".",
+          ".",
+          ".",
+          ".",
+          "."
+        ],
+        [
+          "#",
+          "1",
+          "1",
+          "1",
+          "1",
+          ".",
+          ".",
+          ".",
+          "."
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "2",
+          ".",
+          ".",
+          ".",
+          "."
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "2",
+          "1",
+          "1",
+          "1",
+          "."
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "1",
+          "."
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "2",
+          "1",
+          "1",
+          "."
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "1",
+          ".",
+          ".",
+          "."
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "2",
+          ".",
+          ".",
+          "."
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "1",
+          ".",
+          ".",
+          "."
+        ]
+      ],
+      "certification_status": "pending"
+    },
+    {
+      "instance_id": "demonstration-T2-04-001",
+      "template_id": "T2-04",
+      "split": "demonstration",
+      "seed": 10089,
+      "state_hash": "8a806da05539cb62d9c9d4c6afed186f04af2d805dc17086d9d244ff9a1e753c",
+      "visible_hash": "64783401a3bb25633af2b4fab282695b43a2c64fc6ae47deefcd22bfe077ba84",
+      "layout_hash": "357e811eda762ace441c1c7de57613d7420e5066cf550096d3d79a5642ca9ec4",
+      "width": 336,
+      "height": 376,
+      "grid_left": 36,
+      "grid_top": 76,
+      "cell_size": 32,
+      "images": {
+        "raw": {
+          "path": "demonstration/demonstration-t2-04-001-raw.png",
+          "file_sha256": "8f51920d54c70d6152d64dcc6bf2b32315b033f850e3de1b9fed987e76b52e0c",
+          "pixel_sha256": "12e172f206fa4f62a2205509a9a7b4c0acc86386921dd340c06f5b4e62d8da7d"
+        },
+        "grid": {
+          "path": "demonstration/demonstration-t2-04-001-grid.png",
+          "file_sha256": "9bc8affa06c231241b6658b155f9457bd01595da1be593b0abfbbae549683678",
+          "pixel_sha256": "2fa4c420773d16de7b5cef25afe68959cfe801a99e4918fc192e0f0c9bd229c4"
+        }
+      },
+      "visible_board": [
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "1",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ]
+      ],
+      "certification_status": "pending"
+    },
+    {
+      "instance_id": "demonstration-T3-01-001",
+      "template_id": "T3-01",
+      "split": "demonstration",
+      "seed": 10090,
+      "state_hash": "e6d6cb4db08748b2954effd0b8246e5108c014dd86ae933d331d7c1fe9c5f405",
+      "visible_hash": "67960907ac1361ab7f679c2df6b89343e780854d74c4c5d5a5bbf33bc9767d28",
+      "layout_hash": "4316b3984d4fe00bcd2bc837f93944e6c8280b2f2aceac943697944d41c9c939",
+      "width": 336,
+      "height": 376,
+      "grid_left": 36,
+      "grid_top": 76,
+      "cell_size": 32,
+      "images": {
+        "raw": {
+          "path": "demonstration/demonstration-t3-01-001-raw.png",
+          "file_sha256": "5a693846ade0e414c6551d1356054862b44812502a877fad5b453166f0121483",
+          "pixel_sha256": "1118872294bb344423e05a4241dd354b820f47c8955909408a6bf57db0153519"
+        },
+        "grid": {
+          "path": "demonstration/demonstration-t3-01-001-grid.png",
+          "file_sha256": "95350adcfa7eb1e6027c7b656699407198acdd50653ac65c8c1d8082c418e029",
+          "pixel_sha256": "ae8ee85ec535719d2843fb614e38640182cba0a4b487ae4b5db64372c71ebf81"
+        }
+      },
+      "visible_board": [
+        [
+          ".",
+          ".",
+          ".",
+          "1",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          ".",
+          "1",
+          "1",
+          "2",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          ".",
+          "2",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          ".",
+          "2",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          ".",
+          "1",
+          "4",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          ".",
+          ".",
+          "3",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          ".",
+          ".",
+          "2",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          ".",
+          ".",
+          "1",
+          "2",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          ".",
+          ".",
+          ".",
+          "1",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ]
+      ],
+      "certification_status": "pending"
+    },
+    {
+      "instance_id": "demonstration-T3-02-001",
+      "template_id": "T3-02",
+      "split": "demonstration",
+      "seed": 10091,
+      "state_hash": "6a1a6ea1352f3f62c2c0532dc51f42abdbb5c76acfe8fdeaf23f2b5fea3aed6e",
+      "visible_hash": "cb10dda91a384387803d1ddec91ba0fbf97b28c2c3b5ad124f8924f5fc9747a8",
+      "layout_hash": "4170c75f61112b1ca35eacfddaeb5a058fb6a2d768c345f741a6168e6625b11d",
+      "width": 336,
+      "height": 376,
+      "grid_left": 36,
+      "grid_top": 76,
+      "cell_size": 32,
+      "images": {
+        "raw": {
+          "path": "demonstration/demonstration-t3-02-001-raw.png",
+          "file_sha256": "325ffee7d5ab340ed3a0d4135b693604897b2844cef852d591c25b07d0a35445",
+          "pixel_sha256": "c43f2750862c05fd00cd3af8fdf43326cb84fe0fe49406bbc1c35cd45852310e"
+        },
+        "grid": {
+          "path": "demonstration/demonstration-t3-02-001-grid.png",
+          "file_sha256": "ff8404a1cc58de883725b67c5d5cb70fe14b332f8b6c99bb4a90e1444d9bfdf1",
+          "pixel_sha256": "04a6b0b94b4deddfe10116f6e381cea3037958430a029ce9a9084550f37e5fcd"
+        }
+      },
+      "visible_board": [
+        [
+          ".",
+          ".",
+          ".",
+          ".",
+          ".",
+          ".",
+          ".",
+          ".",
+          "."
+        ],
+        [
+          ".",
+          ".",
+          ".",
+          ".",
+          ".",
+          "1",
+          "1",
+          "1",
+          "."
+        ],
+        [
+          "1",
+          "1",
+          ".",
+          ".",
+          "1",
+          "3",
+          "#",
+          "2",
+          "."
+        ],
+        [
+          "#",
+          "1",
+          ".",
+          ".",
+          "1",
+          "#",
+          "#",
+          "4",
+          "1"
+        ],
+        [
+          "1",
+          "1",
+          ".",
+          ".",
+          "1",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          ".",
+          ".",
+          ".",
+          "1",
+          "1",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          ".",
+          ".",
+          ".",
+          "1",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          ".",
+          ".",
+          ".",
+          "1",
+          "1",
+          "3",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          ".",
+          ".",
+          ".",
+          ".",
+          ".",
+          "2",
+          "#",
+          "#",
+          "#"
+        ]
+      ],
+      "certification_status": "pending"
+    },
+    {
+      "instance_id": "demonstration-T4-01-001",
+      "template_id": "T4-01",
+      "split": "demonstration",
+      "seed": 10092,
+      "state_hash": "b8f13d5acd952a903626fe46ee782a3cb3a3b1974d1d74562425ec92a34c53af",
+      "visible_hash": "d92c0f82d36e2830de7b531c4bc5f1f229b1e29cf1a62111be10dd6f117c6624",
+      "layout_hash": "22fda2e7ea0f29542c9cd2d2266fe69daafe64241774810add988b18d7b4664e",
+      "width": 208,
+      "height": 248,
+      "grid_left": 36,
+      "grid_top": 76,
+      "cell_size": 32,
+      "images": {
+        "raw": {
+          "path": "demonstration/demonstration-t4-01-001-raw.png",
+          "file_sha256": "040fcce67ab7efa51753898198b742aae046f3f520371c64a87277ef5fbff83d",
+          "pixel_sha256": "f8bf870f43b8b7b683baa1113f6cc796ee9f3e8d2e3bed0cf1876b1f318ec94d"
+        },
+        "grid": {
+          "path": "demonstration/demonstration-t4-01-001-grid.png",
+          "file_sha256": "453e1dda98057ed8c631722e36f1e80311b5dca984e8b667d1752a9c326003c6",
+          "pixel_sha256": "6c0563cabcfb68a407682ee2a309b7e0693217c7289901e30c3440ecf42f697f"
+        }
+      },
+      "visible_board": [
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "1",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ]
+      ],
+      "certification_status": "pending"
+    },
+    {
+      "instance_id": "demonstration-T4-02-001",
+      "template_id": "T4-02",
+      "split": "demonstration",
+      "seed": 10093,
+      "state_hash": "5d7ec58ab12f09341070a25ee3e0bb999c2b50e65a82c42736bcbeaf8490c341",
+      "visible_hash": "475614d0a117474af5c981d8ae4b3be9f2efdfea8fc321595eeeb5d922717a46",
+      "layout_hash": "8ceedb1ed0123763363ff6be743e1f3097d9e27a63bf702407131813ce72ab05",
+      "width": 336,
+      "height": 376,
+      "grid_left": 36,
+      "grid_top": 76,
+      "cell_size": 32,
+      "images": {
+        "raw": {
+          "path": "demonstration/demonstration-t4-02-001-raw.png",
+          "file_sha256": "f2257a4a9cce75e448740d925285e797c80c960984de2adc0b050cc90245c3fe",
+          "pixel_sha256": "6e72ce094b06c97f5718c14b8cc871f6d6d8b56d922a1ac409628872625b69aa"
+        },
+        "grid": {
+          "path": "demonstration/demonstration-t4-02-001-grid.png",
+          "file_sha256": "8e1ca4d2e540c23723d634db6ff9932da34eea3f5309375c5c87469a971196b3",
+          "pixel_sha256": "57ed2b3a58f82d1384d62c1aff3a0d1718984b43500bf2ae482e07b651dee964"
+        }
+      },
+      "visible_board": [
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "1",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#",
+          "#"
+        ]
+      ],
+      "certification_status": "pending"
+    }
+  ],
+  "examples": [
+    {
+      "instance_id": "demonstration-T1-01-001",
+      "template_id": "T1-01",
+      "images": {
+        "raw": {
+          "path": "demonstration/demonstration-t1-01-001-raw.png",
+          "file_sha256": "3476c502984cdf7ece7c986213a821d016f5a6c28bd1a17f035e5b749bf75464",
+          "pixel_sha256": "87fc5b7a458a76d38aab4edbb5b590582ef0041bc34fc580b9d6ebd53f299f04"
+        },
+        "grid": {
+          "path": "demonstration/demonstration-t1-01-001-grid.png",
+          "file_sha256": "552099e0483998678d782f0dd7b9916e61564e72e21f5f23adf571fbdb474d75",
+          "pixel_sha256": "3c12bc334b36cc325e52c38e0af750d47188d3a34c61b6e61eb594bdee3c7ebd"
+        }
+      },
+      "instruction": "Reveal the cell in row C, column 5.",
+      "status": "verified_grounding_only",
+      "response": {
+        "reasoning_summary": "Select the cell requested by the instruction.",
+        "action": {
+          "type": "click",
+          "x": 0.5373134328358209,
+          "y": 0.416
+        },
+        "expected_result": "The requested cell changes."
+      }
+    },
+    {
+      "instance_id": "demonstration-T1-02-001",
+      "template_id": "T1-02",
+      "images": {
+        "raw": {
+          "path": "demonstration/demonstration-t1-02-001-raw.png",
+          "file_sha256": "56466e726cd1de20e490fc92a64b8cbe27235fb76e61bc7668886d3f5f33522f",
+          "pixel_sha256": "d0f6bcaefbb57bd5754a6bd6c0d584a3cfa51260e3f51fa00780e29bc151c62c"
+        },
+        "grid": {
+          "path": "demonstration/demonstration-t1-02-001-grid.png",
+          "file_sha256": "69fcd78bcf97d032b6a89648950c3d1d93ce81ddcc972afc267201643006d7b2",
+          "pixel_sha256": "34777a9cad8769c3e8dc37381bc36461bc5d0b556ebd4b018a42265090d61796"
+        }
+      },
+      "instruction": "Flag the cell in row G, column 2.",
+      "status": "verified_grounding_only",
+      "response": {
+        "reasoning_summary": "Select the cell requested by the instruction.",
+        "action": {
+          "type": "right_click",
+          "x": 0.2507462686567164,
+          "y": 0.7573333333333333
+        },
+        "expected_result": "The requested cell changes."
+      }
+    },
+    {
+      "instance_id": "demonstration-T1-03-001",
+      "template_id": "T1-03",
+      "images": {
+        "raw": {
+          "path": "demonstration/demonstration-t1-03-001-raw.png",
+          "file_sha256": "aeae4520efc447b9cb172514d1eab6c543345efe1989eee6722554d807af2bb2",
+          "pixel_sha256": "ccc21ae7ba0821953f61ef8d3225b11f90814722da27ee1a507e55831cf40417"
+        },
+        "grid": {
+          "path": "demonstration/demonstration-t1-03-001-grid.png",
+          "file_sha256": "4d99a851f48170d98228fa04c89e643c7aa65272541d1c517aac54f3c4f23e9f",
+          "pixel_sha256": "9cbc2d459a26d3cea2c39bf9f4bcbd3c0e86d90beb5b02643b9a8b6ab5675581"
+        }
+      },
+      "instruction": "Reveal the hidden cell directly to the right of the only revealed 3.",
+      "status": "verified_grounding_only",
+      "response": {
+        "reasoning_summary": "Select the cell requested by the instruction.",
+        "action": {
+          "type": "click",
+          "x": 0.34626865671641793,
+          "y": 0.5866666666666667
+        },
+        "expected_result": "The requested cell changes."
+      }
+    },
+    {
+      "instance_id": "demonstration-T1-04-001",
+      "template_id": "T1-04",
+      "images": {
+        "raw": {
+          "path": "demonstration/demonstration-t1-04-001-raw.png",
+          "file_sha256": "16a218120a08624dfc9b672c641994a59c7c840541614bba6ba18eb33535b75f",
+          "pixel_sha256": "7ad87154fcd5264992e1ceb5cdae0bb3417173c37737f96c8e653d4532d0e6c0"
+        },
+        "grid": {
+          "path": "demonstration/demonstration-t1-04-001-grid.png",
+          "file_sha256": "cf50fcab9bab87bbb249c28f4ff096b6f3b7034e3067322b0766f339677fbf30",
+          "pixel_sha256": "86a655f49f2b483d578aedd89c428882b9f2f8f42757d1c465b5f97c94e312b4"
+        }
+      },
+      "instruction": "Reveal the top-right corner cell.",
+      "status": "verified_grounding_only",
+      "response": {
+        "reasoning_summary": "Select the cell requested by the instruction.",
+        "action": {
+          "type": "click",
+          "x": 0.9194029850746268,
+          "y": 0.24533333333333332
+        },
+        "expected_result": "The requested cell changes."
+      }
+    },
+    {
+      "instance_id": "demonstration-T2-01-001",
+      "template_id": "T2-01",
+      "images": {
+        "raw": {
+          "path": "demonstration/demonstration-t2-01-001-raw.png",
+          "file_sha256": "2ad0b0d4de54413dd86e12571cdbee125e7314100cff1c1c4ebe5b5e3dfb0858",
+          "pixel_sha256": "3ecad6e054956d9d4712b399ef07d9df2eaf42a17b8eee34acc286f9766dd6a4"
+        },
+        "grid": {
+          "path": "demonstration/demonstration-t2-01-001-grid.png",
+          "file_sha256": "f905b98b4cb8c78ad0c2b860276069624e88c74c3bff98855a6b5dd9d2c860ee",
+          "pixel_sha256": "d4458e9d4a9ea421bb219a892381862e408b103fe7910cb99c0b2d2d7dc4713f"
+        }
+      },
+      "instruction": "Reveal one hidden cell that is guaranteed safe.",
+      "status": "pending_solver_example",
+      "response": null
+    },
+    {
+      "instance_id": "demonstration-T2-02-001",
+      "template_id": "T2-02",
+      "images": {
+        "raw": {
+          "path": "demonstration/demonstration-t2-02-001-raw.png",
+          "file_sha256": "8c6eb53f56133c2e73fb0bb384505beb44dfbd722bace3c5cedeac5d58fe19f4",
+          "pixel_sha256": "315d0f6da46ea99a217375332fc895697b56b097e0b4d4a13570f96a2f0a5cdf"
+        },
+        "grid": {
+          "path": "demonstration/demonstration-t2-02-001-grid.png",
+          "file_sha256": "0f9f155c137c890537e0c85c0cd86e94bf6cd1023a93135ee95170259247d5bb",
+          "pixel_sha256": "96bb08e20e575a842d29927b2043c64030a0b1eccf3c86c5a7db225ba800b83c"
+        }
+      },
+      "instruction": "Flag one hidden cell that is guaranteed to contain a mine.",
+      "status": "pending_solver_example",
+      "response": null
+    },
+    {
+      "instance_id": "demonstration-T2-03-001",
+      "template_id": "T2-03",
+      "images": {
+        "raw": {
+          "path": "demonstration/demonstration-t2-03-001-raw.png",
+          "file_sha256": "cb86c398037e14cfc1ae989704eed9ab018e7cdc1e559298c133bf3fc4da8924",
+          "pixel_sha256": "578e2f8c87debc026a7109071fdbbc1fbbdd82047056df1aa0b5a460c3de9d1e"
+        },
+        "grid": {
+          "path": "demonstration/demonstration-t2-03-001-grid.png",
+          "file_sha256": "2024345c3959aad9a2f0383b94111ea4fa93f6b20c1698339776c95d0f8599df",
+          "pixel_sha256": "2193bf95dd38ee55e411bae96421d30b7e9a21d40241a82baccb65d4689031ef"
+        }
+      },
+      "instruction": "Reveal one hidden cell that is guaranteed safe.",
+      "status": "pending_solver_example",
+      "response": null
+    },
+    {
+      "instance_id": "demonstration-T2-04-001",
+      "template_id": "T2-04",
+      "images": {
+        "raw": {
+          "path": "demonstration/demonstration-t2-04-001-raw.png",
+          "file_sha256": "8f51920d54c70d6152d64dcc6bf2b32315b033f850e3de1b9fed987e76b52e0c",
+          "pixel_sha256": "12e172f206fa4f62a2205509a9a7b4c0acc86386921dd340c06f5b4e62d8da7d"
+        },
+        "grid": {
+          "path": "demonstration/demonstration-t2-04-001-grid.png",
+          "file_sha256": "9bc8affa06c231241b6658b155f9457bd01595da1be593b0abfbbae549683678",
+          "pixel_sha256": "2fa4c420773d16de7b5cef25afe68959cfe801a99e4918fc192e0f0c9bd229c4"
+        }
+      },
+      "instruction": "Reveal one hidden cell that is guaranteed safe.",
+      "status": "pending_solver_example",
+      "response": null
+    },
+    {
+      "instance_id": "demonstration-T3-01-001",
+      "template_id": "T3-01",
+      "images": {
+        "raw": {
+          "path": "demonstration/demonstration-t3-01-001-raw.png",
+          "file_sha256": "5a693846ade0e414c6551d1356054862b44812502a877fad5b453166f0121483",
+          "pixel_sha256": "1118872294bb344423e05a4241dd354b820f47c8955909408a6bf57db0153519"
+        },
+        "grid": {
+          "path": "demonstration/demonstration-t3-01-001-grid.png",
+          "file_sha256": "95350adcfa7eb1e6027c7b656699407198acdd50653ac65c8c1d8082c418e029",
+          "pixel_sha256": "ae8ee85ec535719d2843fb614e38640182cba0a4b487ae4b5db64372c71ebf81"
+        }
+      },
+      "instruction": "Flag every mine among the hidden cells touching the yellow outlined region.",
+      "status": "pending_solver_example",
+      "response": null
+    },
+    {
+      "instance_id": "demonstration-T3-02-001",
+      "template_id": "T3-02",
+      "images": {
+        "raw": {
+          "path": "demonstration/demonstration-t3-02-001-raw.png",
+          "file_sha256": "325ffee7d5ab340ed3a0d4135b693604897b2844cef852d591c25b07d0a35445",
+          "pixel_sha256": "c43f2750862c05fd00cd3af8fdf43326cb84fe0fe49406bbc1c35cd45852310e"
+        },
+        "grid": {
+          "path": "demonstration/demonstration-t3-02-001-grid.png",
+          "file_sha256": "ff8404a1cc58de883725b67c5d5cb70fe14b332f8b6c99bb4a90e1444d9bfdf1",
+          "pixel_sha256": "04a6b0b94b4deddfe10116f6e381cea3037958430a029ce9a9084550f37e5fcd"
+        }
+      },
+      "instruction": "Make 10 logically safe reveal moves without losing. A flood fill counts as one move.",
+      "status": "pending_solver_example",
+      "response": null
+    },
+    {
+      "instance_id": "demonstration-T4-01-001",
+      "template_id": "T4-01",
+      "images": {
+        "raw": {
+          "path": "demonstration/demonstration-t4-01-001-raw.png",
+          "file_sha256": "040fcce67ab7efa51753898198b742aae046f3f520371c64a87277ef5fbff83d",
+          "pixel_sha256": "f8bf870f43b8b7b683baa1113f6cc796ee9f3e8d2e3bed0cf1876b1f318ec94d"
+        },
+        "grid": {
+          "path": "demonstration/demonstration-t4-01-001-grid.png",
+          "file_sha256": "453e1dda98057ed8c631722e36f1e80311b5dca984e8b667d1752a9c326003c6",
+          "pixel_sha256": "6c0563cabcfb68a407682ee2a309b7e0693217c7289901e30c3440ecf42f697f"
+        }
+      },
+      "instruction": "Reveal every safe cell without revealing a mine.",
+      "status": "pending_solver_example",
+      "response": null
+    },
+    {
+      "instance_id": "demonstration-T4-02-001",
+      "template_id": "T4-02",
+      "images": {
+        "raw": {
+          "path": "demonstration/demonstration-t4-02-001-raw.png",
+          "file_sha256": "f2257a4a9cce75e448740d925285e797c80c960984de2adc0b050cc90245c3fe",
+          "pixel_sha256": "6e72ce094b06c97f5718c14b8cc871f6d6d8b56d922a1ac409628872625b69aa"
+        },
+        "grid": {
+          "path": "demonstration/demonstration-t4-02-001-grid.png",
+          "file_sha256": "8e1ca4d2e540c23723d634db6ff9932da34eea3f5309375c5c87469a971196b3",
+          "pixel_sha256": "57ed2b3a58f82d1384d62c1aff3a0d1718984b43500bf2ae482e07b651dee964"
+        }
+      },
+      "instruction": "Reveal every safe cell without revealing a mine.",
+      "status": "pending_solver_example",
+      "response": null
+    }
+  ]
+}

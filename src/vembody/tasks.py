@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import math
+import re
 from dataclasses import dataclass, field, replace
 from pathlib import Path
 from typing import Any
@@ -100,6 +101,8 @@ def load_task(path: str | Path) -> TaskSpec:
     board = data.get("minesweeper")
     benchmark = None
     if "benchmark" in data:
+        if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,127}", _required_string(data, "id")):
+            raise TaskLoadError("Benchmark instance ID must be a safe filename component")
         if data.get("environment") != "minesweeper":
             raise TaskLoadError("Benchmark requires the minesweeper environment")
         board = board_settings(board)

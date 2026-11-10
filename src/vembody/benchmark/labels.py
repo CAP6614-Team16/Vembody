@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import hashlib
+import json
 from dataclasses import dataclass
 from typing import Protocol
 
@@ -82,3 +84,20 @@ def visible_board(screen: MinesweeperScreen) -> VisibleBoard:
             for r in range(game.rows)
         ),
     )
+
+
+def visible_hash(screen: MinesweeperScreen) -> str:
+    """Identity of the visible input, excluding hidden layouts and task IDs."""
+    board = visible_board(screen)
+    return hashlib.sha256(
+        json.dumps(
+            {
+                "rows": board.rows,
+                "cols": board.cols,
+                "total_mines": board.total_mines,
+                "cells": board.cells,
+                "highlight": sorted(screen.highlight),
+            },
+            sort_keys=True,
+        ).encode()
+    ).hexdigest()

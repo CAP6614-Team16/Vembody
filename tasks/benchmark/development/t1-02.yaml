@@ -21,15 +21,15 @@ benchmark:
   template_id: T1-02
   split: development
   opening:
-  - 4
-  - 4
+  - 1
+  - 1
   setup: []
   predicate:
     type: exact_flag
     target:
     - 6
     - 1
-  expected_state_hash: 8c839f5d597bfced3940419328aef7caf194617d93b2fee48b84ed1ed2c1be02
+  expected_state_hash: 86f142eae96d09362b4c53dee3d7d20a88aefb7a91f92db63d26c8add644a692
 mock_actions:
 - type: right_click
   x: 0.2507462686567164

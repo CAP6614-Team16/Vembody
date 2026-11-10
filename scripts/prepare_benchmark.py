@@ -15,9 +15,10 @@ import yaml
 
 from vembody.actions import ActionType
 from vembody.benchmark.environment import prepare, state_hash
+from vembody.benchmark.labels import visible_hash
 from vembody.benchmark.spec import TEMPLATES, BenchmarkSpec, Predicate
 from vembody.errors import TaskLoadError
-from vembody.tasks import TaskSpec
+from vembody.tasks import TaskSpec, load_task_set
 
 INSTRUCTIONS = [
     "Reveal the cell in row C, column 5.",
@@ -35,10 +36,17 @@ INSTRUCTIONS = [
 ]
 
 
-def generate(root: Path, split: str = "development", seed_start: int = 0) -> list[dict]:
+def generate(
+    root: Path, split: str = "development", seed_start: int = 0, exclude: Path | None = None
+) -> list[dict]:
     root.mkdir(parents=True, exist_ok=True)
     records = []
     seed = seed_start
+    seen_visible = set()
+    if exclude is not None:
+        seen_visible.update(
+            visible_hash(prepare(t)) for t in load_task_set(list(exclude.glob("*.yaml")))
+        )
     for i, (template, kind) in enumerate(TEMPLATES.items()):
         size, mines = (5, 3) if template == "T4-01" else (9, 10)
         target = {"T1-01": (2, 4), "T1-02": (6, 1), "T1-04": (0, 8)}.get(template)
@@ -49,14 +57,14 @@ def generate(root: Path, split: str = "development", seed_start: int = 0) -> lis
         for _ in range(10000):
             board = {"rows": size, "cols": size, "mines": mines, "seed": seed}
             seed += 1
-            opening = (size // 2, size // 2)
+            opening = (board["seed"] // size % size, board["seed"] % size)
             if template == "T1-03":
                 target = (opening[0], opening[1] + 1)
             predicate = Predicate(kind, target, count=10 if template == "T3-02" else 0)
             spec = BenchmarkSpec(1, template, split, opening, (), predicate)
             task = TaskSpec(
                 f"{split}-{template}-001",
-                f"{template} development candidate",
+                f"{template} {split} candidate",
                 INSTRUCTIONS[i],
                 "minesweeper",
                 "Reconstruct fixed opening.",
@@ -90,6 +98,21 @@ def generate(root: Path, split: str = "development", seed_start: int = 0) -> lis
                 screen = prepare(task)
             except TaskLoadError:
                 continue
+            if visible_hash(screen) in seen_visible:
+                continue
+            if (
+                template == "T3-02"
+                and sum(
+                    (r, c) not in screen.game.revealed
+                    and (r, c) not in screen.game.mines
+                    and bool(screen.game.adjacent_mines((r, c)))
+                    for r in range(size)
+                    for c in range(size)
+                )
+                < 10
+            ):
+                continue
+            seen_visible.add(visible_hash(screen))
             break
         else:
             raise ValueError(f"Could not prepare candidate for {template}")
@@ -170,6 +193,9 @@ if __name__ == "__main__":
     parser.add_argument("--output", type=Path, default=Path("tasks/benchmark/development"))
     parser.add_argument("--split", choices=("development", "demonstration"), default="development")
     parser.add_argument("--seed-start", type=int, default=0)
+    parser.add_argument(
+        "--exclude", type=Path, help="Exclude visible states from this task directory"
+    )
     args = parser.parse_args()
-    count = len(generate(args.output, args.split, args.seed_start))
+    count = len(generate(args.output, args.split, args.seed_start, args.exclude))
     print(f"Prepared {count} uncertified candidates.")

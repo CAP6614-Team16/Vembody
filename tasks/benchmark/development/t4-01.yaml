@@ -15,15 +15,15 @@ minesweeper:
   rows: 5
   cols: 5
   mines: 3
-  seed: 33
+  seed: 59
 benchmark:
   version: 1
   template_id: T4-01
   split: development
   opening:
-  - 2
-  - 2
+  - 1
+  - 4
   setup: []
   predicate:
     type: board_won
-  expected_state_hash: 75ede2995589591836b594a38b863c496b2d961a0ad15772762343f9d82e3adb
+  expected_state_hash: 51c6c26f9814a71b09d4c79dd786590c7199dbd0e12380e54559b7e4220e4d37

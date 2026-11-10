@@ -15,18 +15,18 @@ minesweeper:
   rows: 9
   cols: 9
   mines: 10
-  seed: 31
+  seed: 57
 benchmark:
   version: 1
   template_id: T3-01
   split: development
   opening:
-  - 4
-  - 4
+  - 6
+  - 3
   setup: []
   predicate:
     type: flag_region_mines
     region:
-    - - 2
+    - - 6
       - 3
-  expected_state_hash: 6422d11cecd5825198b5afc73eec64b3fa10eb17b4cc2a2eed86558f2737592b
+  expected_state_hash: 3dd33072652f13197ac270a800626ce1e3938038844be4e9f00cf7cb0ea31e67
