@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from dataclasses import replace
 from datetime import datetime, timezone
 from time import perf_counter
 from uuid import uuid4
@@ -22,7 +23,7 @@ from .results import (
     StepResult,
     TerminationReason,
 )
-from .tasks import TaskSpec
+from .tasks import TaskSpec, agent_task
 from .validation import ActionPolicy, validate_action
 
 
@@ -72,7 +73,14 @@ class AgentLoop:
                 model_started = perf_counter()
                 response = None
                 try:
-                    response = self.model.generate_action(task, observation, history)
+                    model_history = (
+                        [replace(item, evaluation=None) for item in history]
+                        if task.benchmark
+                        else history
+                    )
+                    response = self.model.generate_action(
+                        agent_task(task), observation, model_history
+                    )
                     parsed = parse_model_response(response.raw_text)
                     result = StepResult(
                         observation=observation,

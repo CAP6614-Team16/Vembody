@@ -241,10 +241,12 @@ Ineffective clicks do not become successes and consume budget.
   whose target is provably safe in the initial visible position.
 - **T2-02:** At least one mine is certified by single-clue propagation. Accept any
   newly placed flag whose target is provably a mine in the initial visible position.
-- **T2-03:** Single-clue propagation reaches a fixed point with no safe target;
+- **T2-03:** Single-clue propagation, including the public total mine-count rule,
+  reaches a fixed point with no safe target;
   combining at least two clue constraints proves a safe target. Save a certificate
   identifying those constraints. Accept any provably safe initial target.
-- **T2-04:** Single-clue propagation reaches a fixed point with no safe target;
+- **T2-04:** Single-clue propagation, including the public total mine-count rule,
+  reaches a fixed point with no safe target;
   subtracting a proper-subset constraint from another proves a safe target. Save
   both neighbor sets, residual mine counts, and the difference deduction. Accept
   any provably safe initial target.
@@ -328,7 +330,8 @@ model's history.
 
 ## 6. Splits, screenshots, and examples
 
-Proposed minimum instance counts:
+Start with a twelve-template development pilot (one instance per template).
+Certify and validate that pilot before expanding to the following proposed counts:
 
 | Split | Instances per template | Total | Use |
 | --- | ---: | ---: | --- |

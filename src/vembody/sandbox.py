@@ -11,6 +11,7 @@ from pathlib import Path
 from time import perf_counter
 
 from .actions import Action, ActionType
+from .benchmark.environment import prepare
 from .minesweeper.screen import MinesweeperScreen
 from .observations import Observation
 from .results import EvaluationResult, EvaluationStatus, ExecutionResult, StepResult
@@ -21,7 +22,7 @@ class MinesweeperSandbox:
     """Observation provider, executor, and evaluator for one Minesweeper task."""
 
     def __init__(self, task: TaskSpec, screenshot_dir: str | Path) -> None:
-        self.screen = MinesweeperScreen(**task.minesweeper)
+        self.screen = prepare(task) if task.benchmark else MinesweeperScreen(**task.minesweeper)
         self.screenshot_dir = Path(screenshot_dir)
 
     def capture(
