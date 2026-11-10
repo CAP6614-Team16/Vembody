@@ -34,3 +34,6 @@ solver or certify reasoning difficulty. Frozen state hashes detect changes in
 placement/setup behavior. See `manifest.json` for instance IDs and outstanding
 checks. In-context examples and evaluation seeds must stay separate from these
 development instances.
+
+See [the handoff](../../docs/benchmark-handoff.md) for dataset coverage,
+demonstration regeneration commands, and solver/model integration dependencies.

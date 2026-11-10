@@ -24,3 +24,25 @@
 - `evaluation/base.py`: defines independent task-success evaluation; the current evaluator returns `unknown`.
 - `results.py`: stores typed step, episode, execution, and evaluation results.
 - `logging/jsonl.py`: writes one JSONL record for each step and one final episode summary.
+
+## Benchmark development infrastructure
+
+- `benchmark/spec.py`: validates versioned task rules, fixed openings, and predicates.
+- `benchmark/environment.py`: reconstructs prepared positions and checks frozen state hashes.
+- `benchmark/labels.py`: defines the visible-board-only solver interface; contains no solver.
+- `benchmark/scoring.py`: grades seven task predicates, persistent violations, and action counts.
+- `benchmark/replay.py`: replays grounding traces and verifies state/image evidence.
+- `tasks/benchmark/`: twelve development and twelve demonstration candidates, all uncertified.
+- `data/benchmark/pilot/`: raw/grid screenshots, reference transcriptions, and checksums.
+- `scripts/check_benchmark.py`: checks candidate coverage and infrastructure; certification remains pending.
+
+Benchmark sandbox executions record private before/after state, resolved targets,
+logical labels when supplied, and post-action screenshots. The loop strips private
+task data and evaluation/execution evidence from model inputs/history. Task completion
+and game termination are separate. Deadlines are checked after inference and after
+solver labeling before input; model/solver providers must bound their own calls.
+
+T2/T3 tasks require a trusted logical provider. Evaluation-split runs require a
+future certificate-verification path and are currently blocked. No pretrained
+model, G/T prompting adapter, or production constraint solver is implemented.
+See [the handoff](benchmark-handoff.md) for checks and dependencies.

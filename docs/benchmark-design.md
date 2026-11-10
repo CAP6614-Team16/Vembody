@@ -1,8 +1,9 @@
 # Minesweeper benchmark design
 
-Status: Phase 1 draft for Cameron's review. No benchmark runtime changes are
-implemented by this document. Task instances, seeds, screenshots, solver
-certificates, and measured model results have not been produced yet.
+Status: Phase 1 design approved with subsequent independent implementation reviews.
+The development infrastructure and candidate screenshots are now implemented.
+Solver certificates and measured model results remain pending. See
+[the handoff](benchmark-handoff.md) for actual coverage and release status.
 
 This design translates the team's *Pixels to Clicks* proposal into a concrete
 tasks-and-data contract. It covers Cameron's responsibilities: task definitions,
@@ -17,7 +18,7 @@ single deductions, partial solves, and full games. A template describes a skill;
 an instance supplies a particular board and starting position. All agent variants
 must run on the same frozen instances.
 
-The repository currently provides:
+The repository baseline at Phase 1 provided:
 
 - A Python game with seeded, first-click-safe mine placement, flood fill, flags,
   chording, and automatic mine flags when the game is won.
@@ -100,9 +101,10 @@ by the per-task rules below.
 - G actions name a cell, which the adapter maps to its center using the geometry
   of that exact observation. Save the original cell response and converted pixels.
 - Keep 32-pixel cells, a 12-pixel side/bottom margin, and a 52-pixel header for the
-  initial renderer. The current 9x9 image is 312x352 pixels; a 5x5 image is 184x224.
-- Reserve identical extra gutters for row/column labels in every variant. Their
-  final dimensions are frozen in Phase 2. G variants draw labels there; baseline
+  initial renderer. Human-play/base images are 312x352 for 9x9 and 184x224 for 5x5.
+- Reserve identical extra gutters for row/column labels in every variant. Phase 2
+  fixed these at 24 extra pixels on the left and top (336x376 for 9x9, 208x248 for
+  5x5). G variants draw labels there; baseline
   variants leave them blank. This avoids moving or resizing the grid between
   variants. Final coordinate mappings must use the new screenshot dimensions.
 - Freeze font, palette, border widths, and RGB PNG output. Do not rescale screenshots
@@ -123,9 +125,9 @@ cells, expected solutions, setup moves, and success targets derived from hidden
 state are evaluator-only. The text-board oracle is a separately labeled condition
 and receives the true *visible* board, never the hidden layout.
 
-The current model interface receives `TaskSpec` and complete `StepResult` history.
-Before real inference, define an agent-facing projection that strips private
-instance fields and evaluator results from both. Merely putting answers in an
+The model interface uses `TaskSpec` and `StepResult` history. The implemented
+agent-facing projection strips private instance fields, evaluator results, and
+execution evidence from both before model calls. Merely putting answers in an
 `evaluation` field in YAML does not prevent leakage.
 
 Use `#` for hidden cells, `F` for flags, `.` for revealed zeros, and `1` through `8`
@@ -429,5 +431,6 @@ procedural generation proves absence of training-data contamination or that a
 reference solver trace is a minimum-action solution.
 
 All phases stay on `cameron/tasks-and-data`, with one cohesive commit per completed
-phase where practical. Stop after each phase and present changed files, validation
-evidence, and remaining dependencies for Cameron's approval before proceeding.
+phase where practical. At Cameron's request, a separate review agent now checks
+coverage and evidence at each phase checkpoint. Fix its blocking findings before
+proceeding and report approvals and outstanding dependencies to Cameron.
