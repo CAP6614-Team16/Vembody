@@ -8,7 +8,8 @@ from time import perf_counter
 from uuid import uuid4
 
 from .actions import ActionType
-from .errors import ActionValidationError, ModelParseError
+from .benchmark.labels import CertificationRequired
+from .errors import ActionValidationError, EpisodeDeadlineExceeded, ModelParseError
 from .evaluation.base import SuccessEvaluator
 from .execution.base import ActionExecutor
 from .logging.jsonl import JsonlLogger
@@ -74,7 +75,16 @@ class AgentLoop:
                 response = None
                 try:
                     model_history = (
-                        [replace(item, evaluation=None) for item in history]
+                        [
+                            replace(
+                                item,
+                                evaluation=None,
+                                execution=replace(item.execution, evidence={})
+                                if item.execution
+                                else None,
+                            )
+                            for item in history
+                        ]
                         if task.benchmark
                         else history
                     )
@@ -118,7 +128,24 @@ class AgentLoop:
                     break
 
                 try:
+                    if perf_counter() - started_clock >= task.timeout_seconds:
+                        self._record_step(history, result)
+                        termination = TerminationReason.TIMEOUT
+                        break
+                    deadline_setter = getattr(self.executor, "set_deadline", None)
+                    if deadline_setter is not None:
+                        deadline_setter(started_clock + task.timeout_seconds)
                     result.execution = self.executor.execute(parsed.action)
+                except EpisodeDeadlineExceeded as exc:
+                    result.error = str(exc)
+                    self._record_step(history, result)
+                    termination = TerminationReason.TIMEOUT
+                    break
+                except CertificationRequired as exc:
+                    result.error = str(exc)
+                    self._record_step(history, result)
+                    termination = TerminationReason.EVALUATION_ERROR
+                    break
                 except Exception as exc:
                     result.error = str(exc)
                     self._record_step(history, result)
@@ -130,7 +157,11 @@ class AgentLoop:
                     termination = TerminationReason.EXECUTION_ERROR
                     break
 
-                if parsed.action.type is ActionType.FINISH:
+                if result.execution.task_done and not result.execution.episode_done:
+                    evaluation = self.evaluator.evaluate(task, last_observation)
+                    result.evaluation = evaluation
+                    termination = TerminationReason.TASK_COMPLETE
+                elif parsed.action.type is ActionType.FINISH:
                     evaluation = self.evaluator.evaluate(task, last_observation)
                     result.evaluation = evaluation
                     termination = TerminationReason.FINISH_REQUESTED
@@ -151,6 +182,7 @@ class AgentLoop:
                 if (
                     parsed.action.type in {ActionType.FINISH, ActionType.FAIL}
                     or result.execution.episode_done
+                    or result.execution.task_done
                 ):
                     break
         finally:

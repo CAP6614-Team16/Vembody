@@ -156,12 +156,16 @@ def test_mixed_key_types_are_task_errors(tmp_path):
         write_task(tmp_path, data)
 
 
-def test_cli_rejects_unintegrated_benchmark(tmp_path):
+def test_cli_rejects_uncertified_evaluation_benchmark(tmp_path):
+    from vembody.benchmark.labels import CertificationRequired
     from vembody.cli import build_loop, build_parser
 
-    write_task(tmp_path)
+    task = write_task(tmp_path)
+    data = task_data()
+    data["benchmark"].update(split="evaluation", expected_state_hash=state_hash(prepare(task)))
+    write_task(tmp_path, data)
     args = build_parser().parse_args(["run", "--task", str(tmp_path / "task.yaml")])
-    with pytest.raises(ValueError, match="not integrated"):
+    with pytest.raises(CertificationRequired, match="certificates"):
         build_loop(args)
 
 
@@ -183,12 +187,15 @@ def test_loop_does_not_pass_private_task_or_evaluation_to_model(tmp_path):
             assert public.benchmark is None and public.minesweeper is None
             assert not public.mock_actions
             assert all(item.evaluation is None for item in history)
+            assert all(not item.execution.evidence for item in history if item.execution)
             return super().generate_action(public, observation, history)
 
     class PrivateEvaluationLogger(JsonlLogger):
         def write_step(self, result):
             super().write_step(result)
             result.evaluation = EvaluationResult(EvaluationStatus.UNKNOWN, "PRIVATE_SENTINEL")
+            if result.execution:
+                result.execution = replace(result.execution, evidence={"mines": "PRIVATE_SENTINEL"})
 
     model = SpyModel(
         [

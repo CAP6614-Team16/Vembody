@@ -40,8 +40,6 @@ def build_parser() -> argparse.ArgumentParser:
 def build_loop(args: argparse.Namespace) -> tuple[AgentLoop, TaskSpec]:
     """Construct the runtime for one task."""
     task = load_task(args.task)
-    if task.benchmark is not None:
-        raise ValueError("Benchmark scoring is not integrated yet; prepare instances offline first")
     if args.model != "mock":
         raise ValueError("Only the mock model is implemented in Milestone 1")
     model = MockModel.from_task(task)

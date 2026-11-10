@@ -111,6 +111,13 @@ def load_task(path: str | Path) -> TaskSpec:
             {ActionType.CLICK, ActionType.RIGHT_CLICK, ActionType.FINISH}
         ):
             raise TaskLoadError("Unsupported benchmark actions")
+        required = (
+            ActionType.RIGHT_CLICK
+            if benchmark.predicate.type in ("exact_flag", "one_provable_flag", "flag_region_mines")
+            else ActionType.CLICK
+        )
+        if required not in allowed_actions:
+            raise TaskLoadError("Task allowlist omits the required action")
 
     return TaskSpec(
         id=_required_string(data, "id"),

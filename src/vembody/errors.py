@@ -19,3 +19,7 @@ class ActionValidationError(VembodyError):
 
 class ExecutionError(VembodyError):
     """Raised when an executor cannot perform an action."""
+
+
+class EpisodeDeadlineExceeded(VembodyError):
+    """An episode expired before input could be dispatched."""
