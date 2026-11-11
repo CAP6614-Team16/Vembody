@@ -1,0 +1,151 @@
+{
+  "version": 1,
+  "split": "development",
+  "release_status": "uncertified_candidates",
+  "instances": [
+    {
+      "instance_id": "development-T1-01-001",
+      "template_id": "T1-01",
+      "path": "t1-01.yaml",
+      "state_hash": "04503fcaf4eb26c719823e7f13f4ff3b9686ca47d0e1cf6668f2bd7d8191ca92",
+      "certification_status": "pending",
+      "pending_checks": [
+        "whole-board guess-free proof",
+        "template difficulty",
+        "solver reference trace"
+      ]
+    },
+    {
+      "instance_id": "development-T1-02-001",
+      "template_id": "T1-02",
+      "path": "t1-02.yaml",
+      "state_hash": "86f142eae96d09362b4c53dee3d7d20a88aefb7a91f92db63d26c8add644a692",
+      "certification_status": "pending",
+      "pending_checks": [
+        "whole-board guess-free proof",
+        "template difficulty",
+        "solver reference trace"
+      ]
+    },
+    {
+      "instance_id": "development-T1-03-001",
+      "template_id": "T1-03",
+      "path": "t1-03.yaml",
+      "state_hash": "740380249d2a210c588af546b8eaa61fee13eff882ea92086a82515d1f2cdde1",
+      "certification_status": "pending",
+      "pending_checks": [
+        "whole-board guess-free proof",
+        "template difficulty",
+        "solver reference trace"
+      ]
+    },
+    {
+      "instance_id": "development-T1-04-001",
+      "template_id": "T1-04",
+      "path": "t1-04.yaml",
+      "state_hash": "3b104b4f3193f376333b538fd3e53ee4f1ca74f50bafce712d1113a89dedab06",
+      "certification_status": "pending",
+      "pending_checks": [
+        "whole-board guess-free proof",
+        "template difficulty",
+        "solver reference trace"
+      ]
+    },
+    {
+      "instance_id": "development-T2-01-001",
+      "template_id": "T2-01",
+      "path": "t2-01.yaml",
+      "state_hash": "3957c5a55e4d08ac2708998cde6f324c7137b565959594aa42c2fa1f273fa77b",
+      "certification_status": "pending",
+      "pending_checks": [
+        "whole-board guess-free proof",
+        "template difficulty",
+        "solver reference trace"
+      ]
+    },
+    {
+      "instance_id": "development-T2-02-001",
+      "template_id": "T2-02",
+      "path": "t2-02.yaml",
+      "state_hash": "595a351c32e65c94b2f5c8504d015436ebcbb753d8dac7d013cc96efc082ff6e",
+      "certification_status": "pending",
+      "pending_checks": [
+        "whole-board guess-free proof",
+        "template difficulty",
+        "solver reference trace"
+      ]
+    },
+    {
+      "instance_id": "development-T2-03-001",
+      "template_id": "T2-03",
+      "path": "t2-03.yaml",
+      "state_hash": "09b7fbadd4cfc3d1d1009fbf71a6535f49cb4fbf34e471c5f77eff0d51f8c0a7",
+      "certification_status": "pending",
+      "pending_checks": [
+        "whole-board guess-free proof",
+        "template difficulty",
+        "solver reference trace"
+      ]
+    },
+    {
+      "instance_id": "development-T2-04-001",
+      "template_id": "T2-04",
+      "path": "t2-04.yaml",
+      "state_hash": "68952dac78f2ceea26b38c4e2cea7215d121000b479c1d66e266d9faf62aca42",
+      "certification_status": "pending",
+      "pending_checks": [
+        "whole-board guess-free proof",
+        "template difficulty",
+        "solver reference trace"
+      ]
+    },
+    {
+      "instance_id": "development-T3-01-001",
+      "template_id": "T3-01",
+      "path": "t3-01.yaml",
+      "state_hash": "3dd33072652f13197ac270a800626ce1e3938038844be4e9f00cf7cb0ea31e67",
+      "certification_status": "pending",
+      "pending_checks": [
+        "whole-board guess-free proof",
+        "template difficulty",
+        "solver reference trace"
+      ]
+    },
+    {
+      "instance_id": "development-T3-02-001",
+      "template_id": "T3-02",
+      "path": "t3-02.yaml",
+      "state_hash": "0dde453d635735186cd50fa88ba1c660dcefb722d00656d9947fb8a1c1dd9f04",
+      "certification_status": "pending",
+      "pending_checks": [
+        "whole-board guess-free proof",
+        "template difficulty",
+        "solver reference trace"
+      ]
+    },
+    {
+      "instance_id": "development-T4-01-001",
+      "template_id": "T4-01",
+      "path": "t4-01.yaml",
+      "state_hash": "51c6c26f9814a71b09d4c79dd786590c7199dbd0e12380e54559b7e4220e4d37",
+      "certification_status": "pending",
+      "pending_checks": [
+        "whole-board guess-free proof",
+        "template difficulty",
+        "solver reference trace"
+      ]
+    },
+    {
+      "instance_id": "development-T4-02-001",
+      "template_id": "T4-02",
+      "path": "t4-02.yaml",
+      "state_hash": "b83c1020162e295039987f8163ca396a541bc95c600c40d4affb22aade72b51d",
+      "certification_status": "pending",
+      "pending_checks": [
+        "whole-board guess-free proof",
+        "template difficulty",
+        "solver reference trace"
+      ]
+    }
+  ]
+}

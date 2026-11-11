@@ -1,0 +1,3 @@
+# Matches the committed candidate image manifest; update assets when these change.
+Pillow==13.0.0
+PyYAML==6.0.3

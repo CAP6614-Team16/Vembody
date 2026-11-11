@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass, is_dataclass
+from dataclasses import dataclass, field, fields, is_dataclass
 from enum import Enum
 from typing import Any
 
@@ -20,6 +20,8 @@ class TerminationReason(str, Enum):
     EXECUTION_ERROR = "execution_error"
     CAPTURE_ERROR = "capture_error"
     GAME_OVER = "game_over"
+    TASK_COMPLETE = "task_complete"
+    EVALUATION_ERROR = "evaluation_error"
     TIMEOUT = "timeout"
     ACTION_LIMIT = "action_limit"
 
@@ -41,6 +43,8 @@ class ExecutionResult:
     message: str
     elapsed_seconds: float = 0.0
     episode_done: bool = False
+    task_done: bool = False
+    evidence: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -88,7 +92,7 @@ def to_jsonable(value: Any) -> Any:
     if isinstance(value, Enum):
         return value.value
     if is_dataclass(value):
-        return {key: to_jsonable(item) for key, item in asdict(value).items()}
+        return {item.name: to_jsonable(getattr(value, item.name)) for item in fields(value)}
     if isinstance(value, dict):
         return {key: to_jsonable(item) for key, item in value.items()}
     if isinstance(value, (list, tuple)):

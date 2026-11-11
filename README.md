@@ -6,7 +6,7 @@ A local vision-language agent for autonomous computer control through screen per
 
 Install with Python 3.10 or newer:
 
-    python -m pip install -e ".[test]"
+    python -m pip install -r requirements/benchmark-runtime.txt -e ".[test]"
 
 Run the safe mock demonstration:
 
@@ -29,3 +29,27 @@ Run the mock model on the Minesweeper task (it replays the actions listed in the
 Screenshots for every step are saved next to the log under `screenshots/<run_id>/`.
 
 The game (`src/vembody/minesweeper/`) is a normal standalone Minesweeper. The agent harness (`src/vembody/sandbox.py`) only uses the same two things a player has, the window screenshot and pixel mouse clicks. It reads the true game state only to end the episode and grade it.
+
+The twelve-task development benchmark now has validated resets, task predicates,
+and separate development/demo screenshot assets. Its instances are uncertified;
+logical tasks require a solver provider and evaluation releases remain blocked.
+See [the handoff and coverage table](docs/benchmark-handoff.md),
+[the benchmark design](docs/benchmark-design.md), and
+[the task guide](tasks/benchmark/README.md).
+
+After installing the pinned image runtime and development tools:
+
+    python -m pip install -r requirements/benchmark-runtime.txt -e ".[test,lint]"
+    python scripts/check_benchmark.py --output artifacts/benchmark-check-01
+
+Use a fresh output directory for each check. Passing this check establishes the
+development infrastructure; its report explicitly records `evaluation_ready: false`.
+
+Run the automated tests with:
+
+    python scripts/run_tests.py
+
+This runs the full pytest suite with a fresh project-local temporary directory
+and no shared pytest cache, avoiding Windows temporary-folder permission conflicts.
+Earlier run directories are deleted first so they stop accumulating; pass
+`--keep-temp` to keep them.

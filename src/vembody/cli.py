@@ -4,8 +4,11 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 
+from .benchmark.labels import CertificationRequired
+from .errors import VembodyError
 from .evaluation.base import NullEvaluator
 from .execution.desktop import DesktopExecutor
 from .execution.dry_run import DryRunExecutor
@@ -98,9 +101,15 @@ def main(argv: list[str] | None = None) -> int:
     """Parse arguments and dispatch the selected command."""
     parser = build_parser()
     args = parser.parse_args(argv)
-    if args.command == "run":
-        return run_command(args)
-    if args.command == "play":
-        return play_command(args)
+    try:
+        if args.command == "run":
+            return run_command(args)
+        if args.command == "play":
+            return play_command(args)
+    except (VembodyError, CertificationRequired) as exc:
+        # Expected refusals, such as an invalid task or a blocked benchmark split,
+        # report one line instead of a traceback.
+        print(f"error: {type(exc).__name__}: {exc}", file=sys.stderr)
+        return 1
     parser.error("Unknown command")
     return 2

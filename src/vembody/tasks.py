@@ -3,13 +3,16 @@
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass, field
+import math
+import re
+from dataclasses import dataclass, field, replace
 from pathlib import Path
 from typing import Any
 
 import yaml
 
 from .actions import ActionType
+from .benchmark.spec import BenchmarkSpec, board_settings, parse_benchmark
 from .errors import TaskLoadError
 
 
@@ -29,6 +32,7 @@ class TaskSpec:
     screenshot_path: str | None = None
     mock_actions: tuple[dict[str, Any], ...] = field(default_factory=tuple)
     minesweeper: dict[str, int] | None = None
+    benchmark: BenchmarkSpec | None = None
 
 
 def _read_data(path: Path) -> dict[str, Any]:
@@ -90,8 +94,33 @@ def load_task(path: str | Path) -> TaskSpec:
         isinstance(timeout_seconds, bool)
         or not isinstance(timeout_seconds, (int, float))
         or timeout_seconds <= 0
+        or not math.isfinite(timeout_seconds)
     ):
         raise TaskLoadError("timeout_seconds must be positive")
+
+    board = data.get("minesweeper")
+    benchmark = None
+    if "benchmark" in data:
+        if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,127}", _required_string(data, "id")):
+            raise TaskLoadError("Benchmark instance ID must be a safe filename component")
+        if data.get("environment") != "minesweeper":
+            raise TaskLoadError("Benchmark requires the minesweeper environment")
+        board = board_settings(board)
+        benchmark = parse_benchmark(data["benchmark"], board)
+        expected = (5, 5, 3) if benchmark.template_id == "T4-01" else (9, 9, 10)
+        if (board["rows"], board["cols"], board["mines"]) != expected:
+            raise TaskLoadError("Board settings do not match benchmark template")
+        if not allowed_actions or not set(allowed_actions).issubset(
+            {ActionType.CLICK, ActionType.RIGHT_CLICK, ActionType.FINISH}
+        ):
+            raise TaskLoadError("Unsupported benchmark actions")
+        required = (
+            ActionType.RIGHT_CLICK
+            if benchmark.predicate.type in ("exact_flag", "one_provable_flag", "flag_region_mines")
+            else ActionType.CLICK
+        )
+        if required not in allowed_actions:
+            raise TaskLoadError("Task allowlist omits the required action")
 
     return TaskSpec(
         id=_required_string(data, "id"),
@@ -105,5 +134,30 @@ def load_task(path: str | Path) -> TaskSpec:
         allowed_actions=allowed_actions,
         screenshot_path=_parse_screenshot_path(data),
         mock_actions=_parse_mock_actions(data),
-        minesweeper=data.get("minesweeper"),
+        minesweeper=board,
+        benchmark=benchmark,
+    )
+
+
+def load_task_set(paths: list[str | Path]) -> list[TaskSpec]:
+    """Load a collection and reject ambiguous duplicate instance IDs."""
+    tasks = [load_task(path) for path in paths]
+    ids = [task.id for task in tasks]
+    if len(ids) != len(set(ids)):
+        raise TaskLoadError("Duplicate task instance IDs")
+    return tasks
+
+
+def agent_task(task: TaskSpec) -> TaskSpec:
+    """Expose only public task instructions to an action-proposing model."""
+    if task.benchmark is None:
+        return task
+    return replace(
+        task,
+        benchmark=None,
+        minesweeper=None,
+        mock_actions=(),
+        screenshot_path=None,
+        reset_instructions="A prepared board is shown.",
+        success_description="Complete the instruction using the visible board.",
     )
