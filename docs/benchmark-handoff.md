@@ -79,7 +79,7 @@ From the repository root, using an existing Python 3.11 environment:
 ```powershell
 python -m venv .venv
 .venv\Scripts\python.exe -m pip install -r requirements/benchmark-runtime.txt -e ".[test,lint]"
-.venv\Scripts\python.exe -m pytest -q
+.venv\Scripts\python.exe scripts/run_tests.py
 .venv\Scripts\ruff.exe check src tests scripts
 .venv\Scripts\ruff.exe format --check src tests scripts
 .venv\Scripts\python.exe scripts/check_benchmark.py --output artifacts/benchmark-review-01
@@ -92,7 +92,16 @@ virtual-environment executable paths. The committed image manifest records Pytho
 `requirements/benchmark-runtime.txt`. The checker compares actual pixels and
 rejects renderer differences instead of assuming cross-platform equality.
 
-Use a fresh output directory per check because the JSONL logger appends. The
+The test runner creates a unique ignored `.pytest-tmp-*` directory inside
+the project for each invocation and disables pytest's shared cache. This avoids
+Windows `WinError 5` when the system `pytest-of-*` folder or `.pytest_cache` was
+created under a different execution context. It runs the same full suite and
+returns pytest's exit code. Test files stay in that run directory for inspection.
+Use this runner instead of plain pytest on this machine; it does not repair or
+delete the inaccessible shared directories. Additional pytest arguments may be
+appended, such as `scripts/run_tests.py tests/test_loop.py -v`.
+
+Use a fresh output directory per benchmark check because the JSONL logger appends. The
 checker saves `report.json`, per-instance logs, and screenshots under that output.
 It currently reports:
 

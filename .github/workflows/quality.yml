@@ -30,4 +30,4 @@ jobs:
       - name: Run tests
         env:
           PYTEST_DISABLE_PLUGIN_AUTOLOAD: "1"
-        run: pytest
+        run: python scripts/run_tests.py

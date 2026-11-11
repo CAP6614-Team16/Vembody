@@ -44,3 +44,10 @@ After installing the pinned image runtime and development tools:
 
 Use a fresh output directory for each check. Passing this check establishes the
 development infrastructure; its report explicitly records `evaluation_ready: false`.
+
+Run the automated tests with:
+
+    python scripts/run_tests.py
+
+This runs the full pytest suite with a fresh project-local temporary directory
+and no shared pytest cache, avoiding Windows temporary-folder permission conflicts.
