@@ -1,0 +1,29 @@
+# Candidate only: solver certification is pending.
+id: demonstration-T2-01-001
+name: T2-01 demonstration candidate
+instruction: Reveal one hidden cell that is guaranteed safe.
+environment: minesweeper
+reset_instructions: Reconstruct fixed opening.
+success_description: See versioned benchmark predicate.
+max_steps: 3
+timeout_seconds: 120
+allowed_actions:
+- click
+- right_click
+- finish
+minesweeper:
+  rows: 9
+  cols: 9
+  mines: 10
+  seed: 10086
+benchmark:
+  version: 1
+  template_id: T2-01
+  split: demonstration
+  opening:
+  - 4
+  - 6
+  setup: []
+  predicate:
+    type: one_provable_reveal
+  expected_state_hash: b9bea92a287e6f5d60468440b2a05a7aacd688ba6bbf3d6b0c1c49f83f383010

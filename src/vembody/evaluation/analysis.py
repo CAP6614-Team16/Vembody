@@ -73,9 +73,9 @@ def _fmt(value: Any, percent: bool = False) -> str:
 def summary_markdown(summary: list[dict[str, Any]]) -> str:
     """Compact Markdown table for the README or a status update."""
     lines = [
-        "| Experiment | Model | N | Success (95% CI) | Progress (95% CI) | Mine hit | "
-        "Invalid | Recovery | Median latency (s) |",
-        "|---|---|---|---|---|---|---|---|---|",
+        "| Experiment | Model | Scored | Infra errors | Success (95% CI) | Progress (95% CI) | "
+        "Mine hit | Invalid | Recovery | Median latency (s) |",
+        "|---|---|---|---|---|---|---|---|---|---|",
     ]
     for row in summary:
         success = (
@@ -87,7 +87,8 @@ def summary_markdown(summary: list[dict[str, Any]]) -> str:
             f"[{_fmt(row['progress_ci_low'], True)}, {_fmt(row['progress_ci_high'], True)}]"
         )
         lines.append(
-            f"| {row['experiment']} | {row['model']} | {row['episodes']} | {success} | "
+            f"| {row['experiment']} | {row['model']} | {row['scored_episodes']} | "
+            f"{row['infrastructure_failures']} | {success} | "
             f"{progress} | {_fmt(row['mine_hit_rate'], True)} | "
             f"{_fmt(row['invalid_action_rate'], True)} | {_fmt(row['recovery_rate'], True)} | "
             f"{_fmt(row['latency_median_mean'])} |"
@@ -177,8 +178,8 @@ def plot_summary(summary: list[dict[str, Any]], out: Path) -> list[Path]:
             "success_rate.png",
             "success_rate",
             "success_ci",
-            "Win rate by configuration",
-            "Episodes won (95% Wilson CI)",
+            "Task success by configuration",
+            "Tasks completed (95% Wilson CI)",
             True,
         ),
         (

@@ -4,22 +4,23 @@
 \section{Experimental Design}
 
 \paragraph{Environment and episodes.}
-Each episode is a seeded Minesweeper board rendered by our sandbox. The agent receives
+Each episode is a prepared Minesweeper task rendered by our sandbox. The agent receives
 only the window screenshot and issues normalized left or right clicks, which the sandbox
 converts to pixels. The sandbox reads the true game state only to end the episode and to
-grade it; this state is never shown to the model. An episode ends when the game is won or
+grade it; private counters and scoring evidence are removed from model history.
+An episode ends when the task predicate is satisfied, when the game is won or
 lost, when the model emits \texttt{finish} or \texttt{fail}, on an unparseable or disallowed
 action, or when the task's step or time limit is reached.
 
 \paragraph{Harness and reproducibility.}
 An experiment is one configuration (model, prompt, memory settings) run over every
-benchmark task for $N$ trials. In trial $k$ the board seed is the task seed plus $k$, so
-trials cover different boards while every configuration sees the same boards. Model
+benchmark task for $N$ trials. Benchmark instances retain their frozen starts and
+checksums across trials; only legacy tasks optionally vary board seeds. Model
 sampling is seeded per trial. For every experiment the harness records a manifest with the
 full configuration, the git commit, the hash of every task file, and the platform. It also
 saves the complete step log (raw model output, parsed action, execution result) and the
 exact screenshot given to the model at each step. We report only experiments run from a
-clean commit.
+clean commit. Interrupted experiment directories cannot be reused implicitly.
 
 \paragraph{Baselines.}
 We bracket the agent's performance with three reference policies:
@@ -28,8 +29,8 @@ We bracket the agent's performance with three reference policies:
 and (iii) a \emph{perfect-perception solver}, which reads the visible board (revealed
 numbers and flags, never the mine locations), applies single-cell deduction, and guesses
 when stuck. The random policies are a floor for clicking without reasoning; the solver is
-a ceiling for simple reasoning with perfect perception, and also confirms that each task
-can be solved within its step limit. Our main baseline is the pretrained VLM with the same
+a reference for simple reasoning with perfect perception; it does not certify the
+benchmark or provide logical labels. Our main baseline is the pretrained VLM with the same
 prompt and no memory, compared against the full Vembody agent.
 
 \paragraph{Ablations.}
@@ -40,15 +41,18 @@ and budgeted crop selection. All other settings, the tasks, and the seeds stay t
 \section{Evaluation}
 
 \paragraph{Metrics.}
-The primary metric is \emph{success rate}, the fraction of episodes in which every safe
-cell is revealed without revealing a mine. We expect an unmodified VLM to rarely win, so we
+The primary metric is \emph{success rate}, the fraction of scored episodes satisfying
+their independent task predicate; full-game tasks require a board win. We
 also report \emph{progress}: the fraction of safe cells revealed when the episode ends.
 Efficiency is measured by steps per episode and wall-clock time. Action validity is the
 \emph{invalid-action rate}, the fraction of model responses that fail parsing or
 validation. We also count \emph{ineffective actions}, executed clicks that did not change
 the board, and separately \emph{off-grid clicks}, which isolate grounding errors. A
 \emph{setback} is an invalid or ineffective step. It counts as \emph{recovered} when the
-next step changes the board, and \emph{recovery rate} is recoveries divided by setbacks.
+next cell action changes the board without resetting, losing, or a recorded scoring
+violation; \emph{recovery rate} is recoveries divided by setbacks.
+Terminal requests do not count as ineffective inputs. Infrastructure errors are
+reported separately and excluded from the agent-success denominator.
 Finally, we report median and 95th-percentile model latency per step and, where the model
 runtime exposes them, prompt tokens and images per step as a measure of context usage.
 

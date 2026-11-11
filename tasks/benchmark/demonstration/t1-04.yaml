@@ -1,0 +1,36 @@
+# Candidate only: solver certification is pending.
+id: demonstration-T1-04-001
+name: T1-04 demonstration candidate
+instruction: Reveal the top-right corner cell.
+environment: minesweeper
+reset_instructions: Reconstruct fixed opening.
+success_description: See versioned benchmark predicate.
+max_steps: 3
+timeout_seconds: 120
+allowed_actions:
+- click
+- right_click
+- finish
+minesweeper:
+  rows: 9
+  cols: 9
+  mines: 10
+  seed: 10085
+benchmark:
+  version: 1
+  template_id: T1-04
+  split: demonstration
+  opening:
+  - 4
+  - 5
+  setup: []
+  predicate:
+    type: exact_reveal
+    target:
+    - 0
+    - 8
+  expected_state_hash: 0e53bc75f02c2a48163728aeb7d24ece72f064f228ced2a10d4ca191f06c74ad
+mock_actions:
+- type: click
+  x: 0.9194029850746268
+  y: 0.24533333333333332

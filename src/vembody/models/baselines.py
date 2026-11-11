@@ -18,7 +18,7 @@ from typing import Any
 
 from PIL import Image
 
-from ..minesweeper.screen import BACKGROUND, CELL, HEADER, MARGIN, MinesweeperScreen
+from ..minesweeper.screen import BACKGROUND, CELL, MinesweeperScreen
 from ..observations import Observation
 from ..results import StepResult
 from ..tasks import TaskSpec
@@ -43,13 +43,21 @@ class _Geometry:
         board = task.minesweeper or {}
         self.rows = board.get("rows", 9)
         self.cols = board.get("cols", 9)
-        self.width = 2 * MARGIN + self.cols * CELL
-        self.height = HEADER + MARGIN + self.rows * CELL
+        # Build only the public layout; the policy never reads this empty game's state.
+        self.layout = MinesweeperScreen(
+            rows=self.rows,
+            cols=self.cols,
+            mines=board.get("mines", 10),
+            benchmark=task.benchmark is not None,
+        )
+        self.width = self.layout.width
+        self.height = self.layout.height
+        self.left = self.layout.grid_left
+        self.top = self.layout.grid_top
 
     def cell_center(self, cell: Cell) -> tuple[float, float]:
         """Normalized coordinates of a cell's center."""
-        px = MARGIN + cell[1] * CELL + CELL // 2
-        py = HEADER + cell[0] * CELL + CELL // 2
+        px, py = self.layout.cell_center(cell)
         return px / (self.width - 1), py / (self.height - 1)
 
     def click(self, cell: Cell, kind: str = "click") -> dict[str, Any]:
@@ -80,14 +88,18 @@ class RandomCellModel:
         self.rng = random.Random(seed)
 
     def hidden_cells(self, screenshot_path: str) -> list[Cell]:
-        """Hidden cells keep the raised gray face; opened cells are lighter."""
+        """Find raised gray cells whose centers have no flag."""
         with Image.open(screenshot_path) as image:
             pixels = image.convert("RGB")
             return [
                 (row, col)
                 for row in range(self.geometry.rows)
                 for col in range(self.geometry.cols)
-                if pixels.getpixel((MARGIN + col * CELL + 5, HEADER + row * CELL + 5)) == BACKGROUND
+                if pixels.getpixel(
+                    (self.geometry.left + col * CELL + 5, self.geometry.top + row * CELL + 5)
+                )
+                == BACKGROUND
+                and pixels.getpixel(self.geometry.layout.cell_center((row, col))) == BACKGROUND
             ]
 
     def generate_action(
