@@ -148,6 +148,69 @@ def load_task_set(paths: list[str | Path]) -> list[TaskSpec]:
     return tasks
 
 
+def _manifest_paths(path: Path) -> list[Path]:
+    """Resolve a split manifest's task files in their recorded order."""
+    data = _read_data(path)
+    instances = data.get("instances")
+    if not isinstance(instances, list) or not instances:
+        raise TaskLoadError(f"Task manifest has no instances: {path}")
+
+    paths = []
+    for instance in instances:
+        name = instance.get("path") if isinstance(instance, dict) else None
+        if not isinstance(name, str) or not name:
+            raise TaskLoadError(f"Manifest instance requires a task path: {path}")
+
+        target = path.parent / name
+        if not target.resolve().is_relative_to(path.parent.resolve()) or not target.is_file():
+            raise TaskLoadError(f"Manifest task must exist inside its split: {name}")
+
+        if target.suffix.lower() not in {".yaml", ".yml", ".json"}:
+            raise TaskLoadError(f"Unsupported manifest task file: {name}")
+
+        paths.append(target)
+
+    return paths
+
+
+def discover_task_paths(entries: list[str], split: str = "development") -> list[str]:
+    """Expand task files, manifests, or folders without mixing benchmark splits."""
+    splits = ("development", "demonstration", "evaluation")
+    if split not in splits:
+        raise TaskLoadError(f"Unknown benchmark split: {split}")
+
+    paths: list[Path] = []
+    for entry in entries:
+        path = Path(entry)
+        if path.is_dir():
+            if any((path / name).is_dir() for name in splits):
+                path = path / split
+
+            manifest = path / "manifest.json"
+            if manifest.is_file():
+                paths.extend(_manifest_paths(manifest))
+            elif path.is_dir():
+                paths.extend(
+                    p
+                    for p in sorted(path.iterdir())
+                    if p.is_file() and p.suffix.lower() in {".yaml", ".yml", ".json"}
+                )
+            else:
+                raise TaskLoadError(f"Benchmark split does not exist: {path}")
+
+        elif path.name == "manifest.json":
+            paths.extend(_manifest_paths(path))
+        elif path.is_file() and path.suffix.lower() in {".yaml", ".yml", ".json"}:
+            paths.append(path)
+        else:
+            raise TaskLoadError(f"Task file or folder does not exist: {path}")
+
+    if not paths:
+        raise TaskLoadError("No task files found")
+
+    return [str(path) for path in paths]
+
+
 def agent_task(task: TaskSpec) -> TaskSpec:
     """Expose only public task instructions to an action-proposing model."""
     if task.benchmark is None:

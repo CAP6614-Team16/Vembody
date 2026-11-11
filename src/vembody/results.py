@@ -45,6 +45,8 @@ class ExecutionResult:
     episode_done: bool = False
     task_done: bool = False
     evidence: dict[str, Any] = field(default_factory=dict)
+    # Evaluation-only counters; stripped alongside evidence from model history.
+    details: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -68,6 +70,8 @@ class StepResult:
     execution: ExecutionResult | None = None
     evaluation: EvaluationResult | None = None
     error: str | None = None
+    # Provider metadata such as token counts, copied from ModelResponse.metadata
+    model_metadata: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass

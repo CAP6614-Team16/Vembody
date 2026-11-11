@@ -64,6 +64,18 @@ class MinesweeperScreen:
         top = (HEADER - FACE) // 2
         self.face = (left, top, left + FACE - 1, top + FACE - 1)
 
+    def locate(self, px: int, py: int) -> tuple[str, tuple[int, int] | None]:
+        """Identify a permitted cell, human-play reset button, or off-target pixel."""
+        cell = self.cell_at(px, py)
+        if cell is not None:
+            return "cell", cell
+
+        left, top, right, bottom = self.face
+        if not self.benchmark and left <= px <= right and top <= py <= bottom:
+            return "face", None
+
+        return "none", None
+
     def click(self, px: int, py: int, button: str) -> None:
         """Handle one mouse click; button is 'left' or 'right'."""
         if self.benchmark:
@@ -78,20 +90,19 @@ class MinesweeperScreen:
             else:
                 raise ValueError("Unknown mouse button")
             return
-        left, top, right, bottom = self.face
-        if button == "left" and left <= px <= right and top <= py <= bottom:
+
+        target, cell = self.locate(px, py)
+        if target == "face" and button == "left":
             self.game = Minesweeper(self.rows, self.cols, self.mines, self.seed)
             return
 
-        # Convert the pixel to a grid cell; clicks outside the grid do nothing
-        row = (py - HEADER) // CELL
-        col = (px - MARGIN) // CELL
-        if px < MARGIN or py < HEADER or row >= self.rows or col >= self.cols:
+        # Clicks outside the grid do nothing
+        if target != "cell":
             return
         if button == "left":
-            self.game.reveal((row, col))
+            self.game.reveal(cell)
         else:
-            self.game.toggle_flag((row, col))
+            self.game.toggle_flag(cell)
 
     def cell_center(self, cell: tuple[int, int]) -> tuple[int, int]:
         row, col = cell

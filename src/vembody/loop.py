@@ -73,41 +73,35 @@ class AgentLoop:
 
                 model_started = perf_counter()
                 response = None
+                result = StepResult(observation=observation)
                 try:
-                    model_history = (
-                        [
-                            replace(
-                                item,
-                                evaluation=None,
-                                execution=replace(item.execution, evidence={})
-                                if item.execution
-                                else None,
-                            )
-                            for item in history
-                        ]
-                        if task.benchmark
-                        else history
-                    )
+                    # Keep private grading channels in logs, including on legacy tasks.
+                    model_history = [
+                        replace(
+                            item,
+                            evaluation=None,
+                            execution=replace(item.execution, evidence={}, details={})
+                            if item.execution
+                            else None,
+                        )
+                        for item in history
+                    ]
                     response = self.model.generate_action(
                         agent_task(task), observation, model_history
                     )
-                    parsed = parse_model_response(response.raw_text)
-                    result = StepResult(
-                        observation=observation,
-                        raw_model_response=response.raw_text,
-                        action=parsed.action,
-                        model_elapsed_seconds=max(
-                            response.elapsed_seconds, perf_counter() - model_started
-                        ),
+                    result.raw_model_response = response.raw_text
+                    result.model_metadata = dict(response.metadata)
+                    result.model_elapsed_seconds = max(
+                        response.elapsed_seconds, perf_counter() - model_started
                     )
+                    parsed = parse_model_response(response.raw_text)
+                    result.action = parsed.action
                     validate_action(parsed.action, self.policy)
                 except ModelParseError as exc:
-                    result = StepResult(
-                        observation=observation,
-                        raw_model_response=response.raw_text if response is not None else None,
-                        model_elapsed_seconds=perf_counter() - model_started,
-                        parse_error=str(exc),
+                    result.model_elapsed_seconds = max(
+                        result.model_elapsed_seconds, perf_counter() - model_started
                     )
+                    result.parse_error = str(exc)
                     self._record_step(history, result)
                     termination = TerminationReason.PARSE_ERROR
                     break
@@ -117,12 +111,10 @@ class AgentLoop:
                     termination = TerminationReason.VALIDATION_ERROR
                     break
                 except Exception as exc:
-                    result = StepResult(
-                        observation=observation,
-                        raw_model_response=response.raw_text if response is not None else None,
-                        model_elapsed_seconds=perf_counter() - model_started,
-                        error=str(exc),
+                    result.model_elapsed_seconds = max(
+                        result.model_elapsed_seconds, perf_counter() - model_started
                     )
+                    result.error = str(exc)
                     self._record_step(history, result)
                     termination = TerminationReason.MODEL_FAILURE
                     break

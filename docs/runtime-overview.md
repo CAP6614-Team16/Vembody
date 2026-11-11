@@ -2,18 +2,24 @@
 
 - `python -m vembody run`: starts one bounded task episode.
 - `--task`: selects the YAML or JSON task file loaded by `src/vembody/tasks.py`.
-- `--model`: selects the action-proposing model, currently `mock` from `src/vembody/models/mock.py`.
+- `--model`: selects `mock`, `random`, `random-cell`, or `solver` through `models/registry.py`.
 - `--executor`: selects how actions are applied, currently `dry-run` from `src/vembody/execution/dry_run.py`.
+- `python -m vembody eval`: runs every task for N trials as one experiment under `runs/<name>/` (see `docs/evaluation.md`).
+- `eval --tasks tasks/benchmark --split development`: selects that split's manifest; frozen board starts remain unchanged across trials.
+- `eval --name`: requires a fresh output folder, including after an interrupted experiment.
+- `python -m vembody analyze`: compares experiment folders and writes tables and plots.
 - `python -m vembody play`: serves a playable minesweeper game in the browser.
 - `minesweeper/game.py`: Minesweeper rules with seeded, first-click-safe mines, flood fill, and chording.
 - `minesweeper/screen.py`: draws the game window and maps pixel clicks to cells, the face button, or nothing.
 - `minesweeper/webui.py`: standard-library HTTP server that shows the screen and forwards browser clicks.
-- `sandbox.py`: the agent harness; saves screenshots, converts normalized clicks to pixels, ends the episode on win or loss, and grades from the true game state.
+- `sandbox.py`: the agent harness; saves screenshots, converts normalized clicks to pixels, ends the episode on win or loss, grades from the true game state, and records per-click board progress for evaluation.
 - `tasks.py`: loads task instructions, limits, allowed actions, mock action sequences, and minesweeper board settings.
 - `observations.py`: defines the typed observation passed to the model.
 - `perception/file.py`: provides deterministic observations from an optional screenshot path.
 - `models/base.py`: defines the interface every future vision-language model must implement.
 - `models/mock.py`: returns the task's predefined actions without model inference.
+- `models/baselines.py`: reference policies (random click, random hidden cell, perfect-perception solver).
+- `models/registry.py`: builds a model by name for `run` and `eval`.
 - `actions.py`: defines the typed, allowlisted action schema and serialization helpers.
 - `parsing.py`: converts one model JSON response into a validated typed action.
 - `validation.py`: enforces task permissions, normalized coordinates, and safety limits.
@@ -21,7 +27,11 @@
 - `execution/dry_run.py`: records validated actions without controlling the computer.
 - `execution/desktop.py`: reserves the boundary for future live keyboard and mouse input.
 - `loop.py`: orchestrates observation, model response, parsing, validation, execution, and termination.
+- `loop.py` model history: omits private grading data while preserving usage metadata in valid and malformed response logs.
 - `evaluation/base.py`: defines independent task-success evaluation; the current evaluator returns `unknown`.
+- `evaluation/harness.py`: runs tasks x trials, records the manifest, per-episode logs, and metric rows.
+- `evaluation/metrics.py`: per-episode metrics and aggregate statistics with confidence intervals.
+- `evaluation/analysis.py`: merges experiments into CSV/Markdown tables and plots.
 - `results.py`: stores typed step, episode, execution, and evaluation results.
 - `logging/jsonl.py`: writes one JSONL record for each step and one final episode summary.
 
