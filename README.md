@@ -30,6 +30,25 @@ Screenshots for every step are saved next to the log under `screenshots/<run_id>
 
 The game (`src/vembody/minesweeper/`) is a normal standalone Minesweeper. The agent harness (`src/vembody/sandbox.py`) only uses the same two things a player has, the window screenshot and pixel mouse clicks. It reads the true game state only to end the episode and grade it.
 
+## Experiments
+
+Install the plotting extra once:
+
+    python -m pip install -r requirements/benchmark-runtime.txt -e ".[test,analysis]"
+
+Run each configuration as a named experiment, then compare them:
+
+    python -m vembody eval --tasks tasks/minesweeper-example.yaml --model random-cell --trials 20 --vary-seeds --name random-cell
+    python -m vembody eval --tasks tasks/minesweeper-example.yaml --model solver --trials 20 --vary-seeds --name solver
+    python -m vembody analyze runs/random-cell runs/solver --out results/
+
+See `docs/evaluation.md` for metric definitions, baselines, and the ablation protocol.
+
+Benchmark folders use the selected split manifest (`--split development` by default); starts stay frozen across trials, and logical tasks still require their label provider.
+
+    python -m vembody eval --tasks tasks/benchmark/development/t1-01.yaml --model mock --trials 3 --name grounding-smoke
+## Development benchmark
+
 The twelve-task development benchmark now has validated resets, task predicates,
 and separate development/demo screenshot assets. Its instances are uncertified;
 logical tasks require a solver provider and evaluation releases remain blocked.
