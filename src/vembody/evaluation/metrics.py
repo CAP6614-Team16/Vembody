@@ -15,6 +15,7 @@ from datetime import datetime
 from typing import Any
 
 TOKEN_KEYS = ("prompt_tokens", "completion_tokens", "total_tokens", "image_count")
+INFRASTRUCTURE_ERRORS = {"capture_error", "execution_error", "evaluation_error"}
 
 
 def _percentile(values: list[float], q: float) -> float | None:
@@ -31,25 +32,43 @@ def _is_invalid(step: dict[str, Any]) -> bool:
     return bool(step.get("parse_error") or step.get("validation_error"))
 
 
+def _is_board_input(step: dict[str, Any]) -> bool:
+    """Exclude terminal requests and other actions that send no game input."""
+    return (step.get("action") or {}).get("type") in {"click", "right_click"}
+
+
 def _is_ineffective(step: dict[str, Any]) -> bool:
     """An executed action that did not change the board."""
     execution = step.get("execution") or {}
     details = execution.get("details") or {}
-    return bool(execution.get("succeeded")) and details.get("board_changed") is False
+    return (
+        _is_board_input(step)
+        and bool(execution.get("succeeded"))
+        and details.get("board_changed") is False
+    )
 
 
 def _is_effective(step: dict[str, Any]) -> bool:
     execution = step.get("execution") or {}
     details = execution.get("details") or {}
-    return bool(execution.get("succeeded")) and details.get("board_changed") is True
+    evidence = execution.get("evidence") or {}
+    return (
+        _is_board_input(step)
+        and bool(execution.get("succeeded"))
+        and details.get("board_changed") is True
+        and not details.get("reset")
+        and (details.get("board") or {}).get("status") != "lost"
+        and not evidence.get("task_violation")
+        and evidence.get("logical_correct") is not False
+    )
 
 
 def recovery_counts(steps: list[dict[str, Any]]) -> tuple[int, int]:
     """Count (setbacks, recoveries).
 
     A setback is a step whose action was invalid or executed without changing the board.
-    It is recovered when the very next step changes the board. A setback on the final
-    step cannot be recovered and is still counted.
+    Recovery requires the next cell action to change the board without a reset,
+    mine loss, or recorded scoring violation. Terminal requests are not setbacks.
     """
     setbacks = recoveries = 0
     for index, step in enumerate(steps):
@@ -88,7 +107,9 @@ def episode_metrics(
     action executed.
     """
     steps = episode.get("steps", [])
-    executed = [s for s in steps if (s.get("execution") or {}).get("succeeded")]
+    executed = [
+        s for s in steps if _is_board_input(s) and (s.get("execution") or {}).get("succeeded")
+    ]
     details = [(s.get("execution") or {}).get("details") or {} for s in executed]
     latencies = [float(s.get("model_elapsed_seconds") or 0.0) for s in steps]
     invalid = sum(_is_invalid(s) for s in steps)
@@ -100,6 +121,7 @@ def episode_metrics(
         "task_id": episode.get("task_id"),
         "termination_reason": episode.get("termination_reason"),
         "evaluation_status": status,
+        "infrastructure_failure": episode.get("termination_reason") in INFRASTRUCTURE_ERRORS,
         "success": status == "success",
         "steps": len(steps),
         "actions_executed": len(executed),
@@ -170,6 +192,15 @@ def _mean(values: list[Any]) -> float | None:
 
 def aggregate(rows: list[dict[str, Any]]) -> dict[str, Any]:
     """Summarize a group of episode rows (one configuration, or one configuration x task)."""
+    total = len(rows)
+    termination_reasons = dict(Counter(row.get("termination_reason") for row in rows))
+    rows = [
+        row
+        for row in rows
+        if not row.get(
+            "infrastructure_failure", row.get("termination_reason") in INFRASTRUCTURE_ERRORS
+        )
+    ]
     n = len(rows)
     wins = sum(bool(r.get("success")) for r in rows)
     progress = [r["progress"] for r in rows if isinstance(r.get("progress"), (int, float))]
@@ -179,7 +210,9 @@ def aggregate(rows: list[dict[str, Any]]) -> dict[str, Any]:
     success_low, success_high = wilson_interval(wins, n)
     progress_low, progress_high = bootstrap_mean_interval(progress)
     return {
-        "episodes": n,
+        "episodes": total,
+        "scored_episodes": n,
+        "infrastructure_failures": total - n,
         "success_rate": wins / n if n else None,
         "success_ci_low": success_low,
         "success_ci_high": success_high,
@@ -204,5 +237,5 @@ def aggregate(rows: list[dict[str, Any]]) -> dict[str, Any]:
         "latency_median_mean": _mean(all_latencies),
         "latency_p95_mean": _mean([r.get("latency_p95") for r in rows]),
         "prompt_tokens_per_step_mean": _mean([r.get("prompt_tokens_per_step") for r in rows]),
-        "termination_reasons": dict(Counter(r.get("termination_reason") for r in rows)),
+        "termination_reasons": termination_reasons,
     }

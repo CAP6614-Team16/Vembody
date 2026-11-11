@@ -2,12 +2,14 @@
 
 from __future__ import annotations
 
+from dataclasses import replace
 from datetime import datetime, timezone
 from time import perf_counter
 from uuid import uuid4
 
 from .actions import ActionType
-from .errors import ActionValidationError, ModelParseError
+from .benchmark.labels import CertificationRequired
+from .errors import ActionValidationError, EpisodeDeadlineExceeded, ModelParseError
 from .evaluation.base import SuccessEvaluator
 from .execution.base import ActionExecutor
 from .logging.jsonl import JsonlLogger
@@ -22,7 +24,7 @@ from .results import (
     StepResult,
     TerminationReason,
 )
-from .tasks import TaskSpec
+from .tasks import TaskSpec, agent_task
 from .validation import ActionPolicy, validate_action
 
 
@@ -71,26 +73,35 @@ class AgentLoop:
 
                 model_started = perf_counter()
                 response = None
+                result = StepResult(observation=observation)
                 try:
-                    response = self.model.generate_action(task, observation, history)
-                    parsed = parse_model_response(response.raw_text)
-                    result = StepResult(
-                        observation=observation,
-                        raw_model_response=response.raw_text,
-                        action=parsed.action,
-                        model_elapsed_seconds=max(
-                            response.elapsed_seconds, perf_counter() - model_started
-                        ),
-                        model_metadata=dict(response.metadata),
+                    # Keep private grading channels in logs, including on legacy tasks.
+                    model_history = [
+                        replace(
+                            item,
+                            evaluation=None,
+                            execution=replace(item.execution, evidence={}, details={})
+                            if item.execution
+                            else None,
+                        )
+                        for item in history
+                    ]
+                    response = self.model.generate_action(
+                        agent_task(task), observation, model_history
                     )
+                    result.raw_model_response = response.raw_text
+                    result.model_metadata = dict(response.metadata)
+                    result.model_elapsed_seconds = max(
+                        response.elapsed_seconds, perf_counter() - model_started
+                    )
+                    parsed = parse_model_response(response.raw_text)
+                    result.action = parsed.action
                     validate_action(parsed.action, self.policy)
                 except ModelParseError as exc:
-                    result = StepResult(
-                        observation=observation,
-                        raw_model_response=response.raw_text if response is not None else None,
-                        model_elapsed_seconds=perf_counter() - model_started,
-                        parse_error=str(exc),
+                    result.model_elapsed_seconds = max(
+                        result.model_elapsed_seconds, perf_counter() - model_started
                     )
+                    result.parse_error = str(exc)
                     self._record_step(history, result)
                     termination = TerminationReason.PARSE_ERROR
                     break
@@ -100,18 +111,33 @@ class AgentLoop:
                     termination = TerminationReason.VALIDATION_ERROR
                     break
                 except Exception as exc:
-                    result = StepResult(
-                        observation=observation,
-                        raw_model_response=response.raw_text if response is not None else None,
-                        model_elapsed_seconds=perf_counter() - model_started,
-                        error=str(exc),
+                    result.model_elapsed_seconds = max(
+                        result.model_elapsed_seconds, perf_counter() - model_started
                     )
+                    result.error = str(exc)
                     self._record_step(history, result)
                     termination = TerminationReason.MODEL_FAILURE
                     break
 
                 try:
+                    if perf_counter() - started_clock >= task.timeout_seconds:
+                        self._record_step(history, result)
+                        termination = TerminationReason.TIMEOUT
+                        break
+                    deadline_setter = getattr(self.executor, "set_deadline", None)
+                    if deadline_setter is not None:
+                        deadline_setter(started_clock + task.timeout_seconds)
                     result.execution = self.executor.execute(parsed.action)
+                except EpisodeDeadlineExceeded as exc:
+                    result.error = str(exc)
+                    self._record_step(history, result)
+                    termination = TerminationReason.TIMEOUT
+                    break
+                except CertificationRequired as exc:
+                    result.error = str(exc)
+                    self._record_step(history, result)
+                    termination = TerminationReason.EVALUATION_ERROR
+                    break
                 except Exception as exc:
                     result.error = str(exc)
                     self._record_step(history, result)
@@ -123,31 +149,59 @@ class AgentLoop:
                     termination = TerminationReason.EXECUTION_ERROR
                     break
 
-                if parsed.action.type is ActionType.FINISH:
-                    evaluation = self.evaluator.evaluate(task, last_observation)
-                    result.evaluation = evaluation
-                    termination = TerminationReason.FINISH_REQUESTED
-                elif parsed.action.type is ActionType.FAIL:
-                    evaluation = EvaluationResult(
-                        EvaluationStatus.FAILURE,
-                        "Model requested failure.",
-                    )
-                    result.evaluation = evaluation
-                    termination = TerminationReason.MODEL_FAILURE
-                elif result.execution.episode_done:
-                    # The environment ended the episode, e.g. a mine was hit or the board cleared
-                    evaluation = self.evaluator.evaluate(task, last_observation)
-                    result.evaluation = evaluation
-                    termination = TerminationReason.GAME_OVER
+                try:
+                    if result.execution.task_done and not result.execution.episode_done:
+                        evaluation = self.evaluator.evaluate(task, last_observation)
+                        result.evaluation = evaluation
+                        termination = TerminationReason.TASK_COMPLETE
+                    elif parsed.action.type is ActionType.FINISH:
+                        evaluation = self.evaluator.evaluate(task, last_observation)
+                        result.evaluation = evaluation
+                        termination = TerminationReason.FINISH_REQUESTED
+                    elif parsed.action.type is ActionType.FAIL:
+                        evaluation = EvaluationResult(
+                            EvaluationStatus.FAILURE,
+                            "Model requested failure.",
+                        )
+                        result.evaluation = evaluation
+                        termination = TerminationReason.MODEL_FAILURE
+                    elif result.execution.episode_done:
+                        evaluation = self.evaluator.evaluate(task, last_observation)
+                        result.evaluation = evaluation
+                        termination = TerminationReason.GAME_OVER
+                except Exception as exc:
+                    result.error = f"Evaluation failed: {exc}"
+                    self._record_step(history, result)
+                    termination = TerminationReason.EVALUATION_ERROR
+                    break
 
                 self._record_step(history, result)
                 if (
                     parsed.action.type in {ActionType.FINISH, ActionType.FAIL}
                     or result.execution.episode_done
+                    or result.execution.task_done
                 ):
                     break
         finally:
-            self.executor.shutdown()
+            try:
+                self.executor.shutdown()
+            except Exception as exc:
+                self._record_step(history, StepResult(None, error=f"Shutdown failed: {exc}"))
+                termination = TerminationReason.EXECUTION_ERROR
+
+        if (
+            task.benchmark
+            and evaluation.status == EvaluationStatus.NOT_EVALUATED
+            and termination
+            in {
+                TerminationReason.ACTION_LIMIT,
+                TerminationReason.TIMEOUT,
+                TerminationReason.PARSE_ERROR,
+                TerminationReason.VALIDATION_ERROR,
+                TerminationReason.MODEL_FAILURE,
+            }
+        ):
+            evaluation = EvaluationResult(EvaluationStatus.FAILURE, "Task was not completed.")
 
         ended_at = datetime.now(timezone.utc).isoformat()
         episode = EpisodeResult(

@@ -1,5 +1,7 @@
 import math
 
+import pytest
+
 from vembody.evaluation.metrics import (
     aggregate,
     bootstrap_mean_interval,
@@ -10,7 +12,11 @@ from vembody.evaluation.metrics import (
 
 
 def _step(changed=None, invalid=False, latency=1.0, tokens=None, target="cell"):
-    step = {"model_elapsed_seconds": latency, "model_metadata": {}}
+    step = {
+        "action": {"type": "click", "x": 0.5, "y": 0.5},
+        "model_elapsed_seconds": latency,
+        "model_metadata": {},
+    }
     if tokens is not None:
         step["model_metadata"]["prompt_tokens"] = tokens
     if invalid:
@@ -84,3 +90,41 @@ def test_aggregate_pools_rates_over_steps() -> None:
     assert summary["success_rate"] == 0.5
     assert summary["progress_mean"] == 0.75
     assert summary["invalid_action_rate"] == 2 / 40
+
+
+@pytest.mark.parametrize("outcome", ["lost", "reset", "violation", "incorrect"])
+def test_recovery_excludes_terminal_and_incorrect_moves(outcome):
+    step = _step(True)
+    if outcome == "lost":
+        step["execution"]["details"]["board"]["status"] = "lost"
+    elif outcome == "reset":
+        step["execution"]["details"]["reset"] = True
+    elif outcome == "violation":
+        step["execution"]["evidence"] = {"task_violation": "Wrong target."}
+    else:
+        step["execution"]["evidence"] = {"logical_correct": False}
+    assert recovery_counts([_step(False), step]) == (1, 0)
+
+
+@pytest.mark.parametrize("kind", ["finish", "fail"])
+def test_terminal_requests_are_not_executed_or_ineffective_actions(kind):
+    step = _step(False)
+    step["action"] = {"type": kind}
+    row = episode_metrics({"steps": [step]})
+    assert row["actions_executed"] == 0
+    assert row["ineffective_actions"] == 0
+    assert row["setbacks"] == 0
+
+
+def test_infrastructure_errors_are_reported_outside_success_denominator():
+    rows = [
+        {"success": True, "termination_reason": "task_complete", "progress": 0.3},
+        {"success": False, "termination_reason": "capture_error", "progress": 0.0},
+    ]
+    summary = aggregate(rows)
+    assert summary["episodes"] == 2
+    assert summary["scored_episodes"] == 1
+    assert summary["infrastructure_failures"] == 1
+    assert summary["success_rate"] == 1
+    assert summary["progress_mean"] == 0.3
+    assert summary["termination_reasons"]["capture_error"] == 1

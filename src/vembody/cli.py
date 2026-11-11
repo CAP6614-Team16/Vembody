@@ -4,8 +4,11 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 
+from .benchmark.labels import CertificationRequired
+from .errors import VembodyError
 from .evaluation.analysis import analyze, summary_markdown
 from .evaluation.base import NullEvaluator
 from .evaluation.harness import ExperimentConfig, run_experiment
@@ -19,7 +22,7 @@ from .minesweeper.webui import make_server
 from .models.registry import MODEL_NAMES, build_model
 from .perception.file import FileObservationProvider
 from .sandbox import MinesweeperSandbox
-from .tasks import TaskSpec, load_task
+from .tasks import TaskSpec, discover_task_paths, load_task
 from .validation import ActionPolicy
 
 
@@ -36,12 +39,20 @@ def build_parser() -> argparse.ArgumentParser:
 
     eval_parser = subparsers.add_parser("eval", help="run tasks x trials as one experiment")
     eval_parser.add_argument("--tasks", nargs="+", required=True, help="task files or folders")
+    eval_parser.add_argument(
+        "--split",
+        choices=("development", "demonstration", "evaluation"),
+        default="development",
+        help="split selected when --tasks points to a benchmark root",
+    )
     eval_parser.add_argument("--model", choices=MODEL_NAMES, required=True)
     eval_parser.add_argument("--trials", type=int, default=5)
     eval_parser.add_argument("--name", required=True, help="experiment name (output folder)")
     eval_parser.add_argument("--out", default="runs", help="parent folder for experiments")
     eval_parser.add_argument(
-        "--vary-seeds", action="store_true", help="trial k plays board seed task_seed + k"
+        "--vary-seeds",
+        action="store_true",
+        help="vary legacy board seeds; benchmark instances keep their frozen starts",
     )
     eval_parser.add_argument("--base-seed", type=int, default=0, help="first model seed")
     eval_parser.add_argument("--max-steps", type=int, help="override every task's max_steps")
@@ -119,20 +130,6 @@ def play_command(args: argparse.Namespace) -> int:
     return 0
 
 
-def _task_paths(entries: list[str]) -> list[str]:
-    """Expand folders into their task files, sorted for a stable order."""
-    paths: list[str] = []
-    for entry in entries:
-        path = Path(entry)
-        if path.is_dir():
-            paths.extend(
-                str(p) for p in sorted(path.iterdir()) if p.suffix in {".yaml", ".yml", ".json"}
-            )
-        else:
-            paths.append(entry)
-    return paths
-
-
 def eval_command(args: argparse.Namespace) -> int:
     """Run one experiment and print a short summary."""
     labels = {}
@@ -144,7 +141,7 @@ def eval_command(args: argparse.Namespace) -> int:
     config = ExperimentConfig(
         name=args.name,
         model=args.model,
-        task_paths=_task_paths(args.tasks),
+        task_paths=discover_task_paths(args.tasks, args.split),
         trials=args.trials,
         vary_seeds=args.vary_seeds,
         base_seed=args.base_seed,
@@ -182,13 +179,19 @@ def main(argv: list[str] | None = None) -> int:
     """Parse arguments and dispatch the selected command."""
     parser = build_parser()
     args = parser.parse_args(argv)
-    if args.command == "run":
-        return run_command(args)
-    if args.command == "play":
-        return play_command(args)
-    if args.command == "eval":
-        return eval_command(args)
-    if args.command == "analyze":
-        return analyze_command(args)
+    try:
+        if args.command == "run":
+            return run_command(args)
+        if args.command == "play":
+            return play_command(args)
+        if args.command == "eval":
+            return eval_command(args)
+        if args.command == "analyze":
+            return analyze_command(args)
+    except (VembodyError, CertificationRequired, FileExistsError, ValueError) as exc:
+        # Expected refusals, such as an invalid task or a blocked benchmark split,
+        # report one line instead of a traceback.
+        print(f"error: {type(exc).__name__}: {exc}", file=sys.stderr)
+        return 1
     parser.error("Unknown command")
     return 2

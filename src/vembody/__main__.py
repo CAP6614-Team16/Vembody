@@ -3,4 +3,5 @@
 from .cli import main
 
 if __name__ == "__main__":
-    main()
+    # Propagate the exit code; a refused run must not look successful to a script.
+    raise SystemExit(main())

@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import platform
 import subprocess
 import sys
@@ -29,7 +30,7 @@ from ..models.base import VisionModel
 from ..models.registry import build_model
 from ..results import to_jsonable
 from ..sandbox import MinesweeperSandbox
-from ..tasks import TaskSpec, load_task
+from ..tasks import TaskSpec, load_task_set
 from ..validation import ActionPolicy
 from .metrics import episode_metrics
 
@@ -79,7 +80,7 @@ def episode_task(task: TaskSpec, config: ExperimentConfig, trial: int) -> TaskSp
         changes["max_steps"] = config.max_steps
     if config.timeout_seconds is not None:
         changes["timeout_seconds"] = config.timeout_seconds
-    if config.vary_seeds and task.minesweeper is not None:
+    if config.vary_seeds and task.benchmark is None and task.minesweeper is not None:
         base = task.minesweeper.get("seed") or 0
         changes["minesweeper"] = {**task.minesweeper, "seed": base + trial}
     return replace(task, **changes) if changes else task
@@ -93,13 +94,28 @@ def run_experiment(
 ) -> list[dict[str, Any]]:
     """Run every task for ``config.trials`` trials and return the metrics rows."""
     out = Path(out_dir)
-    if (out / "episodes.jsonl").exists():
-        raise FileExistsError(f"{out} already holds results; choose a new experiment name")
-    tasks = [(path, load_task(path)) for path in config.task_paths]
+    if type(config.trials) is not int or config.trials <= 0:
+        raise ValueError("trials must be a positive integer")
+    if config.max_steps is not None and (
+        type(config.max_steps) is not int or config.max_steps <= 0
+    ):
+        raise ValueError("max_steps must be a positive integer")
+    if config.timeout_seconds is not None and (
+        isinstance(config.timeout_seconds, bool)
+        or not isinstance(config.timeout_seconds, (int, float))
+        or not math.isfinite(config.timeout_seconds)
+        or config.timeout_seconds <= 0
+    ):
+        raise ValueError("timeout_seconds must be positive and finite")
+    if not config.task_paths:
+        raise ValueError("An experiment requires at least one task")
+
+    tasks = list(zip(config.task_paths, load_task_set(list(config.task_paths)), strict=True))
     for path, task in tasks:
         if task.environment != "minesweeper":
             raise ValueError(f"{path}: the harness currently supports minesweeper tasks only")
-    out.mkdir(parents=True, exist_ok=True)
+    # Reserve the entire directory, including partial runs interrupted before a summary.
+    out.mkdir(parents=True, exist_ok=False)
 
     def default_factory(task: TaskSpec, sandbox: MinesweeperSandbox, seed: int) -> VisionModel:
         return build_model(config.model, task, sandbox, seed)
@@ -116,6 +132,11 @@ def run_experiment(
         "platform": platform.platform(),
         "argv": sys.argv,
         "tasks": [{"path": str(p), "id": t.id, "sha256": _file_sha256(p)} for p, t in tasks],
+        "seed_policy": {
+            "benchmark_board": "frozen_instance",
+            "legacy_board": "task_seed_plus_trial" if config.vary_seeds else "task_seed",
+            "model": "base_seed_plus_trial",
+        },
     }
     (out / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
 

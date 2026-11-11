@@ -4,9 +4,11 @@ from pathlib import Path
 import pytest
 
 from vembody.cli import main
+from vembody.errors import TaskLoadError
 from vembody.evaluation.analysis import analyze
 from vembody.evaluation.harness import ExperimentConfig, run_experiment
 from vembody.models.baselines import RandomCellModel
+from vembody.models.mock import MockModel
 from vembody.sandbox import MinesweeperSandbox
 from vembody.tasks import load_task
 
@@ -103,3 +105,74 @@ def test_plots_render(tmp_path: Path) -> None:
     run_experiment(ExperimentConfig("s", "solver", [TASK], trials=2), tmp_path / "s")
     result = analyze([tmp_path / "s"], tmp_path / "out")
     assert {p.name for p in result["plots"]} == {"success_rate.png", "progress.png", "latency.png"}
+
+
+def test_benchmark_trials_preserve_frozen_board_and_vary_model_seed(tmp_path):
+    path = "tasks/benchmark/development/t1-01.yaml"
+    original = load_task(path)
+    config = ExperimentConfig("frozen", "mock", [path], trials=3, vary_seeds=True, base_seed=10)
+    rows = run_experiment(config, tmp_path / "frozen")
+    assert all(row["success"] for row in rows)
+    assert [row["board_seed"] for row in rows] == [original.minesweeper["seed"]] * 3
+    assert [row["model_seed"] for row in rows] == [10, 11, 12]
+    assert all(row["final_status"] == "playing" for row in rows)
+    manifest = json.loads((tmp_path / "frozen" / "manifest.json").read_text())
+    assert manifest["seed_policy"]["benchmark_board"] == "frozen_instance"
+
+
+def test_interrupted_experiment_cannot_reuse_partial_output(tmp_path):
+    class Interrupted(MockModel):
+        def generate_action(self, task, observation, history):
+            if history:
+                raise KeyboardInterrupt
+            return super().generate_action(task, observation, history)
+
+    out = tmp_path / "interrupted"
+    config = ExperimentConfig("interrupted", "mock", [TASK])
+    with pytest.raises(KeyboardInterrupt):
+        run_experiment(
+            config, out, model_factory=lambda task, *_: Interrupted(list(task.mock_actions))
+        )
+
+    assert not (out / "episodes.jsonl").exists()
+    old_files = {
+        str(path.relative_to(out)): path.read_bytes() for path in out.rglob("*") if path.is_file()
+    }
+    assert any(name.endswith("trial_000.jsonl") for name in old_files)
+    with pytest.raises(FileExistsError):
+        run_experiment(config, out)
+
+    assert old_files == {
+        str(path.relative_to(out)): path.read_bytes() for path in out.rglob("*") if path.is_file()
+    }
+
+
+@pytest.mark.parametrize("paths, error", [([], ValueError), ([TASK, TASK], TaskLoadError)])
+def test_invalid_task_collection_does_not_create_output(tmp_path, paths, error):
+    with pytest.raises(error):
+        run_experiment(ExperimentConfig("invalid", "mock", paths), tmp_path / "out")
+    assert not (tmp_path / "out").exists()
+
+
+@pytest.mark.parametrize("trials", [0, -1])
+def test_nonpositive_trial_count_does_not_create_output(tmp_path, trials):
+    with pytest.raises(ValueError, match="trials"):
+        run_experiment(ExperimentConfig("invalid", "mock", [TASK], trials=trials), tmp_path / "out")
+    assert not (tmp_path / "out").exists()
+
+
+def test_mine_after_ineffective_action_is_not_recovery(tmp_path):
+    actions = [
+        {"type": "click", "x": 156 / 311, "y": 196 / 351},
+        {"type": "click", "x": 0, "y": 0},
+        {"type": "click", "x": 92 / 311, "y": 228 / 351},
+    ]
+    rows = run_experiment(
+        ExperimentConfig("fatal", "mock", [TASK]),
+        tmp_path / "fatal",
+        model_factory=lambda *_: MockModel(actions),
+    )
+    assert rows[0]["final_status"] == "lost"
+    assert rows[0]["setbacks"] == 1
+    assert rows[0]["recoveries"] == 0
+    assert rows[0]["recovery_rate"] == 0
