@@ -80,6 +80,10 @@ approved reset mechanism during an episode.
   revealed cell is an ineffective input; it consumes one action attempt.
 - Only cell interiors are valid input targets. Reject clicks on grid lines,
   margins, counters, or the face button; do not clip them into a different target.
+  A rejected click is an ineffective agent action: the board does not change, the
+  attempt consumes one step, the trace records it as off target, and the episode
+  continues. It is not an infrastructure failure, because poor visual grounding is
+  a measured agent behavior and must stay inside the success denominator.
 - `finish` requests an independent task check. It does not establish success.
   Premature finish is an unsuccessful episode. Existing nonbenchmark `fail`
   support is unchanged but is not offered as a benchmark action.
@@ -149,7 +153,8 @@ If no predicate is satisfied, exhaustion of steps or time is unsuccessful. Recor
 termination separately from success. Missing assets, reset mismatches, renderer
 errors, and solver timeouts are infrastructure failures and must be reported
 separately rather than assigned fabricated agent correctness labels. Record their
-counts and any reruns.
+counts and any reruns. An action the agent chose badly is never an infrastructure
+failure, including a click that misses every cell interior.
 
 This requires changes to the current loop: it currently evaluates only on finish
 or game over, checks time only at step boundaries, and uses `episode_done` for

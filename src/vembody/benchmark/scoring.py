@@ -9,6 +9,9 @@ from ..tasks import TaskSpec
 from .labels import CertificationRequired, LabelProvider, LogicalLabels, visible_board
 from .spec import Cell
 
+# Only these actions can change the board, so only these can need logical evidence.
+BOARD_INPUT = (ActionType.CLICK, ActionType.RIGHT_CLICK)
+
 
 class TaskScorer:
     def __init__(
@@ -70,7 +73,7 @@ class TaskScorer:
         )
         effective = bool(revealed or new_flag or unflag or game.status == "lost")
         logical = None
-        if self.needs_labels and labels is None:
+        if self.needs_labels and labels is None and kind in BOARD_INPUT:
             raise CertificationRequired("Logical evidence is required")
         if labels is not None:
             if kind == ActionType.CLICK and (target in revealed or game.status == "lost"):

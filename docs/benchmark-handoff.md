@@ -18,6 +18,7 @@ The branch is `cameron/tasks-and-data`. Changes are grouped into phase commits:
 | 4: images/examples | `bfbda26` | Candidate assets approved; final evaluation assets pending |
 | 5: integration checks | `d721852` | Infrastructure validation approved; 70 tests passed |
 | 6: handoff/report drafts | This document and companion report | Documentation independently approved |
+| 7: review corrections | Off-target grading, CLI errors, exit codes, provider gating, test-runner prune | Branch re-reviewed; 75 tests passed |
 
 The separate review agent reran tests and inspected changes at each checkpoint.
 Issues it found were corrected before phase commits, including malformed config
@@ -100,6 +101,13 @@ returns pytest's exit code. Test files stay in that run directory for inspection
 Use this runner instead of plain pytest on this machine; it does not repair or
 delete the inaccessible shared directories. Additional pytest arguments may be
 appended, such as `scripts/run_tests.py tests/test_loop.py -v`.
+
+Before creating that directory the runner deletes its own earlier run directories
+so they stop accumulating, keeping the current one; `--keep-temp` skips the prune
+and is not forwarded to pytest. A run directory created under a different
+execution context may itself be inaccessible, so the runner reports how many it
+could not remove instead of implying they are gone. Those have to be deleted by
+whichever context owns them; they are ignored by Git and affect nothing else.
 
 Use a fresh output directory per benchmark check because the JSONL logger appends. The
 checker saves `report.json`, per-instance logs, and screenshots under that output.
@@ -191,6 +199,12 @@ sufficient. Add solver-backed integration tests before opening this gate.
 - Task success can end an episode before a whole-game win. Observe `task_done`
   separately from `episode_done`. Early finish, parse errors, action/time limits,
   and ineffective inputs must not count as success.
+- A click that misses every cell interior, including the label gutters and the two
+  excluded border pixels, is graded as an unsuccessful agent action: `off_target`
+  in the step evidence, no board change, one step spent, episode continues. Do not
+  reclassify these as infrastructure errors; they are the grounding failures the
+  raw/G comparison exists to measure. Genuine infrastructure errors remain
+  `capture_error`, `execution_error`, and `evaluation_error`.
 
 Grounding replay currently recomputes T1 outcomes only, including before/after
 images and state transitions. Logical replay, aggregate metrics, confidence

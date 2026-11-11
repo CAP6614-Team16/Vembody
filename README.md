@@ -51,3 +51,5 @@ Run the automated tests with:
 
 This runs the full pytest suite with a fresh project-local temporary directory
 and no shared pytest cache, avoiding Windows temporary-folder permission conflicts.
+Earlier run directories are deleted first so they stop accumulating; pass
+`--keep-temp` to keep them.

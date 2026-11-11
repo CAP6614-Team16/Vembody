@@ -8,6 +8,7 @@ from __future__ import annotations
 
 from PIL import Image, ImageDraw, ImageFont
 
+from ..errors import OffTargetInput
 from .game import Minesweeper
 
 CELL = 32
@@ -68,7 +69,7 @@ class MinesweeperScreen:
         if self.benchmark:
             cell = self.cell_at(px, py)
             if cell is None:
-                raise ValueError("Benchmark clicks must target a cell interior")
+                raise OffTargetInput("Benchmark clicks must target a cell interior")
             if button == "left":
                 if cell not in self.game.revealed:
                     self.game.reveal(cell)

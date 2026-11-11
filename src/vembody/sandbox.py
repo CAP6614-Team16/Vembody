@@ -14,7 +14,7 @@ from .actions import Action, ActionType
 from .benchmark.environment import prepare, snapshot
 from .benchmark.labels import LabelProvider, visible_board
 from .benchmark.scoring import TaskScorer
-from .errors import EpisodeDeadlineExceeded
+from .errors import EpisodeDeadlineExceeded, OffTargetInput
 from .minesweeper.screen import MinesweeperScreen
 from .observations import Observation
 from .results import EvaluationResult, EvaluationStatus, ExecutionResult, StepResult
@@ -62,21 +62,32 @@ class MinesweeperSandbox:
     def execute(self, action: Action) -> ExecutionResult:
         """Deliver a click as pixel input; other actions send nothing."""
         started = perf_counter()
+        sends_input = action.type in (ActionType.CLICK, ActionType.RIGHT_CLICK)
         before = snapshot(self.screen) if self.scorer else None
         visible = visible_board(self.screen) if self.scorer else None
-        labels = self.scorer.labels(self.screen) if self.scorer else None
+        # Only board-changing input can be judged against logical evidence, so an
+        # action that sends nothing never pays for a provider call.
+        labels = self.scorer.labels(self.screen) if self.scorer and sends_input else None
         if self._deadline is not None and perf_counter() >= self._deadline:
             raise EpisodeDeadlineExceeded("Episode deadline expired before input")
         target = None
+        off_target = False
         message = f"{action.type.value}: no input sent"
-        if action.type in (ActionType.CLICK, ActionType.RIGHT_CLICK):
+        if sends_input:
             # Normalized endpoints land on the first and last pixel
             px = round(action.x * (self.screen.width - 1))
             py = round(action.y * (self.screen.height - 1))
             button = "left" if action.type is ActionType.CLICK else "right"
             target = self.screen.cell_at(px, py)
-            self.screen.click(px, py, button)
-            message = f"{button} click at pixel ({px}, {py})"
+            try:
+                self.screen.click(px, py, button)
+                message = f"{button} click at pixel ({px}, {py})"
+            except OffTargetInput:
+                # Missing the grid is an agent error, not an infrastructure error.
+                # The board is unchanged, the step still spends budget, and the
+                # episode continues so the miss can be graded as a failure.
+                off_target = True
+                message = f"{button} click at pixel ({px}, {py}) hit no cell interior"
         evidence = {}
         if self.scorer:
             evidence = self.scorer.update(action.type, target, before, self.screen, labels)
@@ -85,6 +96,7 @@ class MinesweeperSandbox:
                 after=snapshot(self.screen),
                 visible_before=visible.cells,
                 resolved_cell=target,
+                off_target=off_target,
             )
             if labels is not None:
                 evidence["labels"] = {"safe": sorted(labels.safe), "mines": sorted(labels.mines)}

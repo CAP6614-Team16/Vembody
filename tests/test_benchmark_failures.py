@@ -1,8 +1,13 @@
 from dataclasses import replace
+from pathlib import Path
 
+from vembody.benchmark.environment import state_hash
 from vembody.cli import build_loop, build_parser
 from vembody.models.base import ModelResponse
 from vembody.results import EvaluationStatus, TerminationReason
+
+PROVIDER_MESSAGE = "This task requires Nicholas's logical label provider"
+ROOT = Path("tasks/benchmark/development")
 
 
 def loop_for(tmp_path, template="t1-01"):
@@ -33,6 +38,93 @@ def test_action_limit_and_ineffective_input(tmp_path):
     assert result.termination_reason == TerminationReason.ACTION_LIMIT
     assert result.evaluation.status == EvaluationStatus.FAILURE
     assert not result.steps[0].execution.evidence["effective"]
+
+
+def test_off_target_click_is_a_task_failure_not_an_infrastructure_error(tmp_path):
+    """A miss must be graded, not excluded from results as a harness error."""
+    loop, task = loop_for(tmp_path)
+    screen = loop.executor.screen
+    gutter = (5, 5)
+    border = (screen.grid_left + 3 * 32, screen.grid_top + 3 * 32)
+    for index, (px, py) in enumerate((gutter, border)):
+        loop, task = loop_for(tmp_path / f"miss{index}")
+        screen = loop.executor.screen
+        assert screen.cell_at(px, py) is None
+        before = state_hash(screen)
+        loop.model._action_payloads = [
+            {"type": "click", "x": px / (screen.width - 1), "y": py / (screen.height - 1)}
+        ]
+        result = loop.run_episode(replace(task, max_steps=1))
+        assert result.termination_reason == TerminationReason.ACTION_LIMIT
+        assert result.evaluation.status == EvaluationStatus.FAILURE
+        evidence = result.steps[0].execution.evidence
+        assert evidence["off_target"] and not evidence["effective"]
+        assert evidence["resolved_cell"] is None
+        assert state_hash(screen) == before
+
+
+def test_episode_continues_after_a_miss_and_still_spends_budget(tmp_path):
+    loop, task = loop_for(tmp_path)
+    screen = loop.executor.screen
+    loop.model._action_payloads = [
+        {"type": "click", "x": 5 / (screen.width - 1), "y": 5 / (screen.height - 1)},
+        dict(task.mock_actions[0]),
+    ]
+    result = loop.run_episode(task)
+    assert len(result.steps) == 2
+    assert result.steps[0].execution.evidence["off_target"]
+    assert not result.steps[1].execution.evidence["off_target"]
+    assert result.termination_reason == TerminationReason.TASK_COMPLETE
+    assert result.evaluation.status == EvaluationStatus.SUCCESS
+
+
+def test_blocked_benchmark_run_reports_one_line_without_a_traceback(tmp_path, capsys):
+    from vembody.cli import main
+
+    code = main(
+        [
+            "run",
+            "--task",
+            "tasks/benchmark/development/t2-01.yaml",
+            "--log",
+            str(tmp_path / "episode.jsonl"),
+        ]
+    )
+    captured = capsys.readouterr()
+    assert code == 1
+    assert captured.err.splitlines() == ["error: CertificationRequired: " + PROVIDER_MESSAGE]
+    assert not captured.out
+
+    code = main(["run", "--task", str(tmp_path / "missing.yaml")])
+    assert code == 1
+    assert capsys.readouterr().err.startswith("error: TaskLoadError:")
+
+
+def test_module_entry_point_propagates_the_exit_code(tmp_path):
+    """A refused run must not look successful to a script or CI step."""
+    import os
+    import subprocess
+    import sys
+
+    env = dict(os.environ, PYTHONPATH=str(Path("src").resolve()))
+    for task, expected in ((ROOT / "t1-01.yaml", 0), (ROOT / "t2-01.yaml", 1)):
+        done = subprocess.run(
+            [
+                sys.executable,
+                "-m",
+                "vembody",
+                "run",
+                "--task",
+                str(task),
+                "--log",
+                str(tmp_path / "e.jsonl"),
+            ],
+            capture_output=True,
+            text=True,
+            env=env,
+        )
+        assert done.returncode == expected, done.stderr
+        assert "Traceback" not in done.stderr
 
 
 def test_model_latency_cannot_dispatch_late_action(tmp_path, monkeypatch):

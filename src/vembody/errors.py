@@ -21,5 +21,9 @@ class ExecutionError(VembodyError):
     """Raised when an executor cannot perform an action."""
 
 
+class OffTargetInput(VembodyError):
+    """Pixel input landed outside every selectable cell interior."""
+
+
 class EpisodeDeadlineExceeded(VembodyError):
     """An episode expired before input could be dispatched."""

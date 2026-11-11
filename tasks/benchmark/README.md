@@ -18,8 +18,9 @@ candidates contain direct scripted target actions. Other candidates have no
 reference action sequence yet.
 
 T2/T3 runs require a trusted `LabelProvider`, injected through the Python sandbox
-constructor. The CLI does not supply a solver and rejects those runs. All
-`evaluation` split runs are blocked pending reviewed instance certificates.
+constructor. The CLI does not supply a solver and rejects those runs with a
+one-line `error: CertificationRequired: ...` and exit code 1. All `evaluation`
+split runs are blocked pending reviewed instance certificates.
 Development T4 runs may grade a game outcome but do not establish logical accuracy
 or guess-free solvability without a solver.
 

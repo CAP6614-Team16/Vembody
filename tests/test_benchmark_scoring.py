@@ -158,6 +158,25 @@ def test_grounding_through_loop_records_terminal_image_and_no_proof(tmp_path):
     assert evidence["logical_correct"] is None and evidence["certification_status"] == "pending"
 
 
+def test_actions_that_send_no_input_do_not_call_the_provider(tmp_path):
+    """A bounded solver call is expensive; only board input can need one."""
+    task, sandbox = sandbox_for("T2-01", tmp_path)
+    calls = []
+    inner = sandbox.scorer.provider
+
+    class Counting:
+        def label(self, board):
+            calls.append(board)
+            return inner.label(board)
+
+    sandbox.scorer.provider = Counting()
+    result = sandbox.execute(Action(ActionType.FINISH, 0.0, 0.0))
+    assert not calls
+    assert not result.evidence["effective"] and not result.evidence["task_success"]
+    act(sandbox, next(iter(sandbox.screen.game.mines)), ActionType.RIGHT_CLICK)
+    assert len(calls) == 1
+
+
 def test_bad_label_records_and_provider_timeouts(tmp_path):
     from vembody.benchmark.labels import VisibleBoard
 

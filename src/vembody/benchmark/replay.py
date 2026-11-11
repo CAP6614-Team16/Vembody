@@ -45,6 +45,7 @@ def replay_grounding(task: TaskSpec, log_path: Path) -> dict:
             "before",
             "after",
             "resolved_cell",
+            "off_target",
             "effective",
             "task_success",
             "task_violation",

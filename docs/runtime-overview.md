@@ -42,6 +42,13 @@ task data and evaluation/execution evidence from model inputs/history. Task comp
 and game termination are separate. Deadlines are checked after inference and after
 solver labeling before input; model/solver providers must bound their own calls.
 
+A benchmark click that lands on the face button, a label gutter, a margin, or a
+cell border changes nothing, is flagged `off_target` in the step evidence, spends
+one step, and lets the episode continue. It is graded as an unsuccessful agent
+action rather than an infrastructure error, so grounding misses stay in the
+results. Actions that send no input, such as `finish`, never call the label
+provider.
+
 T2/T3 tasks require a trusted logical provider. Evaluation-split runs require a
 future certificate-verification path and are currently blocked. No pretrained
 model, G/T prompting adapter, or production constraint solver is implemented.

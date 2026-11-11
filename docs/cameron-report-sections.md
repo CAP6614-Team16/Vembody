@@ -61,7 +61,10 @@ identity and image checksums are saved to detect rendering changes.
 
 Standard zero-cell flood fill remains enabled, so one reveal action can open
 multiple cells. Benchmark chording is disabled, and clicks on the face button,
-margins, or cell borders are rejected. Human-play behavior is preserved. Reveal
+margins, or cell borders are rejected: they change nothing, consume one step, and
+are recorded as off-target agent actions rather than infrastructure errors, so a
+model's grounding misses count against it instead of being excluded from the
+success denominator. Human-play behavior is preserved. Reveal
 grounding targets are numbered safe cells so the target-only success rule is not
 confounded by flood fill. Partial-solve move counts count effective reveal actions,
 not the number of newly visible cells.
@@ -110,9 +113,9 @@ would yield 300 episodes before optional experiments.
 The task infrastructure runs without model weights or GPU resources. It provides
 validated task loading, repeatable setup, seven predicate types, screenshots,
 private transition logs, and an interface for a logical label provider. The current
-test suite has 70 passing tests, covering positive/negative predicates, reset and
+test suite has 75 passing tests, covering positive/negative predicates, reset and
 image consistency, invalid configurations, information separation, time/action
-limits, malformed responses, and failure logging.
+limits, malformed responses, off-target input, and failure logging.
 
 An integration checker verifies all 24 candidate assets and resets. It executes
 and replays eight grounding traces, verifies twelve missing-provider rejections,

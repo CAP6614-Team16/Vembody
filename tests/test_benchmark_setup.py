@@ -5,7 +5,7 @@ import pytest
 import yaml
 
 from vembody.benchmark.environment import prepare, snapshot, state_hash
-from vembody.errors import TaskLoadError
+from vembody.errors import OffTargetInput, TaskLoadError
 from vembody.tasks import agent_task, load_task, load_task_set
 
 
@@ -84,7 +84,7 @@ def test_geometry_labels_boundaries_and_disabled_chord(tmp_path):
     before = state_hash(raw)
     raw.click(*raw.cell_center((4, 4)), "left")
     assert state_hash(raw) == before
-    with pytest.raises(ValueError, match="interior"):
+    with pytest.raises(OffTargetInput, match="interior"):
         raw.click(raw.face[0] + 5, raw.face[1] + 5, "left")
     assert state_hash(raw) == before
 
