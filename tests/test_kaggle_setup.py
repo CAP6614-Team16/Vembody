@@ -175,8 +175,9 @@ def test_pinned_source_mismatch_is_not_silently_reused(tmp_path, monkeypatch):
         kaggle.build_server(tmp_path, {"llama_revision": "expected"})
 
 
-def test_notebook_has_only_compilable_unexecuted_code_cells():
-    notebook = json.loads(Path("notebooks/kaggle-ui-mate-q6.ipynb").read_text())
+@pytest.mark.parametrize("name", ["kaggle-ui-mate-q6.ipynb", "kaggle-build-runtime-t4.ipynb"])
+def test_notebook_has_only_compilable_unexecuted_code_cells(name):
+    notebook = json.loads((Path("notebooks") / name).read_text())
     for index, cell in enumerate(notebook["cells"]):
         if cell["cell_type"] == "code":
             assert cell["execution_count"] is None and cell["outputs"] == []
@@ -184,7 +185,8 @@ def test_notebook_has_only_compilable_unexecuted_code_cells():
 
 
 @pytest.mark.parametrize("unpack", [False, True])
-def test_notebook_bootstrap_handles_zipped_and_kaggle_unpacked_inputs(tmp_path, unpack):
+@pytest.mark.parametrize("name", ["kaggle-ui-mate-q6.ipynb", "kaggle-build-runtime-t4.ipynb"])
+def test_notebook_bootstrap_handles_zipped_and_kaggle_unpacked_inputs(tmp_path, unpack, name):
     content = b"# fixture source"
     import hashlib
 
@@ -202,7 +204,7 @@ def test_notebook_bootstrap_handles_zipped_and_kaggle_unpacked_inputs(tmp_path, 
 
         archive.unlink()
 
-    notebook = json.loads(Path("notebooks/kaggle-ui-mate-q6.ipynb").read_text())
+    notebook = json.loads((Path("notebooks") / name).read_text())
     source = "".join(notebook["cells"][1]["source"])
     for old, new in (
         ("/kaggle/input", input_dir),
@@ -423,14 +425,15 @@ def test_existing_compiled_server_is_checked_without_recompiling(tmp_path, monke
     assert len(checked) == 1
 
 
-def test_notebook_setup_replaces_a_cached_helper_from_an_old_bundle(tmp_path, monkeypatch):
+@pytest.mark.parametrize("name", ["kaggle-ui-mate-q6.ipynb", "kaggle-build-runtime-t4.ipynb"])
+def test_notebook_setup_replaces_a_cached_helper_from_an_old_bundle(tmp_path, monkeypatch, name):
     scripts = tmp_path / "scripts"
     scripts.mkdir()
     helper = scripts / "kaggle_environment.py"
     helper.write_text("def create_environment(repo, directory):\n    return directory / 'python'\n")
     monkeypatch.syspath_prepend(str(scripts))
     monkeypatch.setitem(sys.modules, "kaggle_environment", SimpleNamespace(create_environment=None))
-    notebook = json.loads(Path("notebooks/kaggle-ui-mate-q6.ipynb").read_text())
+    notebook = json.loads((Path("notebooks") / name).read_text())
     calls = []
     namespace = {
         "REPO": tmp_path,
@@ -442,4 +445,85 @@ def test_notebook_setup_replaces_a_cached_helper_from_an_old_bundle(tmp_path, mo
     exec(compile("".join(notebook["cells"][2]["source"]), "notebook-setup", "exec"), namespace)
     assert namespace["create_environment"].__code__.co_filename == str(helper)
     assert namespace["PYTHON"].name == "python"
-    assert "-I" in calls[0] and "check_ui_mate_compatibility.py" in calls[0][2]
+    if name == "kaggle-ui-mate-q6.ipynb":
+        assert "-I" in calls[0] and "check_ui_mate_compatibility.py" in calls[0][2]
+    else:
+        assert calls == []
+
+
+def test_runtime_only_stage_builds_exports_and_never_downloads_or_runs_a_model(
+    tmp_path, monkeypatch
+):
+    repo = tmp_path / "repo"
+    (repo / "configs").mkdir(parents=True)
+    spec = {"llama_revision": "test-pinned-revision"}
+    (repo / "configs/kaggle-ui-mate.json").write_text(json.dumps(spec))
+    work = tmp_path / "work"
+    binary = work / "llama.cpp/build/bin/llama-server"
+    cache = tmp_path / "output/runtime.zip"
+    calls = []
+
+    def build(directory, settings):
+        """Stand in for the existing GPU compiler without starting a process."""
+        assert directory.is_dir()
+        calls.append(("build", directory, settings))
+        return binary
+
+    monkeypatch.setattr(runner, "gpu_info", lambda: "two T4 fixtures")
+    monkeypatch.setattr(runner, "build_server", build)
+    monkeypatch.setattr(runner, "export_runtime", lambda *args: calls.append(("export", *args)))
+    for name in ("prepare_runtime", "load_runtime", "serve_model", "smoke_model", "run_pilot"):
+        monkeypatch.setattr(
+            runner, name, lambda *_: pytest.fail("Runtime-only must not load a model")
+        )
+
+    assert (
+        runner.main(
+            [
+                "build-runtime",
+                "--repo",
+                str(repo),
+                "--work",
+                str(work),
+                "--cache-output",
+                str(cache),
+            ]
+        )
+        == 0
+    )
+    assert calls == [("build", work, spec), ("export", binary, spec, cache)]
+    assert not (work / "prepared-runtime.json").exists()
+
+
+def test_runtime_only_stage_requires_an_explicit_cache_destination(tmp_path, monkeypatch):
+    monkeypatch.setattr(runner, "gpu_info", lambda: pytest.fail("Validate before GPU access"))
+    with pytest.raises(SystemExit):
+        runner.main(["build-runtime", "--repo", str(tmp_path), "--work", str(tmp_path)])
+
+
+def test_runtime_notebook_exports_before_printing_download_instructions(tmp_path):
+    notebook = json.loads(Path("notebooks/kaggle-build-runtime-t4.ipynb").read_text())
+    commands = []
+    cache = tmp_path / "vembody-runtime-t4.zip"
+
+    def build(command, **kwargs):
+        """Simulate only the notebook's subprocess boundary, not GPU compilation."""
+        commands.append(command)
+        assert kwargs == {"check": True}
+        cache.write_bytes(b"offline-cache-fixture")
+
+    namespace = {
+        "subprocess": SimpleNamespace(run=build),
+        "PYTHON": tmp_path / "isolated python",
+        "RUNNER": tmp_path / "scripts/kaggle_run.py",
+        "REPO": tmp_path,
+        "WORK": tmp_path / "work",
+        "CACHE": cache,
+    }
+    code = "".join(notebook["cells"][3]["source"])
+    exec(compile(code, "runtime-export", "exec"), namespace)
+    (command,) = commands
+    assert command[1] == "-I" and command[3] == "build-runtime"
+    assert command[-2:] == ["--cache-output", str(cache)]
+    assert "prepare" not in command and "autonomous" not in command
+    assert cache.is_file()

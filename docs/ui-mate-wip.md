@@ -7,11 +7,12 @@ Status: 2026-11-14; development experiments only, not a finished autonomous agen
 - Added environment-based endpoint profiles, safe vision HTTP requests, and CLI/evaluation integration without bundled credentials or weights.
 - Added versioned UI-Mate adapters with strict single-action parsing, screenshot resizing, coordinate conversion, and independent sandbox grading.
 - Added Kaggle packaging, an isolated Python environment, pinned Q6_K inference, reusable validated T4 runtime caches, and result export.
+- Added a standalone runtime-generator notebook and a [teammate quick start](../notebooks/README.md) covering branch checkout, cache sharing, setup, controls, and outputs.
 - Added four-task grounding checks and bounded autonomous play on the existing 5×5 development board.
 - Measured v2 grounding at 6/12 successes across four tasks repeated three times, 100% valid responses, and 10.45 seconds average response time; target errors remain.
 - Diagnosed the v2 autonomous run: its first response exhausted 2,048 output tokens after 70.5 seconds, with zero executed actions; starting reveals were preset.
 - Implemented separately logged `original` (v2/2,048 tokens/180 seconds), `budget-only` (v2/4,096/240), and `brief` (v3/4,096/240) profiles without changing game limits or the CUDA runtime.
-- Added explicit truncation rejection/reporting and verified 263 local tests, Ruff lint/format checks, and offline adapter checks; GPU validation of the new profiles is pending.
+- Added explicit truncation rejection/reporting and verified 270 local tests, Ruff lint/format checks, and offline adapter checks; GPU validation of the new profiles and standalone generator notebook is pending.
 
 ## Next
 

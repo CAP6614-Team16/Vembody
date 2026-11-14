@@ -1,5 +1,7 @@
 # Kaggle Q6_K pilot
 
+Start with the [teammate quick start](../notebooks/README.md); use the [runtime generator](../notebooks/kaggle-build-runtime-t4.ipynb) only if you do not already have a compatible cache.
+
 - Run `python scripts/package_kaggle.py` locally to create `artifacts/vembody-kaggle.zip`, including current uncommitted code but no keys, weights, or run outputs.
 - In Kaggle, use **File → Import Notebook** to upload `notebooks/kaggle-ui-mate-q6.ipynb`.
 - Use **Add Input → Upload** to attach the ZIP as a **private** dataset; the notebook also handles Kaggle automatically unpacking it.

@@ -15,6 +15,7 @@ from scripts.kaggle_cache import export_runtime
 from scripts.kaggle_grounding import run_grounding
 from scripts.kaggle_ui_mate import (
     Runtime,
+    build_server,
     gpu_info,
     prepare_runtime,
     run_pilot,
@@ -50,9 +51,11 @@ def load_runtime(path: Path, spec: dict) -> Runtime:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Prepare once or run one pilot using the notebook's explicit source/work/output paths."""
+    """Build/export a runtime, prepare weights, or evaluate with explicit notebook paths."""
     parser = argparse.ArgumentParser()
-    parser.add_argument("stage", choices=("prepare", "pilot", "grounding", "autonomous"))
+    parser.add_argument(
+        "stage", choices=("build-runtime", "prepare", "pilot", "grounding", "autonomous")
+    )
     parser.add_argument("--repo", type=Path, required=True)
     parser.add_argument("--work", type=Path, required=True)
     parser.add_argument("--output", type=Path)
@@ -62,8 +65,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--autonomous-profile", choices=AUTONOMOUS_PROFILES, default="brief")
     args = parser.parse_args(argv)
     trials = args.trials if args.trials is not None else (1 if args.stage == "autonomous" else 3)
-    if args.stage != "prepare" and args.output is None:
+    if args.stage not in {"prepare", "build-runtime"} and args.output is None:
         parser.error("evaluation stages require --output")
+
+    if args.stage == "build-runtime" and args.cache_output is None:
+        parser.error("build-runtime requires --cache-output")
 
     if (
         args.stage == "autonomous"
@@ -74,7 +80,14 @@ def main(argv: list[str] | None = None) -> int:
 
     config = args.repo / "configs/kaggle-ui-mate.json"
     state = args.work / "prepared-runtime.json"
-    if args.stage == "prepare":
+    if args.stage == "build-runtime":
+        print(gpu_info(), flush=True)
+        args.work.mkdir(parents=True, exist_ok=True)
+        spec = json.loads(config.read_text(encoding="utf-8"))
+        binary = build_server(args.work, spec)
+        export_runtime(binary, spec, args.cache_output)
+        print("Runtime exported; no model weights downloaded or experiments run", flush=True)
+    elif args.stage == "prepare":
         runtime = prepare_runtime(args.work, config)
         save_runtime(state, runtime)
         if args.cache_output is not None:
