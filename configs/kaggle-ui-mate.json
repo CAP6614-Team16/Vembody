@@ -1,0 +1,21 @@
+{
+  "repo_id": "bartowski/tencent_UI-Mate-9B-GGUF",
+  "revision": "695da95fcfcb1fed85e9b4dd6d698e3575f09288",
+  "quantization": "Q6_K",
+  "files": {
+    "model": {
+      "name": "tencent_UI-Mate-9B-Q6_K.gguf",
+      "sha256": "d43523385746a24991f6c84761a34564104ec474041f77987ca9bf660130a971"
+    },
+    "projector": {
+      "name": "mmproj-tencent_UI-Mate-9B-f16.gguf",
+      "sha256": "5a8380c4637dddceed9dbc28fffcdfa8601909c0ece9fe218fbd6888ec5d2c16"
+    }
+  },
+  "llama_revision": "60eeeb6082c1126bb8bc72902c83123cd056811b",
+  "llama_tag": "b10472",
+  "served_model": "UI-Mate-9B-Q6_K",
+  "context_size": 8192,
+  "image_min_tokens": 1024,
+  "image_max_tokens": 1024
+}

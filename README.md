@@ -16,6 +16,9 @@ The mock model proposes deterministic actions, the parser and validator check th
 
 Live desktop execution is not implemented in this milestone.
 
+For Anant's RTX 5080 endpoint or a hosted vision-model alternative, see [model access](docs/model-access.md); connection profiles are selected with `--model-config`.
+For the selected UI-Mate-9B Q6_K model, start with the [Kaggle pilot](docs/kaggle.md); native actions use `--model ui-mate`.
+
 ## Minesweeper sandbox
 
 Play the game yourself in a browser (left click reveals, right click flags, the face starts a new game):

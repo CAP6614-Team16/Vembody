@@ -1,0 +1,43 @@
+# Kaggle Q6_K pilot
+
+- Run `python scripts/package_kaggle.py` locally to create `artifacts/vembody-kaggle.zip`, including current uncommitted code but no keys, weights, or run outputs.
+- In Kaggle, use **File → Import Notebook** to upload `notebooks/kaggle-ui-mate-q6.ipynb`.
+- Use **Add Input → Upload** to attach the ZIP as a **private** dataset; the notebook also handles Kaggle automatically unpacking it.
+- Select **GPU T4 x2**, enable **Internet**, and run cells in order; without a runtime cache the first CUDA build may take an hour or more, plus approximately 8.6 GB of downloads.
+- Python dependencies are installed in a private virtual environment; Kaggle's shared `datasets`, `gradio`, and Pillow installations are untouched.
+- Setup uses `venv --without-pip` and host pip's `--python` option to bypass Kaggle's failing `ensurepip` bootstrap while installing only into the private environment ([pip docs](https://pip.pypa.io/en/stable/topics/python-option/)).
+- Setup locates the real versioned CUDA driver, verifies two GPUs through it, and passes its path to CMake without installing drivers or modifying system symlinks.
+- `configs/kaggle-ui-mate.json` pins the public Q6_K checkpoint, FP16 vision projector, SHA-256 checksums, and llama.cpp revision ([weights](https://huggingface.co/bartowski/tencent_UI-Mate-9B-GGUF), [runtime](https://github.com/ggml-org/llama.cpp/tree/b10472)).
+- The model uses both T4s, an 8,192-token context, a 1,024-image-token minimum and maximum, and one current screenshot without memory; the minimum addresses llama.cpp's grounding warning.
+- The native UI-Mate adapter permits one click/terminal action, maps the 0–999 image grid to normalized coordinates, and never executes generated Python.
+- This is an adapted screenshot-only baseline, not a reproduction of the authors' full-history evaluation harness ([native contract](https://github.com/Tencent/UI-Mate/blob/1cb9e1e44ce856e23b593992b02efbd489943fcb/agents/ui_mate_agent.py)).
+- Set `MODE = 'grounding'` to check one non-executed smoke action, then T1-01 through T1-04 three times each; each episode retains its three-action/five-minute limit and v2/2,048-token settings.
+- Set `MODE = 'pilot'` for the original C5-only check, or `TRIALS = 1` for one pass over the four grounding tasks.
+- The current `ADAPTER = 'ui-mate'` is the versioned v2 contract alignment; use `'ui-mate-legacy'` to repeat v1, with `AUTONOMOUS_PROFILE = 'original'` for autonomous mode ([audit](ui-mate-compatibility.md)).
+- Setup runs offline contract checks; result ZIPs include `compatibility.json`, and image dimensions/transforms are recorded per model response.
+- Default `MODE = 'autonomous'`, `PLAY_TRIALS = 1` runs one fixed 5×5 game under unchanged 40-action/15-minute limits; no C5 smoke task is run in this mode.
+- Default `AUTONOMOUS_PROFILE = 'brief'` selects `ui-mate-minesweeper-v3-brief`, requests one short decision followed by one complete action, and allows 4,096 output tokens with a 240-second request timeout.
+- Use `'budget-only'` for v2 with the same 4,096-token/240-second limits, or `'original'` for v2 with the previous 2,048-token/180-second limits; compare original → budget-only → brief to separate changes.
+- The 8,192-token context, weights, image processing, coordinate mapping, decoding, and task limits stay unchanged; the larger output ceiling does not guarantee a complete or correct action.
+- Autonomous play supplies only a high-level goal and screenshots; it uses the current-screenshot-only policy, not a second planner, hidden-state solver, or learned memory.
+- `autonomous/autonomous-summary.json` reports the response profile, executed actions, truncations, parse errors, wins, mine losses, ineffective/off-grid/invalid actions, false completion claims, and latency alongside raw traces.
+- Responses ending with `finish_reason = 'length'` are rejected even if they contain a tool call; there is no implicit retry, action repair, or success fallback.
+- V2/v3 and output-budget changes affect only Python/client behavior; attach your existing `vembody-runtime-t4.zip` to reuse the same compatible server without compilation.
+- For this update, rebuild/upload the source ZIP and reimport the matching notebook; in a fresh session run all five code cells with the runtime cache attached.
+- Within the updated session, change `AUTONOMOUS_PROFILE` in a new cell and rerun only evaluation (code cell 4) and ZIP export (code cell 5); each evaluation gets a fresh output folder.
+- This is a development check, not a certified benchmark or transfer experiment; frozen openings and greedy decoding make repeated trials repeatability checks, not independent samples.
+- `grounding/grounding-summary.json` reports first-action accuracy, response validity, pixel distance from the target center, episode success, and latency; raw logs and screenshots remain alongside it.
+- The original pilot clicked A4 instead of C5 at approximately 30.5 generated tokens/s and 26 seconds/response; that run lacked the new image-token minimum and is not evidence of a quantization-specific failure.
+- In Kaggle's right sidebar, refresh **Output → /kaggle/working** and use each ZIP's **Download** menu; filesystem `FileLink` URLs can return 404.
+- Download the results ZIP and `vembody-runtime-t4.zip`, then **stop the Kaggle session**; the server stops automatically, but an active GPU session still consumes quota.
+- Upload the runtime ZIP as a separate private dataset and attach it in future sessions; its original ZIP or Kaggle-unpacked form is supported, independently of the source bundle.
+- Only attach a runtime cache you trust; checksums detect corruption, not malicious executable code or an untrusted producer.
+- Cache reuse verifies the runtime revision, CUDA toolkit, libc, CPU flags, library resolution, and file hashes; an incompatible cache stops with instructions to detach it and rebuild.
+- The cache includes the complete compiled `build/bin` directory, not model weights, CUDA drivers, Python environments, or system CUDA libraries; those system dependencies must still be compatible.
+- An existing server in the same session is checked and reused without compilation; changing prompts, image settings, or compatible weights does not rebuild it.
+- On failure, download the existing output folder/logs; rerun the first code cell for a fresh output name before retrying.
+- After updating the bundle, reimport the matching notebook and attach only the new source dataset version; setup explicitly reloads its helper to avoid stale imports.
+- Weights/builds stay under `/kaggle/temp` and are not notebook outputs; restarting the Kaggle session may require downloading/building again.
+- No Kaggle credentials are configured in this workspace, so the actual T4 inference/latency test must be launched in your Kaggle session.
+- Later, serve the same Q6_K checkpoint/projector on Anant's endpoint and switch to `--model ui-mate --model-config configs/models/anant.yaml`.
+- Fine-tuning, demonstration collection, and held-out game-transfer experiments are later steps, not performed by this notebook.
