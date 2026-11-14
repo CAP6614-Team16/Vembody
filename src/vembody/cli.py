@@ -19,7 +19,8 @@ from .logging.jsonl import JsonlLogger
 from .loop import AgentLoop
 from .minesweeper.screen import MinesweeperScreen
 from .minesweeper.webui import make_server
-from .models.registry import MODEL_NAMES, build_model
+from .models.registry import MODEL_NAMES, REMOTE_MODEL_NAMES, build_model
+from .models.settings import load_endpoint_config
 from .perception.file import FileObservationProvider
 from .sandbox import MinesweeperSandbox
 from .tasks import TaskSpec, discover_task_paths, load_task
@@ -33,6 +34,7 @@ def build_parser() -> argparse.ArgumentParser:
     run_parser = subparsers.add_parser("run", help="run one bounded episode")
     run_parser.add_argument("--task", required=True, help="path to a YAML or JSON task")
     run_parser.add_argument("--model", choices=MODEL_NAMES, default="mock")
+    run_parser.add_argument("--model-config", help="endpoint profile for http or ui-mate")
     run_parser.add_argument("--executor", choices=("dry-run", "desktop"), default="dry-run")
     run_parser.add_argument("--log", default="artifacts/episode.jsonl")
     run_parser.add_argument("--allow-live-actions", action="store_true")
@@ -46,6 +48,7 @@ def build_parser() -> argparse.ArgumentParser:
         help="split selected when --tasks points to a benchmark root",
     )
     eval_parser.add_argument("--model", choices=MODEL_NAMES, required=True)
+    eval_parser.add_argument("--model-config", help="endpoint profile for http or ui-mate")
     eval_parser.add_argument("--trials", type=int, default=5)
     eval_parser.add_argument("--name", required=True, help="experiment name (output folder)")
     eval_parser.add_argument("--out", default="runs", help="parent folder for experiments")
@@ -78,6 +81,12 @@ def build_parser() -> argparse.ArgumentParser:
 def build_loop(args: argparse.Namespace) -> tuple[AgentLoop, TaskSpec]:
     """Construct the runtime for one task."""
     task = load_task(args.task)
+    if args.model not in REMOTE_MODEL_NAMES and args.model_config:
+        raise ValueError("--model-config requires --model http or ui-mate")
+
+    model_config = (
+        load_endpoint_config(args.model_config) if args.model in REMOTE_MODEL_NAMES else None
+    )
     sandbox = None
 
     # Minesweeper tasks run in the sandbox, which captures, executes, and grades
@@ -93,7 +102,7 @@ def build_loop(args: argparse.Namespace) -> tuple[AgentLoop, TaskSpec]:
             executor = DesktopExecutor(allow_live_actions=args.allow_live_actions)
 
     loop = AgentLoop(
-        model=build_model(args.model, task, sandbox),
+        model=build_model(args.model, task, sandbox, model_config=model_config),
         observations=observations,
         executor=executor,
         evaluator=evaluator,
@@ -148,6 +157,7 @@ def eval_command(args: argparse.Namespace) -> int:
         max_steps=args.max_steps,
         timeout_seconds=args.timeout,
         labels=labels,
+        model_config=args.model_config,
     )
     out = Path(args.out) / args.name
 

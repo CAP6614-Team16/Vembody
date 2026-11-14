@@ -2,7 +2,8 @@
 
 - `python -m vembody run`: starts one bounded task episode.
 - `--task`: selects the YAML or JSON task file loaded by `src/vembody/tasks.py`.
-- `--model`: selects `mock`, `random`, `random-cell`, or `solver` through `models/registry.py`.
+- `--model`: selects `mock`, `random`, `random-cell`, `solver`, `http`, `ui-mate`, `ui-mate-legacy`, or `ui-mate-brief` through `models/registry.py`.
+- `--model-config`: selects Anant's endpoint or the hosted alternative for `--model http` (see [model access](model-access.md)).
 - `--executor`: selects how actions are applied, currently `dry-run` from `src/vembody/execution/dry_run.py`.
 - `python -m vembody eval`: runs every task for N trials as one experiment under `runs/<name>/` (see `docs/evaluation.md`).
 - `eval --tasks tasks/benchmark --split development`: selects that split's manifest; frozen board starts remain unchanged across trials.
@@ -20,6 +21,17 @@
 - `models/mock.py`: returns the task's predefined actions without model inference.
 - `models/baselines.py`: reference policies (random click, random hidden cell, perfect-perception solver).
 - `models/registry.py`: builds a model by name for `run` and `eval`.
+- `models/settings.py`: validates endpoint profiles and resolves environment variables without storing API keys.
+- `models/http.py`: sends the current screenshot to a compatible vision endpoint with bounded socket waits and no retries or redirects.
+- `models/prompts.py`: defines the versioned screenshot-only baseline prompt and allowed action parameters.
+- `models/ui_mate.py`: safely translates native UI-Mate XML calls into one validated action without executing Python.
+- `models/ui_mate_contract.py`: implements the pinned coordinate, image-sizing, and restricted prompt contract independently of the executor.
+- `notebooks/kaggle-ui-mate-q6.ipynb`: runs the pinned Q6_K model and sandbox together on two T4s (see [Kaggle setup](kaggle.md)).
+- `scripts/kaggle_grounding.py`: evaluates the four T1 development tasks and summarizes first-action accuracy, coordinate errors, validity, and latency.
+- `scripts/check_ui_mate_compatibility.py`: checks adapter contracts offline and audits coordinate conversion in archived results without executing their contents.
+- `scripts/kaggle_autonomous.py`: runs one high-level complete-game task with independent grading and fixed action/time limits.
+- `scripts/kaggle_cache.py`: exports and validates reusable compiled runtimes without model weights or credentials.
+- `scripts/kaggle_run.py`: launches prepare, original pilot, grounding, or autonomous evaluation inside the isolated environment.
 - `actions.py`: defines the typed, allowlisted action schema and serialization helpers.
 - `parsing.py`: converts one model JSON response into a validated typed action.
 - `validation.py`: enforces task permissions, normalized coordinates, and safety limits.
@@ -61,5 +73,5 @@ provider.
 
 T2/T3 tasks require a trusted logical provider. Evaluation-split runs require a
 future certificate-verification path and are currently blocked. No pretrained
-model, G/T prompting adapter, or production constraint solver is implemented.
+model is bundled; G/T-specific prompting and a production constraint solver remain unimplemented.
 See [the handoff](benchmark-handoff.md) for checks and dependencies.

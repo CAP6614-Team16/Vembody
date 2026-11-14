@@ -1,0 +1,11 @@
+# Larger response budget only; the brief prompt is independently selected by its adapter.
+base_url_env: VEMBODY_KAGGLE_BASE_URL
+model_env: VEMBODY_KAGGLE_MODEL
+api_key_env: VEMBODY_KAGGLE_API_KEY
+timeout_seconds: 240
+max_tokens: 4096
+temperature: 0
+top_p: 0.95
+model_revision: 695da95fcfcb1fed85e9b4dd6d698e3575f09288
+quantization: Q6_K
+backend: llama.cpp-b10472

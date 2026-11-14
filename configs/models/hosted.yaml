@@ -1,0 +1,7 @@
+# Manually selected hosted vision endpoint; never an automatic paid fallback.
+base_url_env: VEMBODY_HOSTED_BASE_URL
+model_env: VEMBODY_HOSTED_MODEL
+api_key_env: VEMBODY_HOSTED_API_KEY
+timeout_seconds: 60
+max_tokens: 256
+temperature: 0

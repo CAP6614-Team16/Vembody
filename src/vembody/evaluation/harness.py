@@ -27,7 +27,8 @@ from .. import __version__
 from ..logging.jsonl import JsonlLogger
 from ..loop import AgentLoop
 from ..models.base import VisionModel
-from ..models.registry import build_model
+from ..models.registry import MODEL_PROMPT_VERSIONS, REMOTE_MODEL_NAMES, build_model
+from ..models.settings import load_endpoint_config
 from ..results import to_jsonable
 from ..sandbox import MinesweeperSandbox
 from ..tasks import TaskSpec, load_task_set
@@ -50,6 +51,7 @@ class ExperimentConfig:
     max_steps: int | None = None
     timeout_seconds: float | None = None
     labels: dict[str, str] = field(default_factory=dict)
+    model_config: str | None = None
 
 
 def _git_info() -> dict[str, Any]:
@@ -114,11 +116,18 @@ def run_experiment(
     for path, task in tasks:
         if task.environment != "minesweeper":
             raise ValueError(f"{path}: the harness currently supports minesweeper tasks only")
+
+    if config.model not in REMOTE_MODEL_NAMES and config.model_config:
+        raise ValueError("model_config requires an HTTP-backed model")
+
+    endpoint = (
+        load_endpoint_config(config.model_config) if config.model in REMOTE_MODEL_NAMES else None
+    )
     # Reserve the entire directory, including partial runs interrupted before a summary.
     out.mkdir(parents=True, exist_ok=False)
 
     def default_factory(task: TaskSpec, sandbox: MinesweeperSandbox, seed: int) -> VisionModel:
-        return build_model(config.model, task, sandbox, seed)
+        return build_model(config.model, task, sandbox, seed, model_config=endpoint)
 
     factory = model_factory or default_factory
 
@@ -138,6 +147,12 @@ def run_experiment(
             "model": "base_seed_plus_trial",
         },
     }
+    if endpoint is not None:
+        manifest["model_endpoint"] = {
+            **to_jsonable(endpoint),
+            "prompt_version": MODEL_PROMPT_VERSIONS[config.model],
+        }
+
     (out / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
 
     rows = []
