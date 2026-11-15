@@ -18,3 +18,10 @@ def test_parser_rejects_non_json() -> None:
 def test_parser_rejects_unknown_top_level_field() -> None:
     with pytest.raises(ModelParseError):
         parse_model_response('{"action":{"type":"finish"},"execute":"yes"}')
+
+
+def test_board_transcription_is_accepted_but_must_be_row_strings():
+    action = '{"type": "click", "x": 0.5, "y": 0.5}'
+    assert parse_model_response('{"board": ["# 1"], "action": ' + action + "}").action
+    with pytest.raises(ModelParseError):
+        parse_model_response('{"board": [1, 2], "action": ' + action + "}")

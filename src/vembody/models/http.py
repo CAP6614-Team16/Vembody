@@ -18,7 +18,7 @@ from ..observations import Observation
 from ..results import StepResult
 from ..tasks import TaskSpec
 from .base import ModelResponse
-from .prompts import PROMPT_VERSION, SYSTEM_PROMPT, task_prompt
+from .prompts import PROMPT_VERSION, SYSTEM_PROMPT, response_schema, task_prompt
 from .settings import EndpointConfig
 
 MAX_RESPONSE_BYTES = 1024 * 1024
@@ -33,7 +33,7 @@ class _NoRedirect(HTTPRedirectHandler):
 
 
 class HttpVisionModel:
-    """Send one screenshot per call without private state or baseline history."""
+    """Send the current screenshot and recent own actions, never private state."""
 
     prompt_version = PROMPT_VERSION
 
@@ -42,18 +42,27 @@ class HttpVisionModel:
         self.config = config
         self.opener = build_opener(_NoRedirect())
 
-    def build_messages(self, task: TaskSpec, image_url: str) -> list[dict]:
-        """Build the generic JSON baseline's instruction and image messages."""
+    def build_messages(
+        self, task: TaskSpec, image_url: str, history: list[StepResult] = ()
+    ) -> list[dict]:
+        """Build the generic JSON baseline's instruction, recent actions, and image."""
         return [
             {"role": "system", "content": SYSTEM_PROMPT},
             {
                 "role": "user",
                 "content": [
-                    {"type": "text", "text": task_prompt(task)},
+                    {"type": "text", "text": task_prompt(task, history)},
                     {"type": "image_url", "image_url": {"url": image_url}},
                 ],
             },
         ]
+
+    def response_format(self, task: TaskSpec) -> dict | None:
+        """Constrain replies to the task's action schema (OpenAI structured outputs)."""
+        return {
+            "type": "json_schema",
+            "json_schema": {"name": "action", "strict": True, "schema": response_schema(task)},
+        }
 
     def prepare_image(self, image: Image.Image) -> Image.Image:
         """Keep generic endpoint screenshots unresized; specialized adapters can override."""
@@ -77,12 +86,15 @@ class HttpVisionModel:
         encoded = base64.b64encode(image_buffer.getvalue()).decode("ascii")
         payload = {
             "model": self.config.model,
-            "messages": self.build_messages(task, f"data:image/png;base64,{encoded}"),
+            "messages": self.build_messages(task, f"data:image/png;base64,{encoded}", history),
             "max_tokens": self.config.max_tokens,
             "temperature": self.config.temperature,
             "top_p": self.config.top_p,
             "stream": False,
         }
+        response_format = self.response_format(task)
+        if response_format is not None:
+            payload["response_format"] = response_format
         request = Request(
             self.config.base_url + "/chat/completions",
             data=json.dumps(payload).encode("utf-8"),

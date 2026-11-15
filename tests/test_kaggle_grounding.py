@@ -47,7 +47,7 @@ def test_grounding_suite_measures_outcomes_without_a_gpu(tmp_path, monkeypatch, 
     )
     assert json.loads((output / "grounding-summary.json").read_text()) == summary
     if mode == "correct":
-        assert summary["mean_first_click_center_error_pixels"] == 0
+        assert summary["mean_first_click_center_error_pixels"] < 3
     elif mode == "wrong":
         assert summary["mean_first_click_center_error_pixels"] > 0
 

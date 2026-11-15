@@ -72,9 +72,10 @@ def test_ordered_setup_and_hash_mismatch(tmp_path):
 
 def test_geometry_labels_boundaries_and_disabled_chord(tmp_path):
     task = write_task(tmp_path)
-    raw = prepare(task)
-    labeled = prepare(replace(task, benchmark=replace(task.benchmark, grid_labels=True)))
-    assert raw.screenshot().size == labeled.screenshot().size == (336, 376)
+    raw = prepare(replace(task, benchmark=replace(task.benchmark, grid_labels=False)))
+    labeled = prepare(task)
+    assert task.benchmark.grid_labels
+    assert raw.screenshot().size == labeled.screenshot().size == (1008, 1128)
     box = (raw.grid_left, raw.grid_top, raw.width, raw.height)
     assert raw.screenshot().crop(box).tobytes() == labeled.screenshot().crop(box).tobytes()
     for row in range(9):

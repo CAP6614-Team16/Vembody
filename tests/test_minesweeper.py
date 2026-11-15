@@ -3,7 +3,7 @@ from pathlib import Path
 from vembody.actions import action_from_dict
 from vembody.cli import build_loop, build_parser
 from vembody.minesweeper.game import Minesweeper
-from vembody.minesweeper.screen import CELL, HEADER, MARGIN
+from vembody.minesweeper.screen import CELL, HEADER, MARGIN, MinesweeperScreen
 from vembody.results import EvaluationStatus, TerminationReason
 from vembody.sandbox import MinesweeperSandbox
 from vembody.tasks import load_task
@@ -37,8 +37,8 @@ def test_normalized_click_reaches_the_intended_cell(tmp_path: Path) -> None:
     screen = sandbox.screen
 
     # Right click the center of cell (2, 5) using normalized coordinates
-    px = MARGIN + 5 * CELL + CELL // 2
-    py = HEADER + 2 * CELL + CELL // 2
+    px = (MARGIN + 5 * CELL + CELL // 2) * screen.scale
+    py = (HEADER + 2 * CELL + CELL // 2) * screen.scale
     x = px / (screen.width - 1)
     y = py / (screen.height - 1)
     sandbox.execute(action_from_dict({"type": "right_click", "x": x, "y": y}))
@@ -59,3 +59,14 @@ def test_hitting_a_mine_ends_the_episode(tmp_path: Path) -> None:
     assert result.termination_reason is TerminationReason.GAME_OVER
     assert result.evaluation.status is EvaluationStatus.FAILURE
     assert len(list(tmp_path.glob("screenshots/*/step_*.png"))) == 2
+
+
+def test_scaled_screen_maps_clicks_like_the_base_screen():
+    base = MinesweeperScreen(seed=3, benchmark=True, scale=1)
+    big = MinesweeperScreen(seed=3, benchmark=True)
+    assert big.screenshot().size == (base.width * 3, base.height * 3)
+    for cell in [(0, 0), (4, 7), (8, 8)]:
+        assert big.cell_at(*big.cell_center(cell)) == cell
+        assert base.cell_at(*base.cell_center(cell)) == cell
+    # Cell borders stay off-target at every scale
+    assert big.cell_at(big.grid_left, big.grid_top) is None

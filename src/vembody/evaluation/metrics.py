@@ -7,6 +7,7 @@ Definitions are documented in ``docs/evaluation.md``.
 
 from __future__ import annotations
 
+import json
 import math
 import random
 import statistics
@@ -80,6 +81,36 @@ def recovery_counts(steps: list[dict[str, Any]]) -> tuple[int, int]:
     return setbacks, recoveries
 
 
+def _row_cells(row: str) -> list[str]:
+    """Split one transcribed row such as "A: # 1 ." or "#1." into cell symbols."""
+    row = row.split(":", 1)[1] if ":" in row else row
+    tokens = row.split()
+    return tokens if len(tokens) > 1 else list(row.strip())
+
+
+def board_read_accuracy(step: dict[str, Any]) -> float | None:
+    """Share of cells the model transcribed correctly before acting, or None.
+
+    Compares the reply's ``board`` with the visible board recorded privately at the
+    same step, so it measures perception separately from decisions.
+    """
+    truth = (((step.get("execution") or {}).get("evidence")) or {}).get("visible_before")
+    try:
+        board = json.loads(step.get("raw_model_response") or "").get("board")
+    except (ValueError, AttributeError):
+        return None
+    if not truth or not isinstance(board, list):
+        return None
+    total = sum(len(row) for row in truth)
+    correct = 0
+    for index, true_row in enumerate(truth):
+        read = (
+            _row_cells(board[index]) if index < len(board) and isinstance(board[index], str) else []
+        )
+        correct += sum(a == b for a, b in zip(read, true_row, strict=False))
+    return correct / total if total else None
+
+
 def _final_board(steps: list[dict[str, Any]]) -> dict[str, Any] | None:
     for step in reversed(steps):
         board = ((step.get("execution") or {}).get("details") or {}).get("board")
@@ -114,6 +145,7 @@ def episode_metrics(
     latencies = [float(s.get("model_elapsed_seconds") or 0.0) for s in steps]
     invalid = sum(_is_invalid(s) for s in steps)
     setbacks, recoveries = recovery_counts(steps)
+    reads = [r for s in steps if (r := board_read_accuracy(s)) is not None]
     status = (episode.get("evaluation") or {}).get("status")
 
     row: dict[str, Any] = {
@@ -138,6 +170,7 @@ def episode_metrics(
         "latency_mean": statistics.fmean(latencies) if latencies else None,
         "latency_median": _percentile(latencies, 0.5),
         "latency_p95": _percentile(latencies, 0.95),
+        "board_read_accuracy": statistics.fmean(reads) if reads else None,
     }
 
     for key in TOKEN_KEYS:
@@ -237,5 +270,6 @@ def aggregate(rows: list[dict[str, Any]]) -> dict[str, Any]:
         "latency_median_mean": _mean(all_latencies),
         "latency_p95_mean": _mean([r.get("latency_p95") for r in rows]),
         "prompt_tokens_per_step_mean": _mean([r.get("prompt_tokens_per_step") for r in rows]),
+        "board_read_accuracy_mean": _mean([r.get("board_read_accuracy") for r in rows]),
         "termination_reasons": termination_reasons,
     }

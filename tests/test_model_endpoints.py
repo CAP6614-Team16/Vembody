@@ -9,6 +9,7 @@ import pytest
 import yaml
 from PIL import Image
 
+from vembody.actions import action_from_dict
 from vembody.cli import main
 from vembody.errors import VembodyError
 from vembody.models.http import HttpVisionModel
@@ -257,7 +258,7 @@ def test_run_and_eval_use_selected_profile(endpoint, tmp_path, profile):
     manifest = json.loads((experiment / "manifest.json").read_text())
     assert manifest["model_endpoint"]["model"] == "test-vlm"
     assert manifest["model_endpoint"]["base_url"] == endpoint["url"]
-    assert manifest["model_endpoint"]["prompt_version"] == "screenshot-action-v1"
+    assert manifest["model_endpoint"]["prompt_version"] == "screenshot-action-v9"
     row = json.loads((experiment / "episodes.jsonl").read_text())
     assert row["success"] and row["prompt_tokens_total"] == 40
     assert len(endpoint["requests"]) == 2
@@ -287,9 +288,9 @@ def test_bad_action_json_still_uses_strict_loop_parser(endpoint, tmp_path):
         == 0
     )
     lines = [json.loads(line) for line in log.read_text().splitlines()]
-    assert lines[-1]["episode"]["termination_reason"] == "parse_error"
+    assert lines[-1]["episode"]["termination_reason"] == "action_limit"
     assert lines[0]["step"]["execution"] is None
-    assert lines[0]["step"]["model_metadata"]["prompt_version"] == "screenshot-action-v1"
+    assert lines[0]["step"]["model_metadata"]["prompt_version"] == "screenshot-action-v9"
 
 
 @pytest.mark.parametrize(
@@ -463,15 +464,15 @@ def test_ui_mate_native_endpoint_completes_grounding_task(endpoint, tmp_path):
     step = json.loads(log.read_text().splitlines()[0])["step"]
     assert step["model_metadata"]["native_response"] == native
     assert step["action"]["type"] == "click"
-    assert step["model_metadata"]["image_size"] == [336, 376]
-    assert step["model_metadata"]["encoded_image_size"] == [320, 384]
+    assert step["model_metadata"]["image_size"] == [1008, 1128]
+    assert step["model_metadata"]["encoded_image_size"] == [1024, 1120]
     assert step["model_metadata"]["image_transform"] == "factor32-no-padding"
     payload = endpoint["requests"][0]["payload"]
     image_block = payload["messages"][1]["content"][0]
     with Image.open(
         io.BytesIO(base64.b64decode(image_block["image_url"]["url"].split(",")[1]))
     ) as sent:
-        assert sent.size == (320, 384)
+        assert sent.size == (1024, 1120)
 
 
 def test_ui_mate_parse_failure_preserves_native_output_and_tokens(endpoint, tmp_path):
@@ -497,7 +498,7 @@ def test_ui_mate_parse_failure_preserves_native_output_and_tokens(endpoint, tmp_
         == 0
     )
     records = [json.loads(line) for line in log.read_text().splitlines()]
-    assert records[-1]["episode"]["termination_reason"] == "parse_error"
+    assert records[-1]["episode"]["termination_reason"] == "action_limit"
     assert records[0]["step"]["execution"] is None
     assert records[0]["step"]["model_metadata"]["native_response"] == native
     assert records[0]["step"]["model_metadata"]["prompt_tokens"] == 40
@@ -591,3 +592,60 @@ def test_autonomous_endpoint_receives_a_goal_not_hidden_targets(endpoint, tmp_pa
     row = json.loads((tmp_path / "autonomous/episodes.jsonl").read_text())
     assert row["max_steps"] == 40
     assert not row["success"] and row["termination_reason"] == "finish_requested"
+
+
+def test_generic_prompt_lists_recent_own_actions_only(endpoint, tmp_path):
+    model = HttpVisionModel(load_endpoint_config("configs/models/anant.yaml"))
+    observation = screenshot_observation(tmp_path)
+    model.generate_action(load_task(TASK), observation, [])
+    first = json.loads(endpoint["requests"][0]["payload"]["messages"][1]["content"][0]["text"])
+    assert "previous_actions" not in first
+
+    clicks = [action_from_dict({"type": "click", "x": i / 10, "y": 0.5}) for i in range(7)]
+    history = [StepResult(observation, action=a) for a in clicks] + [StepResult(observation)]
+    model.generate_action(load_task(TASK), observation, history)
+    text = json.loads(endpoint["requests"][1]["payload"]["messages"][1]["content"][0]["text"])
+    assert [a["x"] for a in text["previous_actions"]] == [0.2, 0.3, 0.4, 0.5, 0.6]
+    assert "missed" in text["previous_actions_note"]
+
+
+def test_generic_requests_constrain_replies_with_the_task_schema(endpoint, tmp_path):
+    model = HttpVisionModel(load_endpoint_config("configs/models/anant.yaml"))
+    task = load_task(TASK)
+    model.generate_action(task, screenshot_observation(tmp_path), [])
+    schema = endpoint["requests"][0]["payload"]["response_format"]["json_schema"]["schema"]
+    # Board first, then reasoning, then the action
+    assert list(schema["properties"]) == ["board", "reasoning_summary", "action"]
+    variants = schema["properties"]["action"]["anyOf"]
+    assert [v["properties"]["type"]["enum"] for v in variants] == [
+        [a.value] for a in task.allowed_actions
+    ]
+    click = next(v for v in variants if v["properties"]["type"]["enum"] == ["click"])
+    assert click["required"] == ["type", "x", "y"]
+    assert click["properties"]["y"]["maximum"] == 1
+
+
+def test_ui_mate_requests_keep_native_unconstrained_output(endpoint, tmp_path):
+    model = BriefUiMateModel(load_endpoint_config("configs/models/anant.yaml"))
+    model.generate_action(load_task(TASK), screenshot_observation(tmp_path), [])
+    assert "response_format" not in endpoint["requests"][0]["payload"]
+
+
+def test_history_shows_rejected_attempts_and_why(endpoint, tmp_path):
+    model = HttpVisionModel(load_endpoint_config("configs/models/anant.yaml"))
+    observation = screenshot_observation(tmp_path)
+    history = [
+        StepResult(observation, parse_error="Model response is not valid JSON"),
+        StepResult(
+            observation,
+            action=action_from_dict({"type": "click", "x": 0.5, "y": 461}),
+            validation_error="y must be within [0, 1]",
+        ),
+    ]
+    model.generate_action(load_task(TASK), observation, history)
+    text = json.loads(endpoint["requests"][0]["payload"]["messages"][1]["content"][0]["text"])
+    assert text["previous_actions"] == [
+        {"invalid": "Model response is not valid JSON"},
+        {"type": "click", "x": 0.5, "y": 461, "invalid": "y must be within [0, 1]"},
+    ]
+    assert "strategy" in text and "board_format" in text

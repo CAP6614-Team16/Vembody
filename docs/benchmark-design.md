@@ -105,7 +105,8 @@ by the per-task rules below.
 - G actions name a cell, which the adapter maps to its center using the geometry
   of that exact observation. Save the original cell response and converted pixels.
 - Keep 32-pixel cells, a 12-pixel side/bottom margin, and a 52-pixel header for the
-  initial renderer. Human-play/base images are 312x352 for 9x9 and 184x224 for 5x5.
+  initial renderer, drawn at 3x by default (sharp, not resized), so human-play/base
+  images are 936x1056 for 9x9 and 552x672 for 5x5. Sizes below are at scale 1.
 - Reserve identical extra gutters for row/column labels in every variant. Phase 2
   fixed these at 24 extra pixels on the left and top (336x376 for 9x9, 208x248 for
   5x5). G variants draw labels there; baseline
@@ -114,7 +115,10 @@ by the per-task rules below.
 - Freeze font, palette, border widths, and RGB PNG output. Do not rescale screenshots
   between variants. Save any model-side resize settings alongside the run.
 - Task highlights are part of the environment image and appear in every variant.
-  Grid labels are the G treatment and are not added to baseline images.
+- Grid labels are now on by default for benchmark runs, after small open models
+  could not count unlabeled rows; set `grid_labels: false` for the unlabeled variant.
+- Opened cells are drawn white (renderer v3) so they are distinct from hidden grey
+  cells; small models had copied opened blank cells as hidden.
 
 Pixel equality is checked within the pinned renderer environment. A different
 renderer/runtime must pass the reference-image checks or create a new version;

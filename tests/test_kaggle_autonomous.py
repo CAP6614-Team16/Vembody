@@ -57,8 +57,9 @@ def test_autonomous_play_is_goal_driven_bounded_and_independently_graded(
     if mode == "miss":
         assert summary["model_calls"] == summary["off_grid_clicks"] == 40
     elif mode == "truncated":
-        assert summary["model_calls"] == summary["truncated_responses"] == 1
-        assert summary["parse_errors"] == 1
+        # Each truncated reply spends a step; the model retries until the budget is gone
+        assert summary["model_calls"] == summary["truncated_responses"] == 40
+        assert summary["parse_errors"] == 40
         assert summary["actions_executed"] == 0
 
     assert summary["response_profile"] == "brief"

@@ -129,7 +129,13 @@ class LegacyUiMateModel(HttpVisionModel):
     prompt_version = LEGACY_PROMPT_VERSION
     upstream_coordinate_mapping = False
 
-    def build_messages(self, task: TaskSpec, image_url: str) -> list[dict]:
+    def response_format(self, task: TaskSpec) -> dict | None:
+        """UI-Mate replies in its native XML tool-call format, not JSON."""
+        return None
+
+    def build_messages(
+        self, task: TaskSpec, image_url: str, history: list[StepResult] = ()
+    ) -> list[dict]:
         """Send a restricted native prompt and current screenshot without private state/history."""
         if task.environment != "minesweeper":
             raise ValueError("The UI-Mate adapter currently supports Minesweeper only")
@@ -193,7 +199,9 @@ class UiMateModel(LegacyUiMateModel):
         """Apply upstream's client-side factor-32 resize before server-side image processing."""
         return resize_screenshot(image)
 
-    def build_messages(self, task: TaskSpec, image_url: str) -> list[dict]:
+    def build_messages(
+        self, task: TaskSpec, image_url: str, history: list[StepResult] = ()
+    ) -> list[dict]:
         """Send a restricted schema and current screenshot, without benchmark state/history."""
         if task.environment != "minesweeper":
             raise ValueError("The UI-Mate adapter currently supports Minesweeper only")

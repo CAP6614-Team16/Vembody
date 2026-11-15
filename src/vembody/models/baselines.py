@@ -18,7 +18,7 @@ from typing import Any
 
 from PIL import Image
 
-from ..minesweeper.screen import BACKGROUND, CELL, MinesweeperScreen
+from ..minesweeper.screen import BACKGROUND, MinesweeperScreen
 from ..observations import Observation
 from ..results import StepResult
 from ..tasks import TaskSpec
@@ -89,6 +89,8 @@ class RandomCellModel:
 
     def hidden_cells(self, screenshot_path: str) -> list[Cell]:
         """Find raised gray cells whose centers have no flag."""
+        cell = self.geometry.layout.cell
+        inset = 5 * self.geometry.layout.scale
         with Image.open(screenshot_path) as image:
             pixels = image.convert("RGB")
             return [
@@ -96,7 +98,10 @@ class RandomCellModel:
                 for row in range(self.geometry.rows)
                 for col in range(self.geometry.cols)
                 if pixels.getpixel(
-                    (self.geometry.left + col * CELL + 5, self.geometry.top + row * CELL + 5)
+                    (
+                        self.geometry.left + col * cell + inset,
+                        self.geometry.top + row * cell + inset,
+                    )
                 )
                 == BACKGROUND
                 and pixels.getpixel(self.geometry.layout.cell_center((row, col))) == BACKGROUND

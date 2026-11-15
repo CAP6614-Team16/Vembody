@@ -4,7 +4,7 @@
 - Coordinates already used the correct 0–999 grid; v2 now matches upstream `int(coordinate * original_dimension / 999)` before normalization, clipping only the far image edge.
 - The archived 12-trial run contained 24 clicks; auditing upstream versus legacy scaling changed three clicks by one pixel, insufficient to explain the large observed misses.
 - Client images now follow the upstream factor-32 resize with no added padding/cropping; original and encoded dimensions are both recorded.
-- The 336×376 grounding screenshots become 320×384; 208×248 gameplay screenshots become 192×256 before server-side preprocessing.
+- The 1008×1128 grounding screenshots become 1024×1120; 624×744 gameplay screenshots become 640×736 before server-side preprocessing. (The archived pilot used the earlier 336×376 → 320×384 and 208×248 → 192×256 sizes.)
 - The prompt now uses an embedded function schema and plain `Instruction`/`Previous actions` text rather than the v1 JSON instruction wrapper.
 - Safety differences remain intentional: one allowlisted call, no generated Python, no implicit-success fallback, and no arbitrary desktop controls.
 - History remains off, generation budgets remain smaller, and decoding remains greedy; the complete upstream history/prompt configuration is not reproduced.

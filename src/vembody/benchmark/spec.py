@@ -78,7 +78,7 @@ class BenchmarkSpec:
     setup: tuple[tuple[str, Cell], ...]
     predicate: Predicate
     expected_state_hash: str | None = None
-    grid_labels: bool = False
+    grid_labels: bool = True
 
 
 def parse_benchmark(value: Any, board: dict) -> BenchmarkSpec:
@@ -148,7 +148,7 @@ def parse_benchmark(value: Any, board: dict) -> BenchmarkSpec:
         raise TaskLoadError("expected_state_hash must be a SHA256 hex digest")
     if value["split"] == "evaluation" and digest is None:
         raise TaskLoadError("Evaluation instances require a frozen state hash")
-    labels = value.get("grid_labels", False)
+    labels = value.get("grid_labels", True)
     if type(labels) is not bool:
         raise TaskLoadError("grid_labels must be boolean")
     return BenchmarkSpec(
