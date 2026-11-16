@@ -2,6 +2,14 @@
 
 A local vision-language agent for autonomous computer control through screen perception and keyboard/mouse actions.
 
+## UI-Mate / Kaggle WIP
+
+Teammates: start with the [notebook quick start](notebooks/README.md) for branch checkout, Josh's progress, runtime generation/reuse, experiment controls, and result downloads.
+
+- [Runtime generator](notebooks/kaggle-build-runtime-t4.ipynb): builds a reusable T4 server cache without model weights or experiments.
+- [Experiment notebook](notebooks/kaggle-ui-mate-q6.ipynb): runs pretrained Q6_K grounding/autonomous checks using that cache.
+- [WIP status](docs/ui-mate-wip.md): finished pieces, measured limitations, and remaining work; runtime/results ZIPs and weights are intentionally outside Git.
+
 ## Milestone 1
 
 Install with Python 3.10 or newer:
@@ -15,6 +23,9 @@ Run the safe mock demonstration:
 The mock model proposes deterministic actions, the parser and validator check them, and the dry-run executor records them without controlling the computer.
 
 Live desktop execution is not implemented in this milestone.
+
+For Anant's RTX 5080 endpoint or a hosted vision-model alternative, see [model access](docs/model-access.md); connection profiles are selected with `--model-config`.
+For the selected UI-Mate-9B Q6_K model, start with the [Kaggle pilot](docs/kaggle.md); native actions use `--model ui-mate`.
 
 ## Minesweeper sandbox
 

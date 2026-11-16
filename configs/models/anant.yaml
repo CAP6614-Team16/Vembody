@@ -1,0 +1,8 @@
+# Anant's RTX 5080 inference server, reached through HTTPS or a local SSH tunnel.
+base_url_env: VEMBODY_ANANT_BASE_URL
+model_env: VEMBODY_ANANT_MODEL
+api_key_env: VEMBODY_ANANT_API_KEY
+timeout_seconds: 60
+max_tokens: 2048
+temperature: 0
+top_p: 0.95

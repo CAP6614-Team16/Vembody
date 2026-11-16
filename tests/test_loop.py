@@ -63,13 +63,13 @@ def test_private_execution_channels_stay_in_logs_only(tmp_path, task_path):
 
 
 @pytest.mark.parametrize(
-    ("raw_text", "termination"),
+    ("raw_text", "field"),
     [
-        ("not JSON", TerminationReason.PARSE_ERROR),
-        ('{"action":{"type":"click","x":2,"y":0.5}}', TerminationReason.VALIDATION_ERROR),
+        ("not JSON", "parse_error"),
+        ('{"action":{"type":"click","x":2,"y":0.5}}', "validation_error"),
     ],
 )
-def test_invalid_responses_keep_usage_metadata(tmp_path, raw_text, termination):
+def test_invalid_responses_keep_usage_metadata_and_retry(tmp_path, raw_text, field):
     log = tmp_path / "episode.jsonl"
     loop, task = build_loop(
         build_parser().parse_args(
@@ -85,13 +85,17 @@ def test_invalid_responses_keep_usage_metadata(tmp_path, raw_text, termination):
     usage = {"prompt_tokens": 100, "completion_tokens": 20, "total_tokens": 120, "image_count": 1}
     loop.model.generate_action = lambda *args: ModelResponse(raw_text, 0.5, usage)
     result = loop.run_episode(task)
-    assert result.termination_reason == termination
-    assert result.steps[0].execution is None
+    # Invalid replies spend steps but never end the episode early or send input
+    assert result.termination_reason == TerminationReason.ACTION_LIMIT
+    steps = len(result.steps)
+    assert steps == task.max_steps
+    assert all(getattr(s, field) and s.execution is None for s in result.steps)
     assert result.steps[0].model_metadata == usage
     records = [json.loads(line) for line in log.read_text().splitlines()]
     metrics = episode_metrics(records[-1]["episode"])
-    assert metrics["prompt_tokens_total"] == 100
-    assert metrics["completion_tokens_total"] == 20
-    assert metrics["total_tokens_total"] == 120
-    assert metrics["image_count_total"] == 1
-    assert metrics["model_seconds_total"] >= 0.5
+    assert metrics["invalid_action_rate"] == 1
+    assert metrics["prompt_tokens_total"] == 100 * steps
+    assert metrics["completion_tokens_total"] == 20 * steps
+    assert metrics["total_tokens_total"] == 120 * steps
+    assert metrics["image_count_total"] == steps
+    assert metrics["model_seconds_total"] >= 0.5 * steps

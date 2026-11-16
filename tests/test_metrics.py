@@ -1,3 +1,4 @@
+import json
 import math
 
 import pytest
@@ -128,3 +129,17 @@ def test_infrastructure_errors_are_reported_outside_success_denominator():
     assert summary["success_rate"] == 1
     assert summary["progress_mean"] == 0.3
     assert summary["termination_reasons"]["capture_error"] == 1
+
+
+def test_board_read_accuracy_compares_transcription_with_the_visible_board():
+    from vembody.evaluation.metrics import board_read_accuracy
+
+    truth = [["#", "1", "."], ["#", "#", "F"]]
+    step = {
+        "raw_model_response": json.dumps({"board": ["A: # 1 .", "B: # 2 F"]}),
+        "execution": {"evidence": {"visible_before": truth}},
+    }
+    assert board_read_accuracy(step) == 5 / 6
+    step["raw_model_response"] = json.dumps({"board": ["#1."]})
+    assert board_read_accuracy(step) == 3 / 6
+    assert board_read_accuracy({"raw_model_response": "{}", "execution": None}) is None

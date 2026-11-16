@@ -1,0 +1,36 @@
+# Candidate only: solver certification is pending.
+id: evaluation-T1-01-002
+name: T1-01 evaluation candidate
+instruction: Reveal the cell in row C, column 5.
+environment: minesweeper
+reset_instructions: Reconstruct fixed opening.
+success_description: See versioned benchmark predicate.
+max_steps: 3
+timeout_seconds: 120
+allowed_actions:
+- click
+- right_click
+- finish
+minesweeper:
+  rows: 9
+  cols: 9
+  mines: 10
+  seed: 20002
+benchmark:
+  version: 1
+  template_id: T1-01
+  split: evaluation
+  opening:
+  - 8
+  - 4
+  setup: []
+  predicate:
+    type: exact_reveal
+    target:
+    - 2
+    - 4
+  expected_state_hash: 695954f105ee1ede33c8fbcc33fdef1e4e1db4c5b3ff8c3115708583cc850eb9
+mock_actions:
+- type: click
+  x: 0.5362462760675273
+  y: 0.4152617568766637

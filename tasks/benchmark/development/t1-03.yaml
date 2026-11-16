@@ -32,5 +32,5 @@ benchmark:
   expected_state_hash: 740380249d2a210c588af546b8eaa61fee13eff882ea92086a82515d1f2cdde1
 mock_actions:
 - type: click
-  x: 0.5373134328358209
-  y: 0.672
+  x: 0.5362462760675273
+  y: 0.6708074534161491

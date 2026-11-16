@@ -98,18 +98,17 @@ class AgentLoop:
                     result.action = parsed.action
                     validate_action(parsed.action, self.policy)
                 except ModelParseError as exc:
+                    # An invalid reply spends this step; the model sees why and retries.
                     result.model_elapsed_seconds = max(
                         result.model_elapsed_seconds, perf_counter() - model_started
                     )
                     result.parse_error = str(exc)
                     self._record_step(history, result)
-                    termination = TerminationReason.PARSE_ERROR
-                    break
+                    continue
                 except ActionValidationError as exc:
                     result.validation_error = str(exc)
                     self._record_step(history, result)
-                    termination = TerminationReason.VALIDATION_ERROR
-                    break
+                    continue
                 except Exception as exc:
                     result.model_elapsed_seconds = max(
                         result.model_elapsed_seconds, perf_counter() - model_started

@@ -150,8 +150,8 @@ def test_parse_failure_never_executes_input(tmp_path):
     loop, task = loop_for(tmp_path)
     loop.model.generate_action = lambda *args: ModelResponse("not json")
     result = loop.run_episode(task)
-    assert result.termination_reason == TerminationReason.PARSE_ERROR
-    assert result.steps[0].execution is None
+    assert result.termination_reason == TerminationReason.ACTION_LIMIT
+    assert all(s.parse_error and s.execution is None for s in result.steps)
     assert result.evaluation.status == EvaluationStatus.FAILURE
 
 

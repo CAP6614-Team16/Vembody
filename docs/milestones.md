@@ -2,8 +2,11 @@
 
 The original roadmap below describes the overall project. For current tasks/data
 coverage, see [the benchmark handoff](benchmark-handoff.md). The twelve-template
-development infrastructure is implemented; model integration, solver-backed
-certification, the final evaluation split, and experiments remain pending.
+development infrastructure and UI-Mate integration are implemented; the original
+Kaggle inference pilot ran, while solver certification, final evaluation splits,
+fine-tuning, and game-transfer experiments remain pending.
+
+For the latest implemented pieces, measured limitations, and remaining work, see [UI-Mate WIP status](ui-mate-wip.md).
 
 - **Milestone 1 — Safe vertical slice (current):** Run a bounded mock task through task loading, observation, parsing, validation, dry-run execution, logging, and tests; live capture and input remain deferred.
 - **Milestone 2 — Local VLM:** Connect one feasible pretrained local vision-language model and measure structured-response validity, visual grounding, latency, and hardware requirements.

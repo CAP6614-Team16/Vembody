@@ -46,7 +46,7 @@ def export(sources: list[Path], output: Path) -> dict:
         layouts.add(layout)
         starts.add(start)
         visible_starts.add(visible_start)
-        raw = screen.screenshot()
+        raw = prepare(replace(task, benchmark=replace(spec, grid_labels=False))).screenshot()
         grid = prepare(replace(task, benchmark=replace(spec, grid_labels=True))).screenshot()
         if raw.size != grid.size:
             raise ValueError("Raw/grid screenshot geometry mismatch")
@@ -86,8 +86,10 @@ def export(sources: list[Path], output: Path) -> dict:
             ImageDraw.Draw(contact).text(
                 (left + 8, top + 2), f"{spec.template_id} raw / grid - UNCERTIFIED", fill="black"
             )
-            contact.paste(raw, (left + 4, top + 24))
-            contact.paste(grid, (left + 348, top + 24))
+            # Tiles are laid out at scale 1; shrink the full-size screenshots to fit
+            thumb = (raw.width // screen.scale, raw.height // screen.scale)
+            contact.paste(raw.resize(thumb, Image.LANCZOS), (left + 4, top + 24))
+            contact.paste(grid.resize(thumb, Image.LANCZOS), (left + 348, top + 24))
         if spec.split == "demonstration":
             example = {
                 "instance_id": task.id,
@@ -117,8 +119,8 @@ def export(sources: list[Path], output: Path) -> dict:
         "runtime": {
             "python": platform.python_version(),
             "pillow": PIL.__version__,
-            "renderer": "pillow-benchmark-v1",
-            "font": "Pillow default size20",
+            "renderer": "pillow-benchmark-v3",
+            "font": "Pillow default size60",
         },
         "instances": records,
         "examples": examples,

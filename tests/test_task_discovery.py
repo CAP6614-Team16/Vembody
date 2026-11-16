@@ -1,3 +1,4 @@
+import shutil
 from pathlib import Path
 
 import pytest
@@ -50,6 +51,8 @@ def test_empty_folder_is_an_error_and_creates_no_experiment(tmp_path, capsys):
     assert not (tmp_path / "runs").exists()
 
 
-def test_missing_split_is_not_replaced_with_another_split():
+def test_missing_split_is_not_replaced_with_another_split(tmp_path):
+    root = tmp_path / "benchmark"
+    shutil.copytree("tasks/benchmark/development", root / "development")
     with pytest.raises(TaskLoadError, match="split does not exist"):
-        discover_task_paths(["tasks/benchmark"], split="evaluation")
+        discover_task_paths([str(root)], split="evaluation")

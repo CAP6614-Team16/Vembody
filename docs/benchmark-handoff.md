@@ -187,9 +187,11 @@ sufficient. Add solver-backed integration tests before opening this gate.
 - Current runnable actions use normalized full-image coordinates. Symbolic G actions
   need a parser/adapter; this branch exports G images but does not implement G/T
   model prompting, state-transcription output, or a pretrained inference provider.
-- Benchmark 9x9 images are 336x376; 5x5 images are 208x248. Grid origin is `(36, 76)`,
-  cells are 32 pixels, and the outer two pixels of each cell are excluded as input.
-  Raw/G images share geometry. Human-play dimensions and chording remain unchanged.
+- The renderer draws everything 3x larger by default (`MinesweeperScreen(scale=3)`),
+  and benchmark boards show row/column labels by default. Benchmark 9x9 images are
+  1008x1128; 5x5 images are 624x744. Grid origin is `(108, 228)`, cells are 96 pixels,
+  and the outer six pixels of each cell are excluded as input. Raw/G images share
+  geometry. `scale=1` reproduces the original 336x376 layout pixel for pixel.
 - Preserve the original response, converted target, prompt/configuration, model
   identity, decoding parameters, latency, and any resize settings in the model-side
   trace. Prompt/token/provider metadata logging is not yet implemented here.

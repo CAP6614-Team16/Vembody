@@ -1,0 +1,36 @@
+# Candidate only: solver certification is pending.
+id: evaluation-T1-03-002
+name: T1-03 evaluation candidate
+instruction: Reveal the hidden cell directly to the right of the only revealed 3.
+environment: minesweeper
+reset_instructions: Reconstruct fixed opening.
+success_description: See versioned benchmark predicate.
+max_steps: 3
+timeout_seconds: 120
+allowed_actions:
+- click
+- right_click
+- finish
+minesweeper:
+  rows: 9
+  cols: 9
+  mines: 10
+  seed: 20067
+benchmark:
+  version: 1
+  template_id: T1-03
+  split: evaluation
+  opening:
+  - 6
+  - 6
+  setup: []
+  predicate:
+    type: exact_reveal
+    target:
+    - 6
+    - 7
+  expected_state_hash: 6d68708bb9c71e8b3fba2b0b4b1bfeb0961a02a2834c67c934c92d0deb79c466
+mock_actions:
+- type: click
+  x: 0.8222442899702085
+  y: 0.7559893522626442

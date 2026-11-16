@@ -1,0 +1,31 @@
+# Candidate only: solver certification is pending.
+id: evaluation-T3-02-003
+name: T3-02 evaluation candidate
+instruction: Make 10 logically safe reveal moves without losing. A flood fill counts
+  as one move.
+environment: minesweeper
+reset_instructions: Reconstruct fixed opening.
+success_description: See versioned benchmark predicate.
+max_steps: 25
+timeout_seconds: 600
+allowed_actions:
+- click
+- right_click
+- finish
+minesweeper:
+  rows: 9
+  cols: 9
+  mines: 10
+  seed: 20192
+benchmark:
+  version: 1
+  template_id: T3-02
+  split: evaluation
+  opening:
+  - 2
+  - 5
+  setup: []
+  predicate:
+    type: safe_reveal_count
+    count: 10
+  expected_state_hash: 4f9de5afe171925c8dcebb7b67e64214fa0836abe5f4baa9db29d0c7f5a0f598

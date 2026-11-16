@@ -53,8 +53,9 @@ reveal, so the opening is part of instance identity. Setup occurs before the age
 episode and is excluded from its interaction budget. Reset reconstructs a fresh
 game and rejects terminal or mismatched starting states.
 
-Cells are 32 pixels wide. Benchmark images reserve equal row/column label gutters
-for all variants, yielding 336x376 images for 9x9 boards and 208x248 for 5x5 boards.
+Cells are 96 pixels wide (a 32-pixel layout drawn at 3x). Benchmark images reserve
+equal row/column label gutters for all variants, yielding 1008x1128 images for 9x9
+boards and 624x744 for 5x5 boards; labels are drawn by default.
 Raw and labeled observations share geometry; only label pixels differ. A task's
 yellow region outline, when present, is displayed in both variants. Runtime/font
 identity and image checksums are saved to detect rendering changes.

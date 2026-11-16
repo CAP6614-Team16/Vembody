@@ -1,0 +1,29 @@
+# Candidate only: solver certification is pending.
+id: evaluation-T2-02-005
+name: T2-02 evaluation candidate
+instruction: Flag one hidden cell that is guaranteed to contain a mine.
+environment: minesweeper
+reset_instructions: Reconstruct fixed opening.
+success_description: See versioned benchmark predicate.
+max_steps: 3
+timeout_seconds: 120
+allowed_actions:
+- click
+- right_click
+- finish
+minesweeper:
+  rows: 9
+  cols: 9
+  mines: 10
+  seed: 20158
+benchmark:
+  version: 1
+  template_id: T2-02
+  split: evaluation
+  opening:
+  - 7
+  - 7
+  setup: []
+  predicate:
+    type: one_provable_flag
+  expected_state_hash: 142830d53fae6af98de9452d0cf3d29369a85a18f7b432ea043d71661aba3d2e

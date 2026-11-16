@@ -115,7 +115,7 @@
       "instance_id": "development-T3-02-001",
       "template_id": "T3-02",
       "path": "t3-02.yaml",
-      "state_hash": "0dde453d635735186cd50fa88ba1c660dcefb722d00656d9947fb8a1c1dd9f04",
+      "state_hash": "dc5e0f96994fbeb636db761c992c11f8ec2555441a17cb20daee54cc660a02a8",
       "certification_status": "pending",
       "pending_checks": [
         "whole-board guess-free proof",
@@ -127,7 +127,7 @@
       "instance_id": "development-T4-01-001",
       "template_id": "T4-01",
       "path": "t4-01.yaml",
-      "state_hash": "51c6c26f9814a71b09d4c79dd786590c7199dbd0e12380e54559b7e4220e4d37",
+      "state_hash": "0c29c7cf842bd42fdd6cb287eae6834f3761c88b00776dd2038d80ab7e7a39ce",
       "certification_status": "pending",
       "pending_checks": [
         "whole-board guess-free proof",
@@ -139,7 +139,7 @@
       "instance_id": "development-T4-02-001",
       "template_id": "T4-02",
       "path": "t4-02.yaml",
-      "state_hash": "b83c1020162e295039987f8163ca396a541bc95c600c40d4affb22aade72b51d",
+      "state_hash": "db6cc47c1bfe06af5360a16a41eb2f9b180d87e3c45e9b44b3c27da1247d073c",
       "certification_status": "pending",
       "pending_checks": [
         "whole-board guess-free proof",

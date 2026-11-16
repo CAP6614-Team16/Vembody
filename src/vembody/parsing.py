@@ -37,7 +37,7 @@ def parse_model_response(raw_text: str) -> ParsedResponse:
         raise ModelParseError("Model response is not valid JSON") from exc
     if not isinstance(data, dict):
         raise ModelParseError("Model response must be an object")
-    allowed = {"reasoning_summary", "action", "expected_result", "confidence"}
+    allowed = {"reasoning_summary", "action", "expected_result", "confidence", "board"}
     unknown = set(data) - allowed
     if unknown:
         raise ModelParseError(f"Unknown response field(s): {sorted(unknown)}")
@@ -48,6 +48,11 @@ def parse_model_response(raw_text: str) -> ParsedResponse:
         expected_result is not None and not isinstance(expected_result, str)
     ):
         raise ModelParseError("Response summaries must be strings")
+    board = data.get("board")
+    if board is not None and (
+        not isinstance(board, list) or not all(isinstance(row, str) for row in board)
+    ):
+        raise ModelParseError("board must be a list of row strings")
     if "action" not in data:
         raise ModelParseError("Model response must contain action")
 
