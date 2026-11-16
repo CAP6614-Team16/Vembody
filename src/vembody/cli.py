@@ -8,6 +8,7 @@ import sys
 from pathlib import Path
 
 from .benchmark.labels import CertificationRequired
+from .benchmark.solver import LABEL_PROVIDERS, build_label_provider
 from .errors import VembodyError
 from .evaluation.analysis import analyze, summary_markdown
 from .evaluation.base import NullEvaluator
@@ -36,6 +37,11 @@ def build_parser() -> argparse.ArgumentParser:
     run_parser.add_argument("--executor", choices=("dry-run", "desktop"), default="dry-run")
     run_parser.add_argument("--log", default="artifacts/episode.jsonl")
     run_parser.add_argument("--allow-live-actions", action="store_true")
+    run_parser.add_argument(
+        "--label-provider",
+        choices=tuple(LABEL_PROVIDERS),
+        help="logical label provider for tasks graded by provable safety (T2/T3)",
+    )
 
     eval_parser = subparsers.add_parser("eval", help="run tasks x trials as one experiment")
     eval_parser.add_argument("--tasks", nargs="+", required=True, help="task files or folders")
@@ -57,6 +63,11 @@ def build_parser() -> argparse.ArgumentParser:
     eval_parser.add_argument("--base-seed", type=int, default=0, help="first model seed")
     eval_parser.add_argument("--max-steps", type=int, help="override every task's max_steps")
     eval_parser.add_argument("--timeout", type=float, help="override every task's timeout")
+    eval_parser.add_argument(
+        "--label-provider",
+        choices=tuple(LABEL_PROVIDERS),
+        help="logical label provider for tasks graded by provable safety (T2/T3)",
+    )
     eval_parser.add_argument(
         "--label",
         action="append",
@@ -82,7 +93,11 @@ def build_loop(args: argparse.Namespace) -> tuple[AgentLoop, TaskSpec]:
 
     # Minesweeper tasks run in the sandbox, which captures, executes, and grades
     if task.environment == "minesweeper":
-        sandbox = MinesweeperSandbox(task, Path(args.log).parent / "screenshots")
+        sandbox = MinesweeperSandbox(
+            task,
+            Path(args.log).parent / "screenshots",
+            label_provider=build_label_provider(getattr(args, "label_provider", None)),
+        )
         observations = executor = evaluator = sandbox
     else:
         observations = FileObservationProvider(task.screenshot_path)
@@ -148,6 +163,7 @@ def eval_command(args: argparse.Namespace) -> int:
         max_steps=args.max_steps,
         timeout_seconds=args.timeout,
         labels=labels,
+        label_provider=args.label_provider,
     )
     out = Path(args.out) / args.name
 
