@@ -24,6 +24,7 @@ from pathlib import Path
 from typing import Any
 
 from .. import __version__
+from ..benchmark.solver import PROVIDER_ID, build_label_provider
 from ..logging.jsonl import JsonlLogger
 from ..loop import AgentLoop
 from ..models.base import VisionModel
@@ -50,6 +51,8 @@ class ExperimentConfig:
     max_steps: int | None = None
     timeout_seconds: float | None = None
     labels: dict[str, str] = field(default_factory=dict)
+    # Logical label provider name (see benchmark/solver.py); required by T2/T3 tasks
+    label_provider: str | None = None
 
 
 def _git_info() -> dict[str, Any]:
@@ -107,6 +110,7 @@ def run_experiment(
         or config.timeout_seconds <= 0
     ):
         raise ValueError("timeout_seconds must be positive and finite")
+    build_label_provider(config.label_provider)  # reject unknown names before any work
     if not config.task_paths:
         raise ValueError("An experiment requires at least one task")
 
@@ -132,6 +136,7 @@ def run_experiment(
         "platform": platform.platform(),
         "argv": sys.argv,
         "tasks": [{"path": str(p), "id": t.id, "sha256": _file_sha256(p)} for p, t in tasks],
+        "label_provider": PROVIDER_ID if config.label_provider else None,
         "seed_policy": {
             "benchmark_board": "frozen_instance",
             "legacy_board": "task_seed_plus_trial" if config.vary_seeds else "task_seed",
@@ -144,7 +149,8 @@ def run_experiment(
     for path, base_task in tasks:
         for trial in range(config.trials):
             task = episode_task(base_task, config, trial)
-            sandbox = MinesweeperSandbox(task, out / "screenshots")
+            provider = build_label_provider(config.label_provider)
+            sandbox = MinesweeperSandbox(task, out / "screenshots", label_provider=provider)
             model_seed = config.base_seed + trial
             loop = AgentLoop(
                 model=factory(task, sandbox, model_seed),

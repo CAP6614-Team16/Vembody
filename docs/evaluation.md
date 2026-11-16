@@ -13,6 +13,7 @@ An **experiment** is one configuration (model + settings) run over a task set fo
 - `--tasks` accepts task files, split manifests, or folders; a benchmark root selects only `--split development` by default, and empty/duplicate task sets are rejected.
 - `--vary-seeds` changes legacy board seeds to `task_seed + trial`; benchmark boards always retain their frozen opening, setup, and checksum while model seeds vary.
 - `--max-steps` / `--timeout`: override every task's limits. These are recorded in the manifest and in each row, so overriding is never silent.
+- `--label-provider exact`: grades T2/T3 tasks with the exact logical label provider (`src/vembody/benchmark/solver.py`). Without it those tasks stop with `CertificationRequired`. The provider version is recorded in the manifest.
 - `--label`: tags the condition for ablations, e.g. `--label memory=off --label crops=on`. Labels appear as `label_<key>` columns.
 - Model randomness is seeded with `base_seed + trial`, so a rerun of the same command reproduces the same episodes.
 
@@ -53,6 +54,10 @@ Board metrics come from private game state; both `execution.details` and benchma
 | `prompt_tokens_*`, `completion_tokens_*`, `total_tokens_*`, `image_count_*` | context usage, read from `ModelResponse.metadata` if the model adapter reports these keys |
 | `termination_reason` | why the loop stopped (`game_over`, `action_limit`, `timeout`, `parse_error`, …) |
 | `infrastructure_failure` | capture, execution, or evaluation errors; counted separately from agent failures |
+
+### Logical labels
+
+`ExactLabelProvider` labels each hidden cell as provably safe, provably a mine, or undetermined, using only visible numbers and the public mine total. It enumerates every consistent layout per independent frontier group and combines groups under the mine count, so interior cells can be labeled too. Flags are treated as unverified claims. A timeout or search-budget overrun raises `CertificationRequired`, which the loop records as an `evaluation_error` (infrastructure), never as a guessed label. Tests check it against brute-force enumeration. It is a runtime labeler, not an instance certificate.
 
 ### Aggregates (per experiment, and per experiment × task)
 
