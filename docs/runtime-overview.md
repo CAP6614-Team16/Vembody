@@ -29,6 +29,7 @@
 - `loop.py`: orchestrates observation, model response, parsing, validation, execution, and termination.
 - `loop.py` model history: omits private grading data while preserving usage metadata in valid and malformed response logs.
 - `evaluation/base.py`: defines independent task-success evaluation; the current evaluator returns `unknown`.
+- `benchmark/solver.py`: exact logical label provider (provably safe / mined cells) used to grade T2/T3 tasks via `--label-provider exact`.
 - `evaluation/harness.py`: runs tasks x trials, records the manifest, per-episode logs, and metric rows.
 - `evaluation/metrics.py`: per-episode metrics and aggregate statistics with confidence intervals.
 - `evaluation/analysis.py`: merges experiments into CSV/Markdown tables and plots.
