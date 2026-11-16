@@ -22,6 +22,14 @@ from .prompts import PROMPT_VERSION, SYSTEM_PROMPT, response_schema, task_prompt
 from .settings import EndpointConfig
 
 MAX_RESPONSE_BYTES = 1024 * 1024
+BICUBIC = Image.Resampling.BICUBIC
+
+
+def gemma_image_size(size: tuple[int, int], soft_tokens: int) -> tuple[int, int]:
+    """Image size the HF Gemma 4 processor uses for a soft-token budget (48 px per token)."""
+    width, height = size
+    factor = math.sqrt(soft_tokens * 48 * 48 / (width * height))
+    return max(48, int(factor * width // 48) * 48), max(48, int(factor * height // 48) * 48)
 
 
 class _NoRedirect(HTTPRedirectHandler):
@@ -59,14 +67,19 @@ class HttpVisionModel:
 
     def response_format(self, task: TaskSpec) -> dict | None:
         """Constrain replies to the task's action schema (OpenAI structured outputs)."""
+        if not self.config.structured_output:
+            return None
         return {
             "type": "json_schema",
             "json_schema": {"name": "action", "strict": True, "schema": response_schema(task)},
         }
 
     def prepare_image(self, image: Image.Image) -> Image.Image:
-        """Keep generic endpoint screenshots unresized; specialized adapters can override."""
-        return image.convert("RGB")
+        """Keep screenshots unresized unless the profile sets a Gemma soft-token budget."""
+        image = image.convert("RGB")
+        if self.config.image_soft_tokens is None:
+            return image
+        return image.resize(gemma_image_size(image.size, self.config.image_soft_tokens), BICUBIC)
 
     def generate_action(
         self, task: TaskSpec, observation: Observation, history: list[StepResult]
@@ -146,6 +159,8 @@ class HttpVisionModel:
             "model_revision": self.config.model_revision,
             "quantization": self.config.quantization,
             "backend": self.config.backend,
+            "structured_output": self.config.structured_output,
+            "image_soft_tokens": self.config.image_soft_tokens,
             "image_size": list(size),
             "encoded_image_size": list(encoded_size),
             "response_model": data.get("model"),

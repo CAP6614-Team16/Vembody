@@ -53,6 +53,7 @@ Board metrics come from private game state; both `execution.details` and benchma
 | `prompt_tokens_*`, `completion_tokens_*`, `total_tokens_*`, `image_count_*` | context usage, read from `ModelResponse.metadata` if the model adapter reports these keys |
 | `termination_reason` | why the loop stopped (`game_over`, `action_limit`, `timeout`, …); invalid replies no longer stop an episode, so `parse_error`/`validation_error` appear only in older logs |
 | `board_read_accuracy` | share of cells the model's `board` copy got right, against the private visible board at the same step |
+| `deduced_move_rate` | share of moves on hidden cells that a single clue proves (click = safe, right_click = mine) |
 | `infrastructure_failure` | capture, execution, or evaluation errors; counted separately from agent failures |
 
 ### Aggregates (per experiment, and per experiment × task)

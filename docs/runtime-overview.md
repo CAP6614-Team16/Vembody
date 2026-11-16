@@ -23,7 +23,7 @@
 - `models/registry.py`: builds a model by name for `run` and `eval`.
 - `models/settings.py`: validates endpoint profiles and resolves environment variables without storing API keys.
 - `models/http.py`: sends the current screenshot and the model's last 5 actions to a compatible vision endpoint, constrains the reply with a JSON schema (`response_format`), and uses bounded socket waits with no retries or redirects.
-- `models/prompts.py`: defines the versioned baseline prompt (Minesweeper controls, rules, strategy, board-copy step), the recent-action history, and the response schema (board, reasoning, action).
+- `models/prompts.py`: defines the baseline prompt (Minesweeper controls, rules, strategy, board-copy step), the recent-action history, and the response schema (board, reasoning, action).
 - `models/ui_mate.py`: safely translates native UI-Mate XML calls into one validated action without executing Python.
 - `models/ui_mate_contract.py`: implements the pinned coordinate, image-sizing, and restricted prompt contract independently of the executor.
 - `notebooks/kaggle-ui-mate-q6.ipynb`: runs the pinned Q6_K model and sandbox together on two T4s (see [Kaggle setup](kaggle.md)).

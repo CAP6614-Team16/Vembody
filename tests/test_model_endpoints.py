@@ -258,7 +258,7 @@ def test_run_and_eval_use_selected_profile(endpoint, tmp_path, profile):
     manifest = json.loads((experiment / "manifest.json").read_text())
     assert manifest["model_endpoint"]["model"] == "test-vlm"
     assert manifest["model_endpoint"]["base_url"] == endpoint["url"]
-    assert manifest["model_endpoint"]["prompt_version"] == "screenshot-action-v9"
+    assert manifest["model_endpoint"]["prompt_version"] == "screenshot-action"
     row = json.loads((experiment / "episodes.jsonl").read_text())
     assert row["success"] and row["prompt_tokens_total"] == 40
     assert len(endpoint["requests"]) == 2
@@ -290,7 +290,7 @@ def test_bad_action_json_still_uses_strict_loop_parser(endpoint, tmp_path):
     lines = [json.loads(line) for line in log.read_text().splitlines()]
     assert lines[-1]["episode"]["termination_reason"] == "action_limit"
     assert lines[0]["step"]["execution"] is None
-    assert lines[0]["step"]["model_metadata"]["prompt_version"] == "screenshot-action-v9"
+    assert lines[0]["step"]["model_metadata"]["prompt_version"] == "screenshot-action"
 
 
 @pytest.mark.parametrize(
@@ -609,6 +609,21 @@ def test_generic_prompt_lists_recent_own_actions_only(endpoint, tmp_path):
     assert "missed" in text["previous_actions_note"]
 
 
+def test_history_collapses_repeated_actions_into_a_count(endpoint, tmp_path):
+    model = HttpVisionModel(load_endpoint_config("configs/models/anant.yaml"))
+    observation = screenshot_observation(tmp_path)
+    flag = action_from_dict({"type": "right_click", "x": 0.8, "y": 0.7})
+    stuck = action_from_dict({"type": "click", "x": 0.7, "y": 0.7})
+    history = [StepResult(observation, action=a) for a in [flag] + [stuck] * 40]
+    model.generate_action(load_task(TASK), observation, history)
+    text = json.loads(endpoint["requests"][0]["payload"]["messages"][1]["content"][0]["text"])
+    assert text["previous_actions"] == [
+        {"type": "right_click", "x": 0.8, "y": 0.7},
+        {"type": "click", "x": 0.7, "y": 0.7, "times": 40},
+    ]
+    assert "times" in text["previous_actions_note"]
+
+
 def test_generic_requests_constrain_replies_with_the_task_schema(endpoint, tmp_path):
     model = HttpVisionModel(load_endpoint_config("configs/models/anant.yaml"))
     task = load_task(TASK)
@@ -649,3 +664,32 @@ def test_history_shows_rejected_attempts_and_why(endpoint, tmp_path):
         {"type": "click", "x": 0.5, "y": 461, "invalid": "y must be within [0, 1]"},
     ]
     assert "strategy" in text and "board_format" in text
+
+
+def test_fine_tuned_profile_drops_schema_and_uses_the_training_image_grid(
+    endpoint, tmp_path, monkeypatch
+):
+    from vembody.models.http import gemma_image_size
+
+    profile = tmp_path / "sft.yaml"
+    profile.write_text(
+        Path("configs/models/anant.yaml").read_text()
+        + "structured_output: false\nimage_soft_tokens: 280\n"
+    )
+    model = HttpVisionModel(load_endpoint_config(profile))
+    response = model.generate_action(load_task(TASK), screenshot_observation(tmp_path), [])
+    assert "response_format" not in endpoint["requests"][0]["payload"]
+    assert response.metadata["encoded_image_size"] == list(gemma_image_size((32, 24), 280))
+    # Matches the HF Gemma 4 processor's 280-token sizes for the benchmark screenshots
+    assert gemma_image_size((624, 744), 280) == (720, 864)
+    assert gemma_image_size((1008, 1128), 280) == (720, 816)
+
+
+@pytest.mark.parametrize(
+    "extra", ["structured_output: 'no'\n", "image_soft_tokens: 0\n", "image_soft_tokens: 1.5\n"]
+)
+def test_invalid_fine_tuned_settings_are_rejected(endpoint, tmp_path, extra):
+    profile = tmp_path / "bad.yaml"
+    profile.write_text(Path("configs/models/anant.yaml").read_text() + extra)
+    with pytest.raises(ValueError):
+        load_endpoint_config(profile)

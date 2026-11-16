@@ -1164,10 +1164,10 @@
       "instance_id": "development-T3-02-001",
       "template_id": "T3-02",
       "split": "development",
-      "seed": 58,
-      "state_hash": "0dde453d635735186cd50fa88ba1c660dcefb722d00656d9947fb8a1c1dd9f04",
-      "visible_hash": "0cc2066fd9cddb066cacd6f49389436f303a1809983049f6a020b06028025f5c",
-      "layout_hash": "e2c0d9470983ddf7f4d3de31ac67a1823145a6670ca53f1ce638341209edc1cd",
+      "seed": 62,
+      "state_hash": "dc5e0f96994fbeb636db761c992c11f8ec2555441a17cb20daee54cc660a02a8",
+      "visible_hash": "515758ad722089f4904b2c975d290422d54969253372b18636ff28ba1d3211e0",
+      "layout_hash": "779d7addfb2d623594ea5ead26230528246de6d7f0c83bd7580fea04c51baa8d",
       "width": 1008,
       "height": 1128,
       "grid_left": 108,
@@ -1176,13 +1176,13 @@
       "images": {
         "raw": {
           "path": "development/development-t3-02-001-raw.png",
-          "file_sha256": "cd212a047c82736b8f712d3e4d20e20939932d360f3d23fcd5cf6ad6247de4ce",
-          "pixel_sha256": "62e5f9d9ccab6969caaa24420becd7439fd69328608fc8f3d22e50969aeff69c"
+          "file_sha256": "cd0fce89d3454884f191824b39eb57886deaa283ffb59b7234166d895acaaed9",
+          "pixel_sha256": "a3517cfb6ff7df599cc1bc5bb30e74d84d41f854825e4508a298fc3e34d0db90"
         },
         "grid": {
           "path": "development/development-t3-02-001-grid.png",
-          "file_sha256": "41b63d943a1925b946d265cf1e225082ea1cc27d1ef18cd96a76446efdfddf6c",
-          "pixel_sha256": "12f143b4a1cfffbcddeaf9dc5a3652c650ac6bf15a934f17110e0e1fb2f44c43"
+          "file_sha256": "71cc749965507cd2609ec056ac8f2a2a937dd9a0107cb4b473334973ec33e605",
+          "pixel_sha256": "fc780d248507ab4e0802d88d6ddb3cb0ee1a599afe4af380474d40f1793e3357"
         }
       },
       "visible_board": [
@@ -1204,9 +1204,9 @@
           "#",
           "#",
           "#",
-          "#",
-          "#",
-          "#"
+          "1",
+          "1",
+          "1"
         ],
         [
           "#",
@@ -1215,9 +1215,42 @@
           "#",
           "#",
           "#",
+          "1",
+          ".",
+          "."
+        ],
+        [
           "#",
           "#",
-          "#"
+          "#",
+          "#",
+          "5",
+          "2",
+          "1",
+          ".",
+          "."
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "2",
+          ".",
+          ".",
+          ".",
+          "."
+        ],
+        [
+          "#",
+          "#",
+          "#",
+          "#",
+          "2",
+          "1",
+          "1",
+          ".",
+          "."
         ],
         [
           "#",
@@ -1226,31 +1259,20 @@
           "#",
           "#",
           "#",
-          "#",
-          "#",
-          "#"
+          "1",
+          ".",
+          "."
         ],
         [
           "#",
           "#",
           "#",
           "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#"
-        ],
-        [
-          "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#"
+          "2",
+          "1",
+          "1",
+          ".",
+          "."
         ],
         [
           "#",
@@ -1258,32 +1280,10 @@
           "#",
           "#",
           "1",
-          "#",
-          "#",
-          "#",
-          "#"
-        ],
-        [
-          "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#"
-        ],
-        [
-          "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#"
+          ".",
+          ".",
+          ".",
+          "."
         ]
       ],
       "certification_status": "pending"
@@ -1292,10 +1292,10 @@
       "instance_id": "development-T4-01-001",
       "template_id": "T4-01",
       "split": "development",
-      "seed": 59,
-      "state_hash": "51c6c26f9814a71b09d4c79dd786590c7199dbd0e12380e54559b7e4220e4d37",
-      "visible_hash": "2f1d728100d9b2ea958988c751f9eaec669c244cb9be6b919ae0131e61dd983a",
-      "layout_hash": "161ea27f469a2be57b0201fc930741adf5a33dbfc888ad2e03682ba2b7117795",
+      "seed": 64,
+      "state_hash": "0c29c7cf842bd42fdd6cb287eae6834f3761c88b00776dd2038d80ab7e7a39ce",
+      "visible_hash": "9c9052ff9d2db6fee71ed6cb7fe48e8433ba12a6ae9be279d2cc7f158850540d",
+      "layout_hash": "95b6be84a70f72d94d878517f12b280f724a3049205b6f7975f2d491706d378f",
       "width": 624,
       "height": 744,
       "grid_left": 108,
@@ -1304,13 +1304,13 @@
       "images": {
         "raw": {
           "path": "development/development-t4-01-001-raw.png",
-          "file_sha256": "de70e91e3b6c40b8cf0d84571acab766b47bdff16b6992d1217182d40cbea4d1",
-          "pixel_sha256": "16fb69c8e35817e5cbc81b62028174e4d51ba803e141c2d5ca6f617db05a5159"
+          "file_sha256": "ecb75c14084412eccf7690fb6bcd1e80f8b5ccf9c1d3b8d107ba7f15929ee96d",
+          "pixel_sha256": "d960a1fea6b20d07506a5ec8a8df0007b16daed6be652d00996c4f2d65264a18"
         },
         "grid": {
           "path": "development/development-t4-01-001-grid.png",
-          "file_sha256": "d6d4346a00a7be5e7fc974b6946ad4680ae12a7c41a002550d5697eee431871b",
-          "pixel_sha256": "d771cfc3b58013783ac9e65c4859ff2eeb57291135381a6f7bbdf77e3956d1b7"
+          "file_sha256": "50f8953b81cfce0fcc936f071e5fc4b2c3eb010f286c39d1d347dfe58cf322ce",
+          "pixel_sha256": "3b45796efdafec5facd1cecbbee5bb7fc2deb99de3b8b65532710f8fe096ca88"
         }
       },
       "visible_board": [
@@ -1318,22 +1318,15 @@
           "#",
           "#",
           "#",
-          "2",
-          "."
-        ],
-        [
           "#",
-          "#",
-          "#",
-          "2",
-          "."
+          "#"
         ],
         [
           "#",
           "#",
           "1",
           "1",
-          "."
+          "1"
         ],
         [
           "#",
@@ -1345,7 +1338,14 @@
         [
           "#",
           "#",
-          "1",
+          "2",
+          ".",
+          "."
+        ],
+        [
+          "#",
+          "#",
+          "2",
           ".",
           "."
         ]
@@ -1356,10 +1356,10 @@
       "instance_id": "development-T4-02-001",
       "template_id": "T4-02",
       "split": "development",
-      "seed": 60,
-      "state_hash": "b83c1020162e295039987f8163ca396a541bc95c600c40d4affb22aade72b51d",
-      "visible_hash": "254a6c0d46bae1eb93c1884bb8add3cc3d85be2e83dfaa802831600f1a6bfdf7",
-      "layout_hash": "f8a077effbee982cdef8b37db37595634d49d8e9e8cd3e78e65aff7b61fbaac7",
+      "seed": 70,
+      "state_hash": "db6cc47c1bfe06af5360a16a41eb2f9b180d87e3c45e9b44b3c27da1247d073c",
+      "visible_hash": "c990147ca1c927a019f465adafd9e96f3a00755687baf16707fc7f1559b3bd80",
+      "layout_hash": "e12feca57282da10a1f5fee2e3368435fdc15febecdc2e3d1ea9a6d0f89a887e",
       "width": 1008,
       "height": 1128,
       "grid_left": 108,
@@ -1368,13 +1368,13 @@
       "images": {
         "raw": {
           "path": "development/development-t4-02-001-raw.png",
-          "file_sha256": "42ce6504a4386937042cfcb033b4b228aa98727808624fd2b07afea3480c2fca",
-          "pixel_sha256": "cbe1cdbf59a03a9f655ad7fd36457e334ba66fae1bce811d5dcb4b11f2a35d87"
+          "file_sha256": "93248d6f026b09522380fc13e4abc7e1f19ffa5dc1ac5dc7d0f29b3a4e2b810b",
+          "pixel_sha256": "2dcc917f71f6761a59714920ba0de1c22927625cab7e8ffc074d5d9f67a42800"
         },
         "grid": {
           "path": "development/development-t4-02-001-grid.png",
-          "file_sha256": "85139842098830867e2c3a4a215c596ee56686487151caa573e7f95b61730242",
-          "pixel_sha256": "98113d782f87b6f7c268f637de6c43ae101f94fbafdd92377b5a6273e3d35676"
+          "file_sha256": "7f323ba57d822a9bb819052ac9d9a02ce5bd597536d227069b98cba5d1f7ad6b",
+          "pixel_sha256": "3ab7aeb5bccdc49b8d0522d6b6a75beabbdda07c2bf29ac0cb32f3383a4a74c4"
         }
       },
       "visible_board": [
@@ -1434,9 +1434,9 @@
           "#"
         ],
         [
-          "#",
-          "#",
-          "#",
+          "1",
+          "1",
+          "2",
           "#",
           "#",
           "#",
@@ -1445,37 +1445,37 @@
           "#"
         ],
         [
-          "#",
-          "#",
-          "#",
-          "#",
+          ".",
+          ".",
+          "1",
           "#",
           "#",
           "1",
-          "#",
-          "#"
+          "1",
+          "1",
+          "1"
         ],
         [
-          "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#"
+          ".",
+          ".",
+          "1",
+          "2",
+          "2",
+          "1",
+          ".",
+          ".",
+          "."
         ],
         [
-          "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#"
+          ".",
+          ".",
+          ".",
+          ".",
+          ".",
+          ".",
+          ".",
+          ".",
+          "."
         ]
       ],
       "certification_status": "pending"
@@ -2764,10 +2764,10 @@
       "instance_id": "demonstration-T4-01-001",
       "template_id": "T4-01",
       "split": "demonstration",
-      "seed": 10092,
-      "state_hash": "b8f13d5acd952a903626fe46ee782a3cb3a3b1974d1d74562425ec92a34c53af",
-      "visible_hash": "d92c0f82d36e2830de7b531c4bc5f1f229b1e29cf1a62111be10dd6f117c6624",
-      "layout_hash": "22fda2e7ea0f29542c9cd2d2266fe69daafe64241774810add988b18d7b4664e",
+      "seed": 10093,
+      "state_hash": "644f57b20ddc1c989376eac2554386a7f887fccb12fe41d828488d4081f60188",
+      "visible_hash": "99ec95729fb014a673887c86c1231181502d2a43cc933a9ee5bd2177c7535ed8",
+      "layout_hash": "f4348d03cff0bde9516eeeb900855644963f60dc1742640117f38f57c4a860b9",
       "width": 624,
       "height": 744,
       "grid_left": 108,
@@ -2776,50 +2776,50 @@
       "images": {
         "raw": {
           "path": "demonstration/demonstration-t4-01-001-raw.png",
-          "file_sha256": "bc24f5226d0c7dde2091d2ee1141e12bb48c0a83a878f26a87138d31051d547c",
-          "pixel_sha256": "d55aab5f698f8a5c85b685d9d3f2ab5e11230f0e6fb9f26a5165af4aea0a0e38"
+          "file_sha256": "d0f5d2a41df66b94a2a793abe3b7913c182de7116e29fbcb6d6dc60100c2ccb2",
+          "pixel_sha256": "5ea577fcee4e401926c20d189fdd308fed4034e609270db029ee947a26128b24"
         },
         "grid": {
           "path": "demonstration/demonstration-t4-01-001-grid.png",
-          "file_sha256": "ba3aa688452d270326d03ecf70fc5b4444e7edbbe1db9f8c18ba6c37c0d2eb9c",
-          "pixel_sha256": "e703969442d24aeff1aafe23380b9de6388fc1a240304b37150a1baa98f72a45"
+          "file_sha256": "ad7087983e0a1cf318c1c1fe922574e2bc7036583a8bc70004757e783c8012b6",
+          "pixel_sha256": "9882e2c911133431ec08842afeb85b3382de1638d331134ad9fd20d77e7ccd15"
         }
       },
       "visible_board": [
         [
           "#",
           "#",
-          "#",
-          "#",
-          "#"
+          "1",
+          ".",
+          "."
         ],
         [
           "#",
-          "#",
-          "#",
-          "#",
-          "#"
+          "1",
+          "1",
+          ".",
+          "."
         ],
         [
           "#",
+          "1",
+          ".",
+          ".",
+          "."
+        ],
+        [
           "#",
-          "#",
-          "#",
-          "#"
+          "2",
+          "1",
+          ".",
+          "."
         ],
         [
           "#",
           "#",
           "1",
-          "#",
-          "#"
-        ],
-        [
-          "#",
-          "#",
-          "#",
-          "#",
-          "#"
+          ".",
+          "."
         ]
       ],
       "certification_status": "pending"
@@ -2828,10 +2828,10 @@
       "instance_id": "demonstration-T4-02-001",
       "template_id": "T4-02",
       "split": "demonstration",
-      "seed": 10093,
-      "state_hash": "5d7ec58ab12f09341070a25ee3e0bb999c2b50e65a82c42736bcbeaf8490c341",
-      "visible_hash": "475614d0a117474af5c981d8ae4b3be9f2efdfea8fc321595eeeb5d922717a46",
-      "layout_hash": "8ceedb1ed0123763363ff6be743e1f3097d9e27a63bf702407131813ce72ab05",
+      "seed": 10099,
+      "state_hash": "4ed7fc578db55df76ebe05aebce206d726c34c9ab0dd92783394bc5a7b710756",
+      "visible_hash": "2e89e9f58cc19e50265b283ef0ceb2e9cbd74212ac80782d4d2afb273f0eb14e",
+      "layout_hash": "49fbfec3525640a4efee618179d8d801cf7da7cf190c230718f326e060e0927a",
       "width": 1008,
       "height": 1128,
       "grid_left": 108,
@@ -2840,13 +2840,13 @@
       "images": {
         "raw": {
           "path": "demonstration/demonstration-t4-02-001-raw.png",
-          "file_sha256": "cafc396a73cd512e851ee195982a42811925648dc7dd1b28ea78eef5214d2cea",
-          "pixel_sha256": "c66a0f6607c26193e897b3623c87337368815f4f1a001862a9a26215c152c3c3"
+          "file_sha256": "b13e07301ea26abf89c52f405e444204b6065a2ed7a8858788269d87d39e2412",
+          "pixel_sha256": "aecbcf1cb6f221ce67466531e2beffb27a5c4b931052f6d93989703b1a22052f"
         },
         "grid": {
           "path": "demonstration/demonstration-t4-02-001-grid.png",
-          "file_sha256": "a67b78abe936b8e27246d4c02145c4ec4b31b343d301ce58fab11fc4b19dc574",
-          "pixel_sha256": "4e480f9ad48adff27f88a1f989936a292a352749794652d5a3e79f6357ff6dea"
+          "file_sha256": "0856d3a0bb22971a410f87082bb51656de625cd8870b47b67517c4731a6a513a",
+          "pixel_sha256": "0e0889693a0f966940d628fe91c6543f586ee69297dadf16b4168bd05c3e3c72"
         }
       },
       "visible_board": [
@@ -2906,48 +2906,48 @@
           "#"
         ],
         [
-          "#",
-          "#",
-          "#",
-          "#",
+          "1",
+          "1",
+          "2",
+          "1",
+          "1",
           "1",
           "#",
           "#",
-          "#",
           "#"
         ],
         [
-          "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#"
+          ".",
+          ".",
+          ".",
+          ".",
+          ".",
+          "1",
+          "2",
+          "2",
+          "1"
         ],
         [
-          "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#"
+          ".",
+          ".",
+          ".",
+          ".",
+          ".",
+          ".",
+          ".",
+          ".",
+          "."
         ],
         [
-          "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#",
-          "#"
+          ".",
+          ".",
+          ".",
+          ".",
+          ".",
+          ".",
+          ".",
+          ".",
+          "."
         ]
       ],
       "certification_status": "pending"
@@ -2975,8 +2975,8 @@
         "reasoning_summary": "Select the cell requested by the instruction.",
         "action": {
           "type": "click",
-          "x": 0.5373134328358209,
-          "y": 0.416
+          "x": 0.5362462760675273,
+          "y": 0.4152617568766637
         },
         "expected_result": "The requested cell changes."
       }
@@ -3002,8 +3002,8 @@
         "reasoning_summary": "Select the cell requested by the instruction.",
         "action": {
           "type": "right_click",
-          "x": 0.2507462686567164,
-          "y": 0.7573333333333333
+          "x": 0.2502482621648461,
+          "y": 0.7559893522626442
         },
         "expected_result": "The requested cell changes."
       }
@@ -3029,8 +3029,8 @@
         "reasoning_summary": "Select the cell requested by the instruction.",
         "action": {
           "type": "click",
-          "x": 0.34626865671641793,
-          "y": 0.5866666666666667
+          "x": 0.3455809334657398,
+          "y": 0.5856255545696539
         },
         "expected_result": "The requested cell changes."
       }
@@ -3056,8 +3056,8 @@
         "reasoning_summary": "Select the cell requested by the instruction.",
         "action": {
           "type": "click",
-          "x": 0.9194029850746268,
-          "y": 0.24533333333333332
+          "x": 0.9175769612711023,
+          "y": 0.24489795918367346
         },
         "expected_result": "The requested cell changes."
       }
@@ -3182,13 +3182,13 @@
       "images": {
         "raw": {
           "path": "demonstration/demonstration-t4-01-001-raw.png",
-          "file_sha256": "bc24f5226d0c7dde2091d2ee1141e12bb48c0a83a878f26a87138d31051d547c",
-          "pixel_sha256": "d55aab5f698f8a5c85b685d9d3f2ab5e11230f0e6fb9f26a5165af4aea0a0e38"
+          "file_sha256": "d0f5d2a41df66b94a2a793abe3b7913c182de7116e29fbcb6d6dc60100c2ccb2",
+          "pixel_sha256": "5ea577fcee4e401926c20d189fdd308fed4034e609270db029ee947a26128b24"
         },
         "grid": {
           "path": "demonstration/demonstration-t4-01-001-grid.png",
-          "file_sha256": "ba3aa688452d270326d03ecf70fc5b4444e7edbbe1db9f8c18ba6c37c0d2eb9c",
-          "pixel_sha256": "e703969442d24aeff1aafe23380b9de6388fc1a240304b37150a1baa98f72a45"
+          "file_sha256": "ad7087983e0a1cf318c1c1fe922574e2bc7036583a8bc70004757e783c8012b6",
+          "pixel_sha256": "9882e2c911133431ec08842afeb85b3382de1638d331134ad9fd20d77e7ccd15"
         }
       },
       "instruction": "Reveal every safe cell without revealing a mine.",
@@ -3201,13 +3201,13 @@
       "images": {
         "raw": {
           "path": "demonstration/demonstration-t4-02-001-raw.png",
-          "file_sha256": "cafc396a73cd512e851ee195982a42811925648dc7dd1b28ea78eef5214d2cea",
-          "pixel_sha256": "c66a0f6607c26193e897b3623c87337368815f4f1a001862a9a26215c152c3c3"
+          "file_sha256": "b13e07301ea26abf89c52f405e444204b6065a2ed7a8858788269d87d39e2412",
+          "pixel_sha256": "aecbcf1cb6f221ce67466531e2beffb27a5c4b931052f6d93989703b1a22052f"
         },
         "grid": {
           "path": "demonstration/demonstration-t4-02-001-grid.png",
-          "file_sha256": "a67b78abe936b8e27246d4c02145c4ec4b31b343d301ce58fab11fc4b19dc574",
-          "pixel_sha256": "4e480f9ad48adff27f88a1f989936a292a352749794652d5a3e79f6357ff6dea"
+          "file_sha256": "0856d3a0bb22971a410f87082bb51656de625cd8870b47b67517c4731a6a513a",
+          "pixel_sha256": "0e0889693a0f966940d628fe91c6543f586ee69297dadf16b4168bd05c3e3c72"
         }
       },
       "instruction": "Reveal every safe cell without revealing a mine.",

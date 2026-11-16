@@ -1,0 +1,11 @@
+# LM Studio profile for models fine-tuned with training/train_lora.py
+base_url_env: VEMBODY_LMSTUDIO_BASE_URL
+model_env: VEMBODY_LMSTUDIO_MODEL
+api_key_env: VEMBODY_LMSTUDIO_API_KEY
+timeout_seconds: 180
+max_tokens: 2048
+temperature: 0
+top_p: 0.95
+backend: lmstudio
+structured_output: false
+image_soft_tokens: 280

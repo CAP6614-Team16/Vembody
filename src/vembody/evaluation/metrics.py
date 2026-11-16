@@ -15,6 +15,8 @@ from collections import Counter
 from datetime import datetime
 from typing import Any
 
+from ..minesweeper.deduce import deductions
+
 TOKEN_KEYS = ("prompt_tokens", "completion_tokens", "total_tokens", "image_count")
 INFRASTRUCTURE_ERRORS = {"capture_error", "execution_error", "evaluation_error"}
 
@@ -111,6 +113,23 @@ def board_read_accuracy(step: dict[str, Any]) -> float | None:
     return correct / total if total else None
 
 
+def deduced_move(step: dict[str, Any]) -> bool | None:
+    """Whether an executed move on a hidden cell was provable from the visible board.
+
+    A click must target a provably safe cell, a right_click a provable mine (single-cell
+    rules, flags taken as mines). None when the move did not land on a hidden cell.
+    """
+    evidence = ((step.get("execution") or {}).get("evidence")) or {}
+    board, cell = evidence.get("visible_before"), evidence.get("resolved_cell")
+    kind = (step.get("action") or {}).get("type")
+    if not board or not cell or kind not in ("click", "right_click"):
+        return None
+    if board[cell[0]][cell[1]] != "#":
+        return None
+    proved = deductions(board).get(tuple(cell))
+    return proved is not None and proved[0] == kind
+
+
 def _final_board(steps: list[dict[str, Any]]) -> dict[str, Any] | None:
     for step in reversed(steps):
         board = ((step.get("execution") or {}).get("details") or {}).get("board")
@@ -146,6 +165,7 @@ def episode_metrics(
     invalid = sum(_is_invalid(s) for s in steps)
     setbacks, recoveries = recovery_counts(steps)
     reads = [r for s in steps if (r := board_read_accuracy(s)) is not None]
+    deduced = [d for s in steps if (d := deduced_move(s)) is not None]
     status = (episode.get("evaluation") or {}).get("status")
 
     row: dict[str, Any] = {
@@ -171,6 +191,7 @@ def episode_metrics(
         "latency_median": _percentile(latencies, 0.5),
         "latency_p95": _percentile(latencies, 0.95),
         "board_read_accuracy": statistics.fmean(reads) if reads else None,
+        "deduced_move_rate": statistics.fmean(deduced) if deduced else None,
     }
 
     for key in TOKEN_KEYS:
@@ -271,5 +292,6 @@ def aggregate(rows: list[dict[str, Any]]) -> dict[str, Any]:
         "latency_p95_mean": _mean([r.get("latency_p95") for r in rows]),
         "prompt_tokens_per_step_mean": _mean([r.get("prompt_tokens_per_step") for r in rows]),
         "board_read_accuracy_mean": _mean([r.get("board_read_accuracy") for r in rows]),
+        "deduced_move_rate_mean": _mean([r.get("deduced_move_rate") for r in rows]),
         "termination_reasons": termination_reasons,
     }

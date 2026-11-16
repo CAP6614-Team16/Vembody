@@ -1,0 +1,32 @@
+# Candidate only: solver certification is pending.
+id: evaluation-T3-01-002
+name: T3-01 evaluation candidate
+instruction: Flag every mine among the hidden cells touching the yellow outlined region.
+environment: minesweeper
+reset_instructions: Reconstruct fixed opening.
+success_description: See versioned benchmark predicate.
+max_steps: 20
+timeout_seconds: 600
+allowed_actions:
+- click
+- right_click
+- finish
+minesweeper:
+  rows: 9
+  cols: 9
+  mines: 10
+  seed: 20172
+benchmark:
+  version: 1
+  template_id: T3-01
+  split: evaluation
+  opening:
+  - 0
+  - 3
+  setup: []
+  predicate:
+    type: flag_region_mines
+    region:
+    - - 0
+      - 2
+  expected_state_hash: 3aa3c236330d33588c8557efd450ee72331bef254048e0d06c864e1a8509aae5

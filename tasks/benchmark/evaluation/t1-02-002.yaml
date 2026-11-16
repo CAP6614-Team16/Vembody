@@ -1,0 +1,36 @@
+# Candidate only: solver certification is pending.
+id: evaluation-T1-02-002
+name: T1-02 evaluation candidate
+instruction: Flag the cell in row G, column 2.
+environment: minesweeper
+reset_instructions: Reconstruct fixed opening.
+success_description: See versioned benchmark predicate.
+max_steps: 3
+timeout_seconds: 120
+allowed_actions:
+- click
+- right_click
+- finish
+minesweeper:
+  rows: 9
+  cols: 9
+  mines: 10
+  seed: 20024
+benchmark:
+  version: 1
+  template_id: T1-02
+  split: evaluation
+  opening:
+  - 1
+  - 8
+  setup: []
+  predicate:
+    type: exact_flag
+    target:
+    - 6
+    - 1
+  expected_state_hash: 22f98ad865ce0a8b3fa7bba27bb868d2b9738b2619cedb189b316a2e91fdfb61
+mock_actions:
+- type: right_click
+  x: 0.2502482621648461
+  y: 0.7559893522626442

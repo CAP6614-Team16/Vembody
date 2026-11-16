@@ -28,6 +28,10 @@ class EndpointConfig:
     model_revision: str | None = None
     quantization: str | None = None
     backend: str | None = None
+    # Fine-tuned models already return the right JSON; a schema makes them worse
+    structured_output: bool = True
+    # Resize screenshots the way the HF Gemma processor does for this many soft tokens
+    image_soft_tokens: int | None = None
 
     def api_key(self) -> str:
         """Read the authentication secret without including it in logs or manifests."""
@@ -59,6 +63,8 @@ def load_endpoint_config(path: str | Path | None) -> EndpointConfig:
         "model_revision",
         "quantization",
         "backend",
+        "structured_output",
+        "image_soft_tokens",
     }
     if set(data) - allowed:
         raise ValueError("Unknown model endpoint configuration field")
@@ -134,6 +140,16 @@ def load_endpoint_config(path: str | Path | None) -> EndpointConfig:
     if type(max_tokens) is not int or max_tokens <= 0:
         raise ValueError("max_tokens must be a positive integer")
 
+    structured_output = data.get("structured_output", True)
+    if not isinstance(structured_output, bool):
+        raise ValueError("structured_output must be true or false")
+
+    image_soft_tokens = data.get("image_soft_tokens")
+    if image_soft_tokens is not None and (
+        type(image_soft_tokens) is not int or image_soft_tokens <= 0
+    ):
+        raise ValueError("image_soft_tokens must be a positive integer")
+
     config = EndpointConfig(
         base_url,
         resolved["model_env"],
@@ -143,6 +159,8 @@ def load_endpoint_config(path: str | Path | None) -> EndpointConfig:
         float(temperature),
         float(top_p),
         **identity,
+        structured_output=structured_output,
+        image_soft_tokens=image_soft_tokens,
     )
     config.api_key()
     return config

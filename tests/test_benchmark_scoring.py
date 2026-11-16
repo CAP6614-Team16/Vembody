@@ -135,14 +135,13 @@ def test_full_board_win_and_loss(template, tmp_path):
     assert not sandbox.scorer.success and sandbox.scorer.violation
 
 
-def test_logical_tasks_and_evaluation_fail_closed(tmp_path):
+def test_logical_tasks_fail_closed_and_evaluation_runs_uncertified(tmp_path):
     for template in ("T2-01", "T2-02", "T2-03", "T2-04", "T3-01", "T3-02"):
         with pytest.raises(CertificationRequired, match="provider"):
             sandbox_for(template, tmp_path, labels=False)
     task = load_task(ROOT / "t1-01.yaml")
     task = replace(task, benchmark=replace(task.benchmark, split="evaluation"))
-    with pytest.raises(CertificationRequired, match="certificates"):
-        MinesweeperSandbox(task, tmp_path)
+    MinesweeperSandbox(task, tmp_path)  # runs; its evidence stays certification pending
 
 
 def test_grounding_through_loop_records_terminal_image_and_no_proof(tmp_path):

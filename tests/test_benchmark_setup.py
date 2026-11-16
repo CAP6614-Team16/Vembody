@@ -157,8 +157,7 @@ def test_mixed_key_types_are_task_errors(tmp_path):
         write_task(tmp_path, data)
 
 
-def test_cli_rejects_uncertified_evaluation_benchmark(tmp_path):
-    from vembody.benchmark.labels import CertificationRequired
+def test_cli_runs_evaluation_benchmark_as_certification_pending(tmp_path):
     from vembody.cli import build_loop, build_parser
 
     task = write_task(tmp_path)
@@ -166,8 +165,8 @@ def test_cli_rejects_uncertified_evaluation_benchmark(tmp_path):
     data["benchmark"].update(split="evaluation", expected_state_hash=state_hash(prepare(task)))
     write_task(tmp_path, data)
     args = build_parser().parse_args(["run", "--task", str(tmp_path / "task.yaml")])
-    with pytest.raises(CertificationRequired, match="certificates"):
-        build_loop(args)
+    loop, loaded = build_loop(args)
+    assert loaded.benchmark.split == "evaluation"
 
 
 def test_loop_does_not_pass_private_task_or_evaluation_to_model(tmp_path):

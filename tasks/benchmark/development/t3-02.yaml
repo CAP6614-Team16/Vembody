@@ -16,16 +16,16 @@ minesweeper:
   rows: 9
   cols: 9
   mines: 10
-  seed: 58
+  seed: 62
 benchmark:
   version: 1
   template_id: T3-02
   split: development
   opening:
   - 6
-  - 4
+  - 8
   setup: []
   predicate:
     type: safe_reveal_count
     count: 10
-  expected_state_hash: 0dde453d635735186cd50fa88ba1c660dcefb722d00656d9947fb8a1c1dd9f04
+  expected_state_hash: dc5e0f96994fbeb636db761c992c11f8ec2555441a17cb20daee54cc660a02a8

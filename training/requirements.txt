@@ -1,0 +1,12 @@
+#   uv venv .venv-train --python 3.12
+#   uv pip install --python .venv-train/bin/python torch==2.11.0 torchvision==0.26.0 \
+#       --index-url https://download.pytorch.org/whl/cu128
+#   uv pip install --python .venv-train/bin/python -r training/requirements.txt
+unsloth==2026.11.4
+unsloth-zoo==2026.11.4
+transformers==5.17.0
+trl==1.15.0
+peft==0.21.3
+bitsandbytes==0.50.2
+accelerate==1.15.0
+huggingface-hub==1.33.0

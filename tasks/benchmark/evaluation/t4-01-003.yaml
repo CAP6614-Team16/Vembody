@@ -1,0 +1,29 @@
+# Candidate only: solver certification is pending.
+id: evaluation-T4-01-003
+name: T4-01 evaluation candidate
+instruction: Reveal every safe cell without revealing a mine.
+environment: minesweeper
+reset_instructions: Reconstruct fixed opening.
+success_description: See versioned benchmark predicate.
+max_steps: 40
+timeout_seconds: 900
+allowed_actions:
+- click
+- right_click
+- finish
+minesweeper:
+  rows: 5
+  cols: 5
+  mines: 3
+  seed: 20219
+benchmark:
+  version: 1
+  template_id: T4-01
+  split: evaluation
+  opening:
+  - 3
+  - 4
+  setup: []
+  predicate:
+    type: board_won
+  expected_state_hash: 3aecec42eea5590cd527aa34422fcc53ce4209ec68e9f90e1f31930145dbdc65
