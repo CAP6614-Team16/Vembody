@@ -1,4 +1,4 @@
-# Candidate only: solver certification is pending.
+# Solver-certified start: a provably correct move exists (see manifest).
 id: evaluation-T2-04-004
 name: T2-04 evaluation candidate
 instruction: Reveal one hidden cell that is guaranteed safe.
@@ -15,15 +15,15 @@ minesweeper:
   rows: 9
   cols: 9
   mines: 10
-  seed: 20169
+  seed: 21068
 benchmark:
   version: 1
   template_id: T2-04
   split: evaluation
   opening:
   - 0
-  - 0
+  - 8
   setup: []
   predicate:
     type: one_provable_reveal
-  expected_state_hash: b196deb57035b5ba47f85e344c56abf94909bff130cea1f648557be7f9a09234
+  expected_state_hash: bebb4909415f41c62132b94de1f695871915f0dad436415874b2bdb00eeb652b
