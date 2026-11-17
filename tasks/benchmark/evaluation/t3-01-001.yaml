@@ -1,4 +1,4 @@
-# Candidate only: solver certification is pending.
+# Solver-certified start: a provably correct move exists (see manifest).
 id: evaluation-T3-01-001
 name: T3-01 evaluation candidate
 instruction: Flag every mine among the hidden cells touching the yellow outlined region.
@@ -15,18 +15,18 @@ minesweeper:
   rows: 9
   cols: 9
   mines: 10
-  seed: 20171
+  seed: 21097
 benchmark:
   version: 1
   template_id: T3-01
   split: evaluation
   opening:
-  - 0
-  - 2
+  - 4
+  - 1
   setup: []
   predicate:
     type: flag_region_mines
     region:
     - - 0
-      - 6
-  expected_state_hash: f4b315c10eb4b77aee8ba8654989122d243f1ac1a31ffbe3a24f0f006b97109b
+      - 1
+  expected_state_hash: 881491d25fc0e4d513796c08dd7a461c9a3d445e15dde32faa92f8d1c24ad422

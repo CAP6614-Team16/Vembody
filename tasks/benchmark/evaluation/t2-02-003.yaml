@@ -1,4 +1,4 @@
-# Candidate only: solver certification is pending.
+# Solver-certified start: a provably correct move exists (see manifest).
 id: evaluation-T2-02-003
 name: T2-02 evaluation candidate
 instruction: Flag one hidden cell that is guaranteed to contain a mine.
@@ -15,15 +15,15 @@ minesweeper:
   rows: 9
   cols: 9
   mines: 10
-  seed: 20156
+  seed: 20028
 benchmark:
   version: 1
   template_id: T2-02
   split: evaluation
   opening:
-  - 7
-  - 5
+  - 2
+  - 3
   setup: []
   predicate:
     type: one_provable_flag
-  expected_state_hash: a3a8196d3d691e061df325eb19a2ea629a6d0967b28d81a4f01748a89a7424bb
+  expected_state_hash: 6dc35b6f8e64a09184fb058e9f3e4b90f1fa308c3ffa1d0253bbd4371df8a9e0

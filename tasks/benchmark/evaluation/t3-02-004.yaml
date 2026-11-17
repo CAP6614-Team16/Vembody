@@ -1,4 +1,4 @@
-# Candidate only: solver certification is pending.
+# Solver-certified start: a provably correct move exists (see manifest).
 id: evaluation-T3-02-004
 name: T3-02 evaluation candidate
 instruction: Make 10 logically safe reveal moves without losing. A flood fill counts
@@ -16,16 +16,16 @@ minesweeper:
   rows: 9
   cols: 9
   mines: 10
-  seed: 20199
+  seed: 21112
 benchmark:
   version: 1
   template_id: T3-02
   split: evaluation
   opening:
-  - 3
-  - 3
+  - 5
+  - 7
   setup: []
   predicate:
     type: safe_reveal_count
     count: 10
-  expected_state_hash: 8a244e69259758b6dd387f17ed47205dd6412b89b24c5a7c9c942268d439bdfc
+  expected_state_hash: 40123ea76fedea51d193b019e7302417ea0b8fd8caacd37b60d7b52d7e79136a

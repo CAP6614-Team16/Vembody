@@ -247,361 +247,3256 @@
       "instance_id": "evaluation-T2-01-001",
       "template_id": "T2-01",
       "path": "t2-01-001.yaml",
-      "state_hash": "7e95b0a960e36cd5ee92515044d36269006a038a2da55c0cf105e022eefbea7d",
-      "certification_status": "pending",
+      "state_hash": "2d84ce7f7d9e4ef85887a7cbbfa760a927d9844ddc20b69b0bd3829fad5b7130",
+      "certification_status": "solver_certified",
       "pending_checks": [
-        "whole-board guess-free proof",
-        "template difficulty",
-        "solver reference trace"
-      ]
+        "certificate review"
+      ],
+      "certificate": {
+        "certifier": "vembody-certify/1",
+        "label_provider": "vembody-exact-csp/1",
+        "provable_safe": [
+          [
+            0,
+            0
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            6,
+            0
+          ],
+          [
+            6,
+            5
+          ],
+          [
+            6,
+            6
+          ],
+          [
+            6,
+            8
+          ]
+        ],
+        "provable_mines": [
+          [
+            1,
+            0
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            6,
+            1
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            7,
+            0
+          ],
+          [
+            7,
+            5
+          ],
+          [
+            8,
+            0
+          ],
+          [
+            8,
+            5
+          ]
+        ],
+        "rule": "single_clue",
+        "targets": [
+          [
+            0,
+            0
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            6,
+            0
+          ],
+          [
+            6,
+            5
+          ]
+        ]
+      }
     },
     {
       "instance_id": "evaluation-T2-01-002",
       "template_id": "T2-01",
       "path": "t2-01-002.yaml",
-      "state_hash": "465f8186b8e429b9a64da06bcf060bd6a939cf6e84c33bfc2b32c5ebdca937cf",
-      "certification_status": "pending",
+      "state_hash": "35c1850d94a28ed74d0a6859c48a102d6d2e355168e7ff0deae25fe77c93bcdf",
+      "certification_status": "solver_certified",
       "pending_checks": [
-        "whole-board guess-free proof",
-        "template difficulty",
-        "solver reference trace"
-      ]
+        "certificate review"
+      ],
+      "certificate": {
+        "certifier": "vembody-certify/1",
+        "label_provider": "vembody-exact-csp/1",
+        "provable_safe": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            5
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            5
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            3,
+            8
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            5,
+            0
+          ],
+          [
+            6,
+            0
+          ],
+          [
+            6,
+            1
+          ],
+          [
+            7,
+            2
+          ],
+          [
+            8,
+            4
+          ]
+        ],
+        "provable_mines": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            3,
+            7
+          ],
+          [
+            4,
+            8
+          ],
+          [
+            6,
+            2
+          ],
+          [
+            7,
+            3
+          ],
+          [
+            7,
+            4
+          ]
+        ],
+        "rule": "single_clue",
+        "targets": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            5
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            5
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            3,
+            8
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            5,
+            0
+          ],
+          [
+            6,
+            0
+          ],
+          [
+            6,
+            1
+          ],
+          [
+            7,
+            2
+          ],
+          [
+            8,
+            4
+          ]
+        ]
+      }
     },
     {
       "instance_id": "evaluation-T2-01-003",
       "template_id": "T2-01",
       "path": "t2-01-003.yaml",
-      "state_hash": "b4de77a67bc5cfbd769b95bce0a14d07666a3e335dbed42cfce07d85fa1ac423",
-      "certification_status": "pending",
+      "state_hash": "b0738089b47f28d5056dfdb3f5861d9b4721112167530e63b49f8ddb94171d9c",
+      "certification_status": "solver_certified",
       "pending_checks": [
-        "whole-board guess-free proof",
-        "template difficulty",
-        "solver reference trace"
-      ]
+        "certificate review"
+      ],
+      "certificate": {
+        "certifier": "vembody-certify/1",
+        "label_provider": "vembody-exact-csp/1",
+        "provable_safe": [
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            0,
+            5
+          ],
+          [
+            0,
+            6
+          ],
+          [
+            0,
+            7
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            8
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            4,
+            3
+          ],
+          [
+            5,
+            4
+          ],
+          [
+            6,
+            4
+          ],
+          [
+            7,
+            4
+          ],
+          [
+            7,
+            5
+          ],
+          [
+            8,
+            6
+          ]
+        ],
+        "provable_mines": [
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            7
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            7,
+            6
+          ]
+        ],
+        "rule": "single_clue",
+        "targets": [
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            0,
+            5
+          ],
+          [
+            0,
+            6
+          ],
+          [
+            0,
+            7
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            8
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            4,
+            3
+          ],
+          [
+            5,
+            4
+          ],
+          [
+            6,
+            4
+          ],
+          [
+            7,
+            4
+          ],
+          [
+            7,
+            5
+          ],
+          [
+            8,
+            6
+          ]
+        ]
+      }
     },
     {
       "instance_id": "evaluation-T2-01-004",
       "template_id": "T2-01",
       "path": "t2-01-004.yaml",
-      "state_hash": "214295a4001d1618c750e4798f05c3d724153e773060cb6a64fe6841f15d9aad",
-      "certification_status": "pending",
+      "state_hash": "384531b5e47a54cf5951f6f38c21fa259f4b11774f7c9ea8aca4bd69d1e282e2",
+      "certification_status": "solver_certified",
       "pending_checks": [
-        "whole-board guess-free proof",
-        "template difficulty",
-        "solver reference trace"
-      ]
+        "certificate review"
+      ],
+      "certificate": {
+        "certifier": "vembody-certify/1",
+        "label_provider": "vembody-exact-csp/1",
+        "provable_safe": [
+          [
+            0,
+            5
+          ],
+          [
+            0,
+            7
+          ],
+          [
+            0,
+            8
+          ],
+          [
+            2,
+            8
+          ],
+          [
+            3,
+            8
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            4,
+            7
+          ],
+          [
+            4,
+            8
+          ],
+          [
+            5,
+            7
+          ],
+          [
+            5,
+            8
+          ],
+          [
+            6,
+            6
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            6,
+            8
+          ],
+          [
+            7,
+            6
+          ],
+          [
+            7,
+            7
+          ],
+          [
+            7,
+            8
+          ],
+          [
+            8,
+            6
+          ],
+          [
+            8,
+            7
+          ],
+          [
+            8,
+            8
+          ]
+        ],
+        "provable_mines": [
+          [
+            0,
+            4
+          ],
+          [
+            0,
+            6
+          ],
+          [
+            1,
+            8
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            4,
+            6
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            8,
+            2
+          ],
+          [
+            8,
+            3
+          ],
+          [
+            8,
+            4
+          ],
+          [
+            8,
+            5
+          ]
+        ],
+        "rule": "single_clue",
+        "targets": [
+          [
+            0,
+            5
+          ],
+          [
+            0,
+            7
+          ],
+          [
+            0,
+            8
+          ],
+          [
+            2,
+            8
+          ],
+          [
+            3,
+            8
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            4,
+            7
+          ],
+          [
+            4,
+            8
+          ],
+          [
+            5,
+            7
+          ],
+          [
+            5,
+            8
+          ],
+          [
+            6,
+            6
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            6,
+            8
+          ],
+          [
+            7,
+            6
+          ],
+          [
+            7,
+            7
+          ],
+          [
+            7,
+            8
+          ],
+          [
+            8,
+            6
+          ],
+          [
+            8,
+            7
+          ],
+          [
+            8,
+            8
+          ]
+        ]
+      }
     },
     {
       "instance_id": "evaluation-T2-01-005",
       "template_id": "T2-01",
       "path": "t2-01-005.yaml",
-      "state_hash": "6eee9c03b2bf9403ff0f0a0e10c21817039b65b89aa749dba990200b99423bd9",
-      "certification_status": "pending",
+      "state_hash": "dc696ef6fc08bcf32983755acf95e4d17d8a6ad50d486015ce28ea24f827257e",
+      "certification_status": "solver_certified",
       "pending_checks": [
-        "whole-board guess-free proof",
-        "template difficulty",
-        "solver reference trace"
-      ]
+        "certificate review"
+      ],
+      "certificate": {
+        "certifier": "vembody-certify/1",
+        "label_provider": "vembody-exact-csp/1",
+        "provable_safe": [
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            6,
+            4
+          ]
+        ],
+        "provable_mines": [
+          [
+            3,
+            5
+          ],
+          [
+            4,
+            5
+          ]
+        ],
+        "rule": "single_clue",
+        "targets": [
+          [
+            3,
+            4
+          ]
+        ]
+      }
     },
     {
       "instance_id": "evaluation-T2-02-001",
       "template_id": "T2-02",
       "path": "t2-02-001.yaml",
-      "state_hash": "e614dc8c994fb0f3f1a16bce21d18675125fdb35e7752bae1b626b4012080158",
-      "certification_status": "pending",
+      "state_hash": "24de5966b778c858329362452b544ae84b66fdc69af7dde94ae407caa51787d3",
+      "certification_status": "solver_certified",
       "pending_checks": [
-        "whole-board guess-free proof",
-        "template difficulty",
-        "solver reference trace"
-      ]
+        "certificate review"
+      ],
+      "certificate": {
+        "certifier": "vembody-certify/1",
+        "label_provider": "vembody-exact-csp/1",
+        "provable_safe": [
+          [
+            0,
+            4
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            5,
+            1
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            5,
+            3
+          ]
+        ],
+        "provable_mines": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            4,
+            3
+          ],
+          [
+            5,
+            0
+          ]
+        ],
+        "rule": "single_clue",
+        "targets": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            4,
+            3
+          ],
+          [
+            5,
+            0
+          ]
+        ]
+      }
     },
     {
       "instance_id": "evaluation-T2-02-002",
       "template_id": "T2-02",
       "path": "t2-02-002.yaml",
-      "state_hash": "5a8016574cca201a1c94920d3402bfc77edd73908e8a417e87133c07b6636977",
-      "certification_status": "pending",
+      "state_hash": "b543b0bd5619c4468aca7163496082bf797750a4e778b8ee160d1b10cb7564c7",
+      "certification_status": "solver_certified",
       "pending_checks": [
-        "whole-board guess-free proof",
-        "template difficulty",
-        "solver reference trace"
-      ]
+        "certificate review"
+      ],
+      "certificate": {
+        "certifier": "vembody-certify/1",
+        "label_provider": "vembody-exact-csp/1",
+        "provable_safe": [
+          [
+            0,
+            4
+          ],
+          [
+            0,
+            5
+          ],
+          [
+            0,
+            7
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            5,
+            0
+          ],
+          [
+            5,
+            1
+          ],
+          [
+            6,
+            0
+          ],
+          [
+            6,
+            1
+          ],
+          [
+            6,
+            2
+          ],
+          [
+            7,
+            0
+          ],
+          [
+            7,
+            1
+          ],
+          [
+            7,
+            2
+          ],
+          [
+            7,
+            3
+          ],
+          [
+            7,
+            4
+          ],
+          [
+            7,
+            5
+          ],
+          [
+            8,
+            0
+          ],
+          [
+            8,
+            1
+          ],
+          [
+            8,
+            2
+          ],
+          [
+            8,
+            3
+          ],
+          [
+            8,
+            4
+          ],
+          [
+            8,
+            5
+          ],
+          [
+            8,
+            6
+          ]
+        ],
+        "provable_mines": [
+          [
+            0,
+            6
+          ],
+          [
+            0,
+            8
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            8
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            6,
+            3
+          ],
+          [
+            6,
+            4
+          ],
+          [
+            6,
+            5
+          ],
+          [
+            7,
+            6
+          ]
+        ],
+        "rule": "single_clue",
+        "targets": [
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            8
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            6,
+            3
+          ],
+          [
+            6,
+            4
+          ],
+          [
+            6,
+            5
+          ],
+          [
+            7,
+            6
+          ]
+        ]
+      }
     },
     {
       "instance_id": "evaluation-T2-02-003",
       "template_id": "T2-02",
       "path": "t2-02-003.yaml",
-      "state_hash": "a3a8196d3d691e061df325eb19a2ea629a6d0967b28d81a4f01748a89a7424bb",
-      "certification_status": "pending",
+      "state_hash": "6dc35b6f8e64a09184fb058e9f3e4b90f1fa308c3ffa1d0253bbd4371df8a9e0",
+      "certification_status": "solver_certified",
       "pending_checks": [
-        "whole-board guess-free proof",
-        "template difficulty",
-        "solver reference trace"
-      ]
+        "certificate review"
+      ],
+      "certificate": {
+        "certifier": "vembody-certify/1",
+        "label_provider": "vembody-exact-csp/1",
+        "provable_safe": [
+          [
+            4,
+            0
+          ]
+        ],
+        "provable_mines": [
+          [
+            0,
+            4
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            4,
+            4
+          ]
+        ],
+        "rule": "single_clue",
+        "targets": [
+          [
+            0,
+            4
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            4,
+            4
+          ]
+        ]
+      }
     },
     {
       "instance_id": "evaluation-T2-02-004",
       "template_id": "T2-02",
       "path": "t2-02-004.yaml",
-      "state_hash": "be5d7a5b5da8d4e9940cae89a23088be22c01ffbd60e54b79121e178143c4821",
-      "certification_status": "pending",
+      "state_hash": "0231b292ce85089098910d6db03370d58ffae7b1ad6d8a7a518e75872b2e03b8",
+      "certification_status": "solver_certified",
       "pending_checks": [
-        "whole-board guess-free proof",
-        "template difficulty",
-        "solver reference trace"
-      ]
+        "certificate review"
+      ],
+      "certificate": {
+        "certifier": "vembody-certify/1",
+        "label_provider": "vembody-exact-csp/1",
+        "provable_safe": [
+          [
+            0,
+            1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            5,
+            6
+          ]
+        ],
+        "provable_mines": [
+          [
+            0,
+            6
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            4,
+            5
+          ]
+        ],
+        "rule": "single_clue",
+        "targets": [
+          [
+            0,
+            6
+          ],
+          [
+            4,
+            5
+          ]
+        ]
+      }
     },
     {
       "instance_id": "evaluation-T2-02-005",
       "template_id": "T2-02",
       "path": "t2-02-005.yaml",
-      "state_hash": "142830d53fae6af98de9452d0cf3d29369a85a18f7b432ea043d71661aba3d2e",
-      "certification_status": "pending",
+      "state_hash": "4b935def238f52997ff76feed33a04e26dff5ec4d3cf9984bf37ee58b5f5fe2b",
+      "certification_status": "solver_certified",
       "pending_checks": [
-        "whole-board guess-free proof",
-        "template difficulty",
-        "solver reference trace"
-      ]
+        "certificate review"
+      ],
+      "certificate": {
+        "certifier": "vembody-certify/1",
+        "label_provider": "vembody-exact-csp/1",
+        "provable_safe": [
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            7,
+            5
+          ],
+          [
+            8,
+            6
+          ]
+        ],
+        "provable_mines": [
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            6,
+            5
+          ]
+        ],
+        "rule": "single_clue",
+        "targets": [
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            6,
+            5
+          ]
+        ]
+      }
     },
     {
       "instance_id": "evaluation-T2-03-001",
       "template_id": "T2-03",
       "path": "t2-03-001.yaml",
-      "state_hash": "3afc96670f44277da15058954798fe32ab7c16f32f55bb97ff6828dc1acc0bbe",
-      "certification_status": "pending",
+      "state_hash": "a697dc66bae75889500442ed80bed5627416fb986ae21f6e8653052f6dd52663",
+      "certification_status": "solver_certified",
       "pending_checks": [
-        "whole-board guess-free proof",
-        "template difficulty",
-        "solver reference trace"
-      ]
+        "certificate review"
+      ],
+      "certificate": {
+        "certifier": "vembody-certify/1",
+        "label_provider": "vembody-exact-csp/1",
+        "provable_safe": [
+          [
+            1,
+            6
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            5,
+            6
+          ]
+        ],
+        "provable_mines": [
+          [
+            0,
+            6
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            4,
+            6
+          ]
+        ],
+        "rule": "two_clues",
+        "clues": [
+          {
+            "clue": [
+              1,
+              7
+            ],
+            "cells": [
+              [
+                0,
+                6
+              ],
+              [
+                1,
+                6
+              ],
+              [
+                2,
+                6
+              ]
+            ],
+            "mines": 2
+          },
+          {
+            "clue": [
+              2,
+              7
+            ],
+            "cells": [
+              [
+                1,
+                6
+              ],
+              [
+                2,
+                6
+              ],
+              [
+                3,
+                6
+              ]
+            ],
+            "mines": 1
+          }
+        ],
+        "targets": [
+          [
+            3,
+            6
+          ]
+        ]
+      }
     },
     {
       "instance_id": "evaluation-T2-03-002",
       "template_id": "T2-03",
       "path": "t2-03-002.yaml",
-      "state_hash": "2124bd27f4d967c6d971721f66b4f74e26aa4f7780d9741aedbf272d83f970c0",
-      "certification_status": "pending",
+      "state_hash": "e7c57e03fb848263cc240f38acb0fd5d67c9830fca0baabb275c3adb7e7eb5fa",
+      "certification_status": "solver_certified",
       "pending_checks": [
-        "whole-board guess-free proof",
-        "template difficulty",
-        "solver reference trace"
-      ]
+        "certificate review"
+      ],
+      "certificate": {
+        "certifier": "vembody-certify/1",
+        "label_provider": "vembody-exact-csp/1",
+        "provable_safe": [
+          [
+            4,
+            2
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            4,
+            8
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            7,
+            2
+          ]
+        ],
+        "provable_mines": [
+          [
+            4,
+            3
+          ],
+          [
+            4,
+            6
+          ],
+          [
+            4,
+            7
+          ],
+          [
+            6,
+            2
+          ],
+          [
+            8,
+            2
+          ],
+          [
+            8,
+            8
+          ]
+        ],
+        "rule": "two_clues",
+        "clues": [
+          {
+            "clue": [
+              5,
+              5
+            ],
+            "cells": [
+              [
+                4,
+                4
+              ],
+              [
+                4,
+                5
+              ],
+              [
+                4,
+                6
+              ]
+            ],
+            "mines": 1
+          },
+          {
+            "clue": [
+              5,
+              6
+            ],
+            "cells": [
+              [
+                4,
+                5
+              ],
+              [
+                4,
+                6
+              ],
+              [
+                4,
+                7
+              ]
+            ],
+            "mines": 2
+          }
+        ],
+        "targets": [
+          [
+            4,
+            4
+          ]
+        ]
+      }
     },
     {
       "instance_id": "evaluation-T2-03-003",
       "template_id": "T2-03",
       "path": "t2-03-003.yaml",
-      "state_hash": "ac395052a8dd54eafc73e2ca80681e0511ac7d272b2fb2bc55b485c932a0e3ab",
-      "certification_status": "pending",
+      "state_hash": "28d88fd73d8f9153866d107410c72126fc6bae4542f5d68b162676286ab890e5",
+      "certification_status": "solver_certified",
       "pending_checks": [
-        "whole-board guess-free proof",
-        "template difficulty",
-        "solver reference trace"
-      ]
+        "certificate review"
+      ],
+      "certificate": {
+        "certifier": "vembody-certify/1",
+        "label_provider": "vembody-exact-csp/1",
+        "provable_safe": [
+          [
+            3,
+            2
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            6,
+            2
+          ],
+          [
+            7,
+            2
+          ],
+          [
+            7,
+            4
+          ],
+          [
+            7,
+            5
+          ],
+          [
+            7,
+            6
+          ]
+        ],
+        "provable_mines": [
+          [
+            4,
+            2
+          ],
+          [
+            4,
+            6
+          ],
+          [
+            7,
+            3
+          ]
+        ],
+        "rule": "two_clues",
+        "clues": [
+          {
+            "clue": [
+              5,
+              5
+            ],
+            "cells": [
+              [
+                4,
+                6
+              ],
+              [
+                5,
+                6
+              ],
+              [
+                6,
+                6
+              ]
+            ],
+            "mines": 2
+          },
+          {
+            "clue": [
+              6,
+              5
+            ],
+            "cells": [
+              [
+                5,
+                6
+              ],
+              [
+                6,
+                6
+              ],
+              [
+                7,
+                4
+              ],
+              [
+                7,
+                5
+              ],
+              [
+                7,
+                6
+              ]
+            ],
+            "mines": 1
+          }
+        ],
+        "targets": [
+          [
+            7,
+            4
+          ],
+          [
+            7,
+            5
+          ],
+          [
+            7,
+            6
+          ]
+        ]
+      }
     },
     {
       "instance_id": "evaluation-T2-03-004",
       "template_id": "T2-03",
       "path": "t2-03-004.yaml",
-      "state_hash": "0647c271d52e7ae5c8c766a2b71a94e775936b8f6886b2e94bd15b996d041b36",
-      "certification_status": "pending",
+      "state_hash": "d6dae423b943fde00f486c098d65e421752da5d18255d52fc473f3ad45ac0511",
+      "certification_status": "solver_certified",
       "pending_checks": [
-        "whole-board guess-free proof",
-        "template difficulty",
-        "solver reference trace"
-      ]
+        "certificate review"
+      ],
+      "certificate": {
+        "certifier": "vembody-certify/1",
+        "label_provider": "vembody-exact-csp/1",
+        "provable_safe": [
+          [
+            5,
+            0
+          ],
+          [
+            5,
+            3
+          ],
+          [
+            5,
+            4
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            7,
+            5
+          ]
+        ],
+        "provable_mines": [
+          [
+            5,
+            1
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            6,
+            5
+          ],
+          [
+            8,
+            5
+          ]
+        ],
+        "rule": "two_clues",
+        "clues": [
+          {
+            "clue": [
+              6,
+              2
+            ],
+            "cells": [
+              [
+                5,
+                1
+              ],
+              [
+                5,
+                2
+              ],
+              [
+                5,
+                3
+              ]
+            ],
+            "mines": 2
+          },
+          {
+            "clue": [
+              6,
+              3
+            ],
+            "cells": [
+              [
+                5,
+                2
+              ],
+              [
+                5,
+                3
+              ],
+              [
+                5,
+                4
+              ]
+            ],
+            "mines": 1
+          }
+        ],
+        "targets": [
+          [
+            5,
+            4
+          ]
+        ]
+      }
     },
     {
       "instance_id": "evaluation-T2-03-005",
       "template_id": "T2-03",
       "path": "t2-03-005.yaml",
-      "state_hash": "dc2b895c56063a9686a65e205c015330e72edd20284ced2f4a6c8db95f417597",
-      "certification_status": "pending",
+      "state_hash": "4aa883337b5ac0513d8b021fd63531e7e7eee1e73701f31aa1c2a41e191f077e",
+      "certification_status": "solver_certified",
       "pending_checks": [
-        "whole-board guess-free proof",
-        "template difficulty",
-        "solver reference trace"
-      ]
+        "certificate review"
+      ],
+      "certificate": {
+        "certifier": "vembody-certify/1",
+        "label_provider": "vembody-exact-csp/1",
+        "provable_safe": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            4,
+            2
+          ]
+        ],
+        "provable_mines": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            5,
+            2
+          ]
+        ],
+        "rule": "two_clues",
+        "clues": [
+          {
+            "clue": [
+              1,
+              1
+            ],
+            "cells": [
+              [
+                0,
+                2
+              ],
+              [
+                1,
+                2
+              ],
+              [
+                2,
+                2
+              ]
+            ],
+            "mines": 2
+          },
+          {
+            "clue": [
+              2,
+              1
+            ],
+            "cells": [
+              [
+                1,
+                2
+              ],
+              [
+                2,
+                2
+              ],
+              [
+                3,
+                2
+              ]
+            ],
+            "mines": 1
+          }
+        ],
+        "targets": [
+          [
+            3,
+            2
+          ]
+        ]
+      }
     },
     {
       "instance_id": "evaluation-T2-04-001",
       "template_id": "T2-04",
       "path": "t2-04-001.yaml",
-      "state_hash": "cc1bb168418e328e2de2c3a8975ceed43b6725ed8117a3eefce93120a2e463fd",
-      "certification_status": "pending",
+      "state_hash": "5274d8f59ee5a1f9dd97e7e9be4206e4d02e316acb055a7c5759ac19596c88d2",
+      "certification_status": "solver_certified",
       "pending_checks": [
-        "whole-board guess-free proof",
-        "template difficulty",
-        "solver reference trace"
-      ]
+        "certificate review"
+      ],
+      "certificate": {
+        "certifier": "vembody-certify/1",
+        "label_provider": "vembody-exact-csp/1",
+        "provable_safe": [
+          [
+            5,
+            2
+          ],
+          [
+            6,
+            3
+          ]
+        ],
+        "provable_mines": [],
+        "rule": "subset",
+        "subset": {
+          "clue": [
+            6,
+            0
+          ],
+          "cells": [
+            [
+              5,
+              0
+            ],
+            [
+              5,
+              1
+            ]
+          ],
+          "mines": 1
+        },
+        "superset": {
+          "clue": [
+            6,
+            1
+          ],
+          "cells": [
+            [
+              5,
+              0
+            ],
+            [
+              5,
+              1
+            ],
+            [
+              5,
+              2
+            ]
+          ],
+          "mines": 1
+        },
+        "targets": [
+          [
+            5,
+            2
+          ]
+        ]
+      }
     },
     {
       "instance_id": "evaluation-T2-04-002",
       "template_id": "T2-04",
       "path": "t2-04-002.yaml",
-      "state_hash": "d07f42cfb307b24fe16633777016a7548a724fb212be4175681d7adb145e966a",
-      "certification_status": "pending",
+      "state_hash": "cb2771cf6722a2f608a6e961f2dbc89660975a5b359ee623a622699575dd8362",
+      "certification_status": "solver_certified",
       "pending_checks": [
-        "whole-board guess-free proof",
-        "template difficulty",
-        "solver reference trace"
-      ]
+        "certificate review"
+      ],
+      "certificate": {
+        "certifier": "vembody-certify/1",
+        "label_provider": "vembody-exact-csp/1",
+        "provable_safe": [
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            2,
+            8
+          ]
+        ],
+        "provable_mines": [
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            5
+          ],
+          [
+            2,
+            7
+          ]
+        ],
+        "rule": "subset",
+        "subset": {
+          "clue": [
+            1,
+            8
+          ],
+          "cells": [
+            [
+              2,
+              7
+            ],
+            [
+              2,
+              8
+            ]
+          ],
+          "mines": 1
+        },
+        "superset": {
+          "clue": [
+            1,
+            7
+          ],
+          "cells": [
+            [
+              2,
+              6
+            ],
+            [
+              2,
+              7
+            ],
+            [
+              2,
+              8
+            ]
+          ],
+          "mines": 1
+        },
+        "targets": [
+          [
+            2,
+            6
+          ]
+        ]
+      }
     },
     {
       "instance_id": "evaluation-T2-04-003",
       "template_id": "T2-04",
       "path": "t2-04-003.yaml",
-      "state_hash": "2d1e9dd7a7491d758923307ccc311b0023403e502e3ab7125aebcc27f7ee2ccc",
-      "certification_status": "pending",
+      "state_hash": "535236463aedc89e3df0e188eded8357cb29c6adbc786bccd500c327dffecf8d",
+      "certification_status": "solver_certified",
       "pending_checks": [
-        "whole-board guess-free proof",
-        "template difficulty",
-        "solver reference trace"
-      ]
+        "certificate review"
+      ],
+      "certificate": {
+        "certifier": "vembody-certify/1",
+        "label_provider": "vembody-exact-csp/1",
+        "provable_safe": [
+          [
+            6,
+            2
+          ]
+        ],
+        "provable_mines": [],
+        "rule": "subset",
+        "subset": {
+          "clue": [
+            8,
+            1
+          ],
+          "cells": [
+            [
+              7,
+              2
+            ],
+            [
+              8,
+              2
+            ]
+          ],
+          "mines": 1
+        },
+        "superset": {
+          "clue": [
+            7,
+            1
+          ],
+          "cells": [
+            [
+              6,
+              2
+            ],
+            [
+              7,
+              2
+            ],
+            [
+              8,
+              2
+            ]
+          ],
+          "mines": 1
+        },
+        "targets": [
+          [
+            6,
+            2
+          ]
+        ]
+      }
     },
     {
       "instance_id": "evaluation-T2-04-004",
       "template_id": "T2-04",
       "path": "t2-04-004.yaml",
-      "state_hash": "b196deb57035b5ba47f85e344c56abf94909bff130cea1f648557be7f9a09234",
-      "certification_status": "pending",
+      "state_hash": "bebb4909415f41c62132b94de1f695871915f0dad436415874b2bdb00eeb652b",
+      "certification_status": "solver_certified",
       "pending_checks": [
-        "whole-board guess-free proof",
-        "template difficulty",
-        "solver reference trace"
-      ]
+        "certificate review"
+      ],
+      "certificate": {
+        "certifier": "vembody-certify/1",
+        "label_provider": "vembody-exact-csp/1",
+        "provable_safe": [
+          [
+            2,
+            6
+          ],
+          [
+            2,
+            8
+          ]
+        ],
+        "provable_mines": [
+          [
+            2,
+            5
+          ],
+          [
+            2,
+            7
+          ]
+        ],
+        "rule": "subset",
+        "subset": {
+          "clue": [
+            1,
+            8
+          ],
+          "cells": [
+            [
+              2,
+              7
+            ],
+            [
+              2,
+              8
+            ]
+          ],
+          "mines": 1
+        },
+        "superset": {
+          "clue": [
+            1,
+            7
+          ],
+          "cells": [
+            [
+              2,
+              6
+            ],
+            [
+              2,
+              7
+            ],
+            [
+              2,
+              8
+            ]
+          ],
+          "mines": 1
+        },
+        "targets": [
+          [
+            2,
+            6
+          ]
+        ]
+      }
     },
     {
       "instance_id": "evaluation-T2-04-005",
       "template_id": "T2-04",
       "path": "t2-04-005.yaml",
-      "state_hash": "bbbd66eef48466b90e251fafb8e0202216c05d8798cec82d6cb8b7ce00eb2f2d",
-      "certification_status": "pending",
+      "state_hash": "ee76edb1c42c64427ceee01b513a55177d9e15141ef70c9bd57102cf4cbf08cb",
+      "certification_status": "solver_certified",
       "pending_checks": [
-        "whole-board guess-free proof",
-        "template difficulty",
-        "solver reference trace"
-      ]
+        "certificate review"
+      ],
+      "certificate": {
+        "certifier": "vembody-certify/1",
+        "label_provider": "vembody-exact-csp/1",
+        "provable_safe": [
+          [
+            1,
+            2
+          ],
+          [
+            5,
+            3
+          ],
+          [
+            6,
+            2
+          ]
+        ],
+        "provable_mines": [
+          [
+            2,
+            3
+          ]
+        ],
+        "rule": "subset",
+        "subset": {
+          "clue": [
+            2,
+            0
+          ],
+          "cells": [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "mines": 1
+        },
+        "superset": {
+          "clue": [
+            2,
+            1
+          ],
+          "cells": [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "mines": 1
+        },
+        "targets": [
+          [
+            1,
+            2
+          ]
+        ]
+      }
     },
     {
       "instance_id": "evaluation-T3-01-001",
       "template_id": "T3-01",
       "path": "t3-01-001.yaml",
-      "state_hash": "f4b315c10eb4b77aee8ba8654989122d243f1ac1a31ffbe3a24f0f006b97109b",
-      "certification_status": "pending",
+      "state_hash": "881491d25fc0e4d513796c08dd7a461c9a3d445e15dde32faa92f8d1c24ad422",
+      "certification_status": "solver_certified",
       "pending_checks": [
-        "whole-board guess-free proof",
-        "template difficulty",
-        "solver reference trace"
-      ]
+        "certificate review"
+      ],
+      "certificate": {
+        "certifier": "vembody-certify/1",
+        "label_provider": "vembody-exact-csp/1",
+        "provable_safe": [
+          [
+            0,
+            3
+          ],
+          [
+            0,
+            4
+          ],
+          [
+            0,
+            6
+          ],
+          [
+            0,
+            7
+          ],
+          [
+            1,
+            7
+          ],
+          [
+            2,
+            7
+          ],
+          [
+            3,
+            8
+          ],
+          [
+            5,
+            8
+          ],
+          [
+            7,
+            0
+          ],
+          [
+            7,
+            1
+          ],
+          [
+            7,
+            2
+          ],
+          [
+            7,
+            8
+          ],
+          [
+            8,
+            3
+          ]
+        ],
+        "provable_mines": [
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            5
+          ],
+          [
+            3,
+            7
+          ],
+          [
+            4,
+            8
+          ],
+          [
+            6,
+            0
+          ],
+          [
+            6,
+            8
+          ],
+          [
+            7,
+            3
+          ],
+          [
+            8,
+            8
+          ]
+        ],
+        "rule": "region_mines_provable",
+        "region": [
+          [
+            0,
+            1
+          ]
+        ],
+        "targets": [
+          [
+            0,
+            2
+          ]
+        ],
+        "mines": [
+          [
+            0,
+            2
+          ]
+        ]
+      }
     },
     {
       "instance_id": "evaluation-T3-01-002",
       "template_id": "T3-01",
       "path": "t3-01-002.yaml",
-      "state_hash": "3aa3c236330d33588c8557efd450ee72331bef254048e0d06c864e1a8509aae5",
-      "certification_status": "pending",
+      "state_hash": "f398f507c94e556c3f99b76f7c9a9e002c5cc951ebdfd1b69a4054e2a640d8f2",
+      "certification_status": "solver_certified",
       "pending_checks": [
-        "whole-board guess-free proof",
-        "template difficulty",
-        "solver reference trace"
-      ]
+        "certificate review"
+      ],
+      "certificate": {
+        "certifier": "vembody-certify/1",
+        "label_provider": "vembody-exact-csp/1",
+        "provable_safe": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            4,
+            6
+          ],
+          [
+            5,
+            0
+          ],
+          [
+            6,
+            0
+          ],
+          [
+            6,
+            1
+          ],
+          [
+            6,
+            6
+          ]
+        ],
+        "provable_mines": [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            6,
+            2
+          ]
+        ],
+        "rule": "region_mines_provable",
+        "region": [
+          [
+            0,
+            3
+          ]
+        ],
+        "targets": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "mines": [
+          [
+            1,
+            2
+          ]
+        ]
+      }
     },
     {
       "instance_id": "evaluation-T3-01-003",
       "template_id": "T3-01",
       "path": "t3-01-003.yaml",
-      "state_hash": "3ff98b68b8fefd9b3bbd50fdfac291a347a3a5fae242c2a48688e32416761366",
-      "certification_status": "pending",
+      "state_hash": "1f28f1fdb27732b8203a58e809c1066b2f85575e83798c2f4210dd404448250e",
+      "certification_status": "solver_certified",
       "pending_checks": [
-        "whole-board guess-free proof",
-        "template difficulty",
-        "solver reference trace"
-      ]
+        "certificate review"
+      ],
+      "certificate": {
+        "certifier": "vembody-certify/1",
+        "label_provider": "vembody-exact-csp/1",
+        "provable_safe": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            7
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            7,
+            2
+          ]
+        ],
+        "provable_mines": [
+          [
+            0,
+            6
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            1,
+            8
+          ],
+          [
+            8,
+            3
+          ]
+        ],
+        "rule": "region_mines_provable",
+        "region": [
+          [
+            2,
+            5
+          ]
+        ],
+        "targets": [
+          [
+            1,
+            6
+          ]
+        ],
+        "mines": [
+          [
+            1,
+            6
+          ]
+        ]
+      }
     },
     {
       "instance_id": "evaluation-T3-01-004",
       "template_id": "T3-01",
       "path": "t3-01-004.yaml",
-      "state_hash": "e695ed8e50d9004988d086e5acaa4098ce4a1f66b78785ebe05addaab65461dc",
-      "certification_status": "pending",
+      "state_hash": "1a30a9096f37636f7c9db1d71de0c2343ea8590bb7258f52e206765c1c73ff89",
+      "certification_status": "solver_certified",
       "pending_checks": [
-        "whole-board guess-free proof",
-        "template difficulty",
-        "solver reference trace"
-      ]
+        "certificate review"
+      ],
+      "certificate": {
+        "certifier": "vembody-certify/1",
+        "label_provider": "vembody-exact-csp/1",
+        "provable_safe": [
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            6,
+            3
+          ],
+          [
+            7,
+            4
+          ],
+          [
+            7,
+            5
+          ],
+          [
+            7,
+            6
+          ],
+          [
+            7,
+            8
+          ]
+        ],
+        "provable_mines": [
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            6,
+            2
+          ],
+          [
+            6,
+            4
+          ],
+          [
+            7,
+            7
+          ]
+        ],
+        "rule": "region_mines_provable",
+        "region": [
+          [
+            0,
+            5
+          ]
+        ],
+        "targets": [
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            4
+          ]
+        ],
+        "mines": [
+          [
+            1,
+            4
+          ]
+        ]
+      }
     },
     {
       "instance_id": "evaluation-T3-01-005",
       "template_id": "T3-01",
       "path": "t3-01-005.yaml",
-      "state_hash": "bf504c252e100aab38b05fce0e0cd8a47591a9754c652324bfe80cdea7a0a8b9",
-      "certification_status": "pending",
+      "state_hash": "0c7de7f27b874d861386c33797e893fa67f5a0457d19d15e4bbc06e87146f91a",
+      "certification_status": "solver_certified",
       "pending_checks": [
-        "whole-board guess-free proof",
-        "template difficulty",
-        "solver reference trace"
-      ]
+        "certificate review"
+      ],
+      "certificate": {
+        "certifier": "vembody-certify/1",
+        "label_provider": "vembody-exact-csp/1",
+        "provable_safe": [
+          [
+            3,
+            2
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            8,
+            2
+          ]
+        ],
+        "provable_mines": [
+          [
+            6,
+            2
+          ],
+          [
+            7,
+            2
+          ]
+        ],
+        "rule": "region_mines_provable",
+        "region": [
+          [
+            5,
+            1
+          ]
+        ],
+        "targets": [
+          [
+            4,
+            2
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            6,
+            2
+          ]
+        ],
+        "mines": [
+          [
+            6,
+            2
+          ]
+        ]
+      }
     },
     {
       "instance_id": "evaluation-T3-02-001",
       "template_id": "T3-02",
       "path": "t3-02-001.yaml",
-      "state_hash": "72f4ed4004ee8ea1c81c59a11745c3ad87531208cabc483766a4d7ba5a0a5c64",
-      "certification_status": "pending",
+      "state_hash": "e3316be40b7364df8895250eff51badd03cccb11b088e63281641c2ea7eb2b9d",
+      "certification_status": "solver_certified",
       "pending_checks": [
-        "whole-board guess-free proof",
-        "template difficulty",
-        "solver reference trace"
-      ]
+        "certificate review"
+      ],
+      "certificate": {
+        "certifier": "vembody-certify/1",
+        "label_provider": "vembody-exact-csp/1",
+        "provable_safe": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            2,
+            7
+          ],
+          [
+            6,
+            0
+          ],
+          [
+            7,
+            1
+          ],
+          [
+            8,
+            6
+          ]
+        ],
+        "provable_mines": [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            5
+          ],
+          [
+            2,
+            8
+          ],
+          [
+            6,
+            1
+          ],
+          [
+            7,
+            5
+          ],
+          [
+            7,
+            6
+          ]
+        ],
+        "rule": "guess_free_win",
+        "min_clicks_to_win": 14,
+        "reference_trace": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            0,
+            4
+          ],
+          [
+            0,
+            5
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            2,
+            7
+          ],
+          [
+            6,
+            0
+          ],
+          [
+            7,
+            0
+          ],
+          [
+            7,
+            1
+          ],
+          [
+            8,
+            2
+          ],
+          [
+            8,
+            5
+          ],
+          [
+            8,
+            0
+          ],
+          [
+            8,
+            3
+          ],
+          [
+            8,
+            6
+          ],
+          [
+            8,
+            7
+          ]
+        ]
+      }
     },
     {
       "instance_id": "evaluation-T3-02-002",
       "template_id": "T3-02",
       "path": "t3-02-002.yaml",
-      "state_hash": "e0910983f361039e90f68a36fdb5c8e4a1e001afe3ac6c069893cc3bc865cec7",
-      "certification_status": "pending",
+      "state_hash": "20f53cb09d5489d458a13bc58eb5abb25ba0e2090b4af8adee1950f69c45aab8",
+      "certification_status": "solver_certified",
       "pending_checks": [
-        "whole-board guess-free proof",
-        "template difficulty",
-        "solver reference trace"
-      ]
+        "certificate review"
+      ],
+      "certificate": {
+        "certifier": "vembody-certify/1",
+        "label_provider": "vembody-exact-csp/1",
+        "provable_safe": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            3,
+            7
+          ],
+          [
+            4,
+            8
+          ],
+          [
+            5,
+            8
+          ],
+          [
+            6,
+            0
+          ],
+          [
+            6,
+            1
+          ],
+          [
+            7,
+            0
+          ],
+          [
+            8,
+            0
+          ]
+        ],
+        "provable_mines": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            3,
+            8
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            4,
+            7
+          ],
+          [
+            5,
+            0
+          ],
+          [
+            5,
+            7
+          ],
+          [
+            6,
+            2
+          ]
+        ],
+        "rule": "guess_free_win",
+        "min_clicks_to_win": 10,
+        "reference_trace": [
+          [
+            0,
+            0
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            3,
+            7
+          ],
+          [
+            4,
+            8
+          ],
+          [
+            5,
+            8
+          ],
+          [
+            6,
+            0
+          ],
+          [
+            6,
+            1
+          ],
+          [
+            7,
+            0
+          ],
+          [
+            7,
+            1
+          ],
+          [
+            8,
+            0
+          ]
+        ]
+      }
     },
     {
       "instance_id": "evaluation-T3-02-003",
       "template_id": "T3-02",
       "path": "t3-02-003.yaml",
-      "state_hash": "4f9de5afe171925c8dcebb7b67e64214fa0836abe5f4baa9db29d0c7f5a0f598",
-      "certification_status": "pending",
+      "state_hash": "d457438b073e9bf138d338650493b08dca16cebbad1b0874ae4390b6ab0d26ba",
+      "certification_status": "solver_certified",
       "pending_checks": [
-        "whole-board guess-free proof",
-        "template difficulty",
-        "solver reference trace"
-      ]
+        "certificate review"
+      ],
+      "certificate": {
+        "certifier": "vembody-certify/1",
+        "label_provider": "vembody-exact-csp/1",
+        "provable_safe": [
+          [
+            3,
+            1
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            3,
+            7
+          ],
+          [
+            3,
+            8
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            8,
+            4
+          ]
+        ],
+        "provable_mines": [
+          [
+            3,
+            4
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            4,
+            8
+          ],
+          [
+            7,
+            4
+          ],
+          [
+            8,
+            0
+          ]
+        ],
+        "rule": "guess_free_win",
+        "min_clicks_to_win": 12,
+        "reference_trace": [
+          [
+            3,
+            1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            5
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            1,
+            7
+          ],
+          [
+            2,
+            7
+          ],
+          [
+            0,
+            8
+          ],
+          [
+            1,
+            8
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            3,
+            7
+          ],
+          [
+            3,
+            8
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            8,
+            4
+          ]
+        ]
+      }
     },
     {
       "instance_id": "evaluation-T3-02-004",
       "template_id": "T3-02",
       "path": "t3-02-004.yaml",
-      "state_hash": "8a244e69259758b6dd387f17ed47205dd6412b89b24c5a7c9c942268d439bdfc",
-      "certification_status": "pending",
+      "state_hash": "40123ea76fedea51d193b019e7302417ea0b8fd8caacd37b60d7b52d7e79136a",
+      "certification_status": "solver_certified",
       "pending_checks": [
-        "whole-board guess-free proof",
-        "template difficulty",
-        "solver reference trace"
-      ]
+        "certificate review"
+      ],
+      "certificate": {
+        "certifier": "vembody-certify/1",
+        "label_provider": "vembody-exact-csp/1",
+        "provable_safe": [
+          [
+            1,
+            6
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            3,
+            2
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            6,
+            2
+          ],
+          [
+            7,
+            2
+          ],
+          [
+            8,
+            2
+          ],
+          [
+            8,
+            3
+          ]
+        ],
+        "provable_mines": [
+          [
+            3,
+            4
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            8,
+            4
+          ]
+        ],
+        "rule": "guess_free_win",
+        "min_clicks_to_win": 13,
+        "reference_trace": [
+          [
+            1,
+            6
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            0,
+            5
+          ],
+          [
+            0,
+            7
+          ],
+          [
+            0,
+            8
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            8
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            6,
+            2
+          ],
+          [
+            6,
+            1
+          ],
+          [
+            7,
+            0
+          ],
+          [
+            7,
+            1
+          ],
+          [
+            7,
+            2
+          ]
+        ]
+      }
     },
     {
       "instance_id": "evaluation-T3-02-005",
       "template_id": "T3-02",
       "path": "t3-02-005.yaml",
-      "state_hash": "5b145bfd2cf9acdc57a9a48f8a9d9c1b4f7861ee9dbb25aa3cc9548c340aac3f",
-      "certification_status": "pending",
+      "state_hash": "402b0ed9dc96cd8fefb709b28b313742a83af1d2886340ba248a9c19cf9a114a",
+      "certification_status": "solver_certified",
       "pending_checks": [
-        "whole-board guess-free proof",
-        "template difficulty",
-        "solver reference trace"
-      ]
+        "certificate review"
+      ],
+      "certificate": {
+        "certifier": "vembody-certify/1",
+        "label_provider": "vembody-exact-csp/1",
+        "provable_safe": [
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            6,
+            5
+          ],
+          [
+            8,
+            0
+          ],
+          [
+            8,
+            5
+          ]
+        ],
+        "provable_mines": [
+          [
+            2,
+            1
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            7,
+            5
+          ],
+          [
+            8,
+            1
+          ]
+        ],
+        "rule": "guess_free_win",
+        "min_clicks_to_win": 12,
+        "reference_trace": [
+          [
+            2,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            4,
+            6
+          ],
+          [
+            0,
+            7
+          ],
+          [
+            0,
+            8
+          ],
+          [
+            2,
+            8
+          ],
+          [
+            3,
+            8
+          ],
+          [
+            5,
+            8
+          ],
+          [
+            6,
+            5
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            6,
+            8
+          ],
+          [
+            8,
+            0
+          ],
+          [
+            8,
+            5
+          ]
+        ]
+      }
     },
     {
       "instance_id": "evaluation-T4-01-001",
